@@ -250,14 +250,6 @@ pub extend HTMLMediaElement with IsHTMLMediaElement::{
 
 ///|
 #cfg(target="js")
-type AudioTrackList
-
-///|
-#cfg(target="js")
-type TimeRanges
-
-///|
-#cfg(target="js")
 type MediaError
 
 ///|
@@ -267,18 +259,6 @@ type MediaKeys
 ///|
 #cfg(target="js")
 type RemotePlayback
-
-///|
-#cfg(target="js")
-type TextTrackList
-
-///|
-#cfg(target="js")
-type VideoTrackList
-
-///|
-#cfg(target="js")
-type TextTrack
 
 ///|
 #cfg(target="js")
