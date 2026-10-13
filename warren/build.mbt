@@ -323,7 +323,7 @@ async fn build_project(
   layout : ProjectLayout,
   server_target : ServerTarget,
   dist : SourcePath,
-  bundle? : Bool = false,
+  bundle~ : Bool = false,
 ) -> Unit {
   if bundle {
     build_bundle(layout, server_target, dist)

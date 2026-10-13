@@ -3,8 +3,8 @@ using @devhub {type Devhub}
 
 ///|
 struct ArtifactDigest {
-  hash : Int
-  length : Int
+  hash : Int32
+  length : Int32
 } derive(Eq)
 
 ///|
@@ -84,7 +84,7 @@ async fn publish_browser_static(
 async fn browser_dev(
   layout : ProjectLayout,
   temp : SourcePath,
-  port : UInt,
+  port : UInt32,
   direct : Bool,
 ) -> Unit {
   let root = source_path_to_string(layout.root)
@@ -194,7 +194,7 @@ async fn stage_native_server(
 ///|
 fn dev_server_environment(
   static_dir : SourcePath,
-  port : UInt,
+  port : UInt32,
   client : String,
 ) -> Map[String, String] {
   {
@@ -214,7 +214,7 @@ async fn start_server(
   artifact : SourcePath,
   digest : ArtifactDigest,
   static_dir : SourcePath,
-  port : UInt,
+  port : UInt32,
   dev_client : String,
 ) -> @process.Process {
   let environment = dev_server_environment(static_dir, port, dev_client)
@@ -260,7 +260,7 @@ async fn fullstack_dev(
   server_entry : SourcePath,
   target : ServerTarget,
   temp : SourcePath,
-  port : UInt,
+  port : UInt32,
 ) -> Unit {
   let root = source_path_to_string(layout.root)
   let static_dir = temp.join("static")
@@ -328,7 +328,7 @@ async fn fullstack_dev(
 async fn dev_project(
   layout : ProjectLayout,
   server_target : ServerTarget,
-  port : UInt,
+  port : UInt32,
   direct : Bool,
 ) -> Unit {
   let temp = SourcePath::new(@fs.tmpdir(prefix="warren-dev"))

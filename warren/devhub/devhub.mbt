@@ -22,13 +22,13 @@ pub struct Devhub {
   priv vfs : @vfs.VirtualFileSystem
   priv html_fallback_path : String?
   priv client_msgs : @async.Queue[ClientMsg]
-  priv mut next_id : Int
-  priv subscribers : Map[Int, @async.Queue[BroadcastMsg]]
+  priv mut next_id : Int32
+  priv subscribers : Map[Int32, @async.Queue[BroadcastMsg]]
 }
 
 ///|
 #cfg(not(platform="windows"))
-async fn check_port(port : UInt) -> Unit {
+async fn check_port(port : UInt32) -> Unit {
   let pids = try {
     let (_, output) = @process.collect_stdout("lsof", [
       "-tiTCP:\{port}",
@@ -89,7 +89,7 @@ async fn check_port(port : UInt) -> Unit {
 
 ///|
 #cfg(platform="windows")
-async fn check_port(port : UInt) -> Unit {
+async fn check_port(port : UInt32) -> Unit {
   let pids = try {
     let (_, output) = @process.collect_stdout("powershell.exe", [
       "-NoProfile",
@@ -153,7 +153,7 @@ async fn check_port(port : UInt) -> Unit {
 
 ///|
 pub async fn Devhub::Devhub(
-  port : UInt,
+  port : UInt32,
   vfs : @vfs.VirtualFileSystem,
   html_fallback_path? : String,
 ) -> Self {
@@ -178,7 +178,7 @@ fn request_accepts_html(request : @http.Request) -> Bool {
 }
 
 ///|
-pub fn Devhub::port(self : Self) -> Int {
+pub fn Devhub::port(self : Self) -> Int32 {
   self.server.addr.port()
 }
 

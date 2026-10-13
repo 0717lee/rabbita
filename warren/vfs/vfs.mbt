@@ -79,7 +79,7 @@ pub fn VirtualFileSystem::unmount(self : Self, path : String) -> Unit {
     return
   }
 
-  fn remove(entries : Map[String, VirtualFs], i : Int) -> Unit {
+  fn remove(entries : Map[String, VirtualFs], i : Int32) -> Unit {
     entries.update(parts[i], fn(node) {
       match node {
         Some(node) =>

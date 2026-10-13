@@ -291,7 +291,7 @@ fn parse_server_target(raw : String?) -> ServerTarget raise {
 }
 
 ///|
-fn parse_port(raw : String?) -> UInt raise {
+fn parse_port(raw : String?) -> UInt32 raise {
   let value = raw.unwrap_or("4300")
   let parsed = @string.parse_int(value) catch {
     _ =>
