@@ -3,11 +3,11 @@ name = "rabbita/website"
 version = "0.2.0"
 
 import {
-  "moonbit-community/rabbita@0.16.1",
-  "moonbit-community/rui@0.3.3",
-  "Yoorkin/shiki@0.1.0",
+  "moonbit-community/rabbita@0.16.4",
+  "moonbit-community/rui@0.3.5",
+  "Yoorkin/shiki@0.1.2",
   "moonbitlang/async@0.22.4",
-  "moonbit-community/cmark@0.4.8",
+  "moonbit-community/cmark@0.4.12",
 }
 
 readme = "README.md"

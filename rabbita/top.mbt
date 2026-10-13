@@ -88,8 +88,8 @@ fn split_url(url : String) -> (String, String) raise {
 pub async fn App::render(
   self : Self,
   url~ : String,
-  head? : Array[Html] = [],
-  timeout? : Int = 10_000,
+  head~ : Array[Html] = [],
+  timeout~ : Int32 = 10_000,
 ) -> String {
   let (base_uri, path) = split_url(url)
   @async.with_timeout(timeout, () => {

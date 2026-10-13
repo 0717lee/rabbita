@@ -126,7 +126,7 @@ fn insert_props(
   let { handlers, attrs, props: properties, styles, } = props
   let slots : Map[String, Ref[(@dom.Event, &Scheduler) -> Unit]] = Map([])
   for event, handler in handlers {
-    let slot = @ref.new(handler)
+    let slot = Ref(handler)
     element.add_event_listener(event, event => (slot.val)(event, scheduler))
     slots[event] = slot
   }
@@ -615,7 +615,7 @@ fn diff_props(
     if slots.get(event) is Some(slot) {
       slot.val = handler
     } else {
-      let slot = @ref.new(handler)
+      let slot = Ref(handler)
       parent.add_event_listener(event, event => (slot.val)(event, scheduler))
       slots[event] = slot
     }

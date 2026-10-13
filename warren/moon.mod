@@ -4,8 +4,8 @@ version = "0.4.4"
 
 import {
   "moonbitlang/async@0.22.4",
-  "moonbitlang/parser@0.2.5",
-  "moonbitlang/x@0.5.1",
+  "moonbitlang/parser@0.4.4",
+  "moonbitlang/x@0.5.5",
   "moonbit-community/evol-minifier@0.3.0",
 }
 

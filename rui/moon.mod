@@ -3,10 +3,10 @@ name = "moonbit-community/rui"
 version = "0.3.5"
 
 import {
-  "moonbit-community/rabbita@0.16.3",
-  "Yoorkin/shiki@0.1.0",
+  "moonbit-community/rabbita@0.16.4",
+  "Yoorkin/shiki@0.1.2",
   "moonbitlang/async@0.22.4",
-  "moonbit-community/cmark@0.4.8",
+  "moonbit-community/cmark@0.4.12",
 }
 
 readme = "README.mbt.md"

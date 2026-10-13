@@ -1,4 +1,5 @@
 members = [
   "./app-a",
   "./app-b",
+  "../../../rabbita",
 ]

@@ -385,11 +385,11 @@ pub fn[Model : Eq, Msg] create_state(
 /// # Example
 ///
 /// ```mbt nocheck
-/// fn todo_item(id : Int, title : Val[String]) -> Val[Html] {
+/// fn todo_item(id : Int32, title : Val[String]) -> Val[Html] {
 ///   title.view(title => @html.li("\{id}: \{title}"))
 /// }
 ///
-/// fn todo_list(todos : Val[Vector[(Int, String)]]) -> Val[Html] {
+/// fn todo_list(todos : Val[Vector[(Int32, String)]]) -> Val[Html] {
 ///   let rows = todos.assoc(todo_item)
 ///   rows.view(rows => @html.ul(rows))
 /// }
@@ -590,7 +590,7 @@ pub fn[Model : Eq, Msg] create_state_with_init(
 ///   Dec
 /// }
 ///
-/// fn stepped_counter(step : Val[Int]) -> Val[Html] {
+/// fn stepped_counter(step : Val[Int32]) -> Val[Html] {
 ///   let (count, emit) = @rabbita.create_state_with_input(
 ///     input=step,
 ///     init=fn(_, _) { (0, @rabbita.none) },
