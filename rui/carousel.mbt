@@ -14,26 +14,26 @@ pub extend CarouselOrientation with Eq::{equal, not_equal}
 /// Opaque state passed from `carousel` to its compound content, item, and
 /// previous/next controls.
 struct CarouselScope {
-  index : Int
-  count : Int
-  max_index : Int
+  index : Int32
+  count : Int32
+  max_index : Int32
   loop_ : Bool
   orientation : CarouselOrientation
-  emit : @cmd.Emit[Int]
+  emit : @cmd.Emit[Int32]
 }
 
 ///|
 #cfg(target="js")
 priv struct CarouselModel {
-  index : Int
-  max_index : Int
+  index : Int32
+  max_index : Int32
 } derive(Eq)
 
 ///|
 #cfg(target="js")
 priv enum CarouselMsg {
-  CarouselSetIndex(Int)
-  CarouselMeasured(Int)
+  CarouselSetIndex(Int32)
+  CarouselMeasured(Int32)
 }
 
 ///|
@@ -111,7 +111,7 @@ fn carousel_orientation_value(orientation : CarouselOrientation) -> String {
 }
 
 ///|
-fn carousel_count(count : Int) -> Int {
+fn carousel_count(count : Int32) -> Int32 {
   if count < 0 {
     0
   } else {
@@ -120,7 +120,7 @@ fn carousel_count(count : Int) -> Int {
 }
 
 ///|
-fn carousel_index(index : Int, count : Int) -> Int {
+fn carousel_index(index : Int32, count : Int32) -> Int32 {
   if count <= 0 || index < 0 {
     0
   } else if index >= count {
@@ -131,7 +131,7 @@ fn carousel_index(index : Int, count : Int) -> Int {
 }
 
 ///|
-fn carousel_previous_index(scope : CarouselScope) -> Int {
+fn carousel_previous_index(scope : CarouselScope) -> Int32 {
   if scope.max_index <= 0 {
     scope.index
   } else if scope.index > 0 {
@@ -144,7 +144,7 @@ fn carousel_previous_index(scope : CarouselScope) -> Int {
 }
 
 ///|
-fn carousel_next_index(scope : CarouselScope) -> Int {
+fn carousel_next_index(scope : CarouselScope) -> Int32 {
   if scope.max_index <= 0 {
     scope.index
   } else if scope.index < scope.max_index {
@@ -158,13 +158,13 @@ fn carousel_next_index(scope : CarouselScope) -> Int {
 
 ///|
 /// Return the active zero-based index from a compound carousel scope.
-pub fn carousel_active_index(scope : CarouselScope) -> Int {
+pub fn carousel_active_index(scope : CarouselScope) -> Int32 {
   scope.index
 }
 
 ///|
 /// Return the normalized number of slides from a compound carousel scope.
-pub fn carousel_slide_count(scope : CarouselScope) -> Int {
+pub fn carousel_slide_count(scope : CarouselScope) -> Int32 {
   scope.count
 }
 
@@ -245,7 +245,7 @@ fn carousel_control_chevron_style(
 
 ///|
 #cfg(target="js")
-fn carousel_key_step(event : @dom.KeyboardEvent, orientation : String) -> Int {
+fn carousel_key_step(event : @dom.KeyboardEvent, orientation : String) -> Int32 {
   if event.alt_key() ||
     event.ctrl_key() ||
     event.meta_key() ||
@@ -292,7 +292,7 @@ fn carousel_key_step(event : @dom.KeyboardEvent, orientation : String) -> Int {
 
 ///|
 #cfg(target="js")
-let carousel_id_counter : Ref[Int] = Ref(0)
+let carousel_id_counter : Ref[Int32] = Ref(0)
 
 ///|
 #cfg(target="js")
@@ -308,12 +308,12 @@ priv struct CarouselLayoutState {
   mut viewport : @dom.Element
   mut track : @dom.Element
   mut items : Array[@dom.Element]
-  mut notify : (Int) -> Unit
-  mut previous_index : Int?
+  mut notify : (Int32) -> Unit
+  mut previous_index : Int32?
   mut offset : Double?
-  mut reported_max : Int?
+  mut reported_max : Int32?
   mut observer : @dom.ResizeObserver?
-  mut transition_generation : Int
+  mut transition_generation : Int32
 }
 
 ///|
@@ -415,7 +415,7 @@ fn carousel_item_offset(item : @dom.Element, vertical : Bool) -> Double {
 #cfg(target="js")
 fn carousel_restore_transition(
   state : CarouselLayoutState,
-  generation : Int,
+  generation : Int32,
   transition : String,
 ) -> Unit {
   if state.transition_generation != generation ||
@@ -457,7 +457,7 @@ fn carousel_set_control_state(control : @dom.Element, enabled : Bool) -> Unit {
 fn carousel_sync_layout_state(
   state : CarouselLayoutState,
   suppress_initial : Bool,
-) -> Int {
+) -> Int32 {
   if state.items.length() == 0 || state.track.to_html_element() is None {
     return 0
   }
@@ -570,7 +570,10 @@ fn carousel_sync_layout_state(
 
 ///|
 #cfg(target="js")
-fn carousel_report_layout(state : CarouselLayoutState, max_index : Int) -> Unit {
+fn carousel_report_layout(
+  state : CarouselLayoutState,
+  max_index : Int32,
+) -> Unit {
   if state.reported_max != Some(max_index) {
     state.reported_max = Some(max_index)
     (state.notify)(max_index)
@@ -637,7 +640,7 @@ fn carousel_layout_offset(track : @dom.Element) -> Double? {
 
 ///|
 #cfg(target="js")
-fn carousel_sync_layout(id : String, notify : (Int) -> Unit) -> Unit {
+fn carousel_sync_layout(id : String, notify : (Int32) -> Unit) -> Unit {
   guard ui_element_by_id(id) is Some(root) else { return }
   guard root.get_attribute("data-slot").unwrap_or("") == "carousel" else {
     return
@@ -709,7 +712,7 @@ fn carousel_sync_layout_cmd(
 priv struct CarouselPointerState {
   viewport : @dom.Element
   track : @dom.Element
-  pointer_id : Int
+  pointer_id : Int32
   horizontal : Bool
   rtl : Bool
   can_previous : Bool
@@ -856,7 +859,7 @@ fn carousel_release_pointer_state(
 fn carousel_pointer_start(
   event : @dom.MouseEvent,
   orientation : String,
-  index : Int,
+  index : Int32,
   can_previous : Bool,
   can_next : Bool,
 ) -> Bool {
@@ -1003,7 +1006,7 @@ fn carousel_pointer_move(event : @dom.MouseEvent) -> Bool {
 
 ///|
 #cfg(target="js")
-fn carousel_pointer_end(event : @dom.MouseEvent) -> Int {
+fn carousel_pointer_end(event : @dom.MouseEvent) -> Int32 {
   guard event.to_pointer_event() is Some(pointer) else { return 0 }
   guard pointer.current_target().to_option() is Some(current_target) else {
     return 0
@@ -1222,8 +1225,8 @@ pub fn[C : @html.IsChildren] carousel_content(
   hidden? : Bool,
   attrs? : @html.Attrs,
   track_attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  track_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  track_style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let orientation = carousel_orientation_value(scope.orientation)
@@ -1273,14 +1276,14 @@ pub fn[C : @html.IsChildren] carousel_content(
 /// index alone cannot determine visibility when callers customize item sizes.
 pub fn[C : @html.IsChildren] carousel_item(
   scope~ : CarouselScope,
-  index~ : Int,
+  index~ : Int32,
   aria_label? : String,
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let active = index == scope.index && index >= 0 && index < scope.count
@@ -1327,9 +1330,9 @@ pub fn carousel_items(
   title? : String,
   attrs? : @html.Attrs,
   track_attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  track_style? : Array[String] = [],
-  item_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  track_style~ : Array[String] = [],
+  item_style~ : Array[String] = [],
 ) -> @html.Html {
   let slides : Array[@html.Html] = []
   for index, item in items {
@@ -1428,13 +1431,13 @@ fn carousel_control(
 /// Render the previous control bound to a carousel scope.
 pub fn carousel_previous(
   scope~ : CarouselScope,
-  disabled? : Bool = false,
-  aria_label? : String = "Previous slide",
+  disabled~ : Bool = false,
+  aria_label~ : String = "Previous slide",
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   carousel_control(
     scope, true, disabled, aria_label, id, class, title, attrs, style,
@@ -1445,13 +1448,13 @@ pub fn carousel_previous(
 /// Render the next control bound to a carousel scope.
 pub fn carousel_next(
   scope~ : CarouselScope,
-  disabled? : Bool = false,
-  aria_label? : String = "Next slide",
+  disabled~ : Bool = false,
+  aria_label~ : String = "Next slide",
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   carousel_control(
     scope, false, disabled, aria_label, id, class, title, attrs, style,
@@ -1467,18 +1470,18 @@ pub fn carousel_next(
 /// that own DOM measurement may also set `--rui-carousel-offset` themselves.
 #cfg(not(target="js"))
 fn[C : @html.IsChildren] render_carousel_index(
-  index~ : Int,
-  count~ : Int,
-  loop_? : Bool = false,
-  orientation? : CarouselOrientation = CarouselHorizontal,
+  index~ : Int32,
+  count~ : Int32,
+  loop_~ : Bool = false,
+  orientation~ : CarouselOrientation = CarouselHorizontal,
   aria_label? : String,
-  on_index_change? : @cmd.Emit[Int],
+  on_index_change? : @cmd.Emit[Int32],
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (CarouselScope) -> C,
 ) -> @html.Html {
   let count = carousel_count(count)
@@ -1504,18 +1507,18 @@ fn[C : @html.IsChildren] render_carousel_index(
 /// keys without Embla or another runtime dependency.
 #cfg(target="js")
 pub fn[C : @html.IsChildren] carousel(
-  count~ : Int,
-  default_index? : Int = 0,
-  loop_? : Bool = false,
-  orientation? : CarouselOrientation = CarouselHorizontal,
+  count~ : Int32,
+  default_index~ : Int32 = 0,
+  loop_~ : Bool = false,
+  orientation~ : CarouselOrientation = CarouselHorizontal,
   aria_label? : String,
-  on_index_change? : @cmd.Emit[Int],
+  on_index_change? : @cmd.Emit[Int32],
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (CarouselScope) -> C,
 ) -> @rabbita.Val[@html.Html] {
   let count = carousel_count(count)
@@ -1595,18 +1598,18 @@ pub fn[C : @html.IsChildren] carousel(
 /// a constant incremental value.
 #cfg(not(target="js"))
 pub fn[C : @html.IsChildren] carousel(
-  count~ : Int,
-  default_index? : Int = 0,
-  loop_? : Bool = false,
-  orientation? : CarouselOrientation = CarouselHorizontal,
+  count~ : Int32,
+  default_index~ : Int32 = 0,
+  loop_~ : Bool = false,
+  orientation~ : CarouselOrientation = CarouselHorizontal,
   aria_label? : String,
-  on_index_change? : @cmd.Emit[Int],
+  on_index_change? : @cmd.Emit[Int32],
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (CarouselScope) -> C,
 ) -> @rabbita.Val[@html.Html] {
   ignore(on_index_change)

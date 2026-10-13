@@ -39,14 +39,14 @@ fn separator_orientation_style(orientation : SeparatorOrientation) -> String {
 /// Render a decorative divider by default, matching shadcn/Radix semantics.
 /// Set `decorative=false` when the divider conveys document structure.
 pub fn separator(
-  orientation? : SeparatorOrientation = Horizontal,
-  decorative? : Bool = true,
+  orientation~ : SeparatorOrientation = Horizontal,
+  decorative~ : Bool = true,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  slot? : String = "separator",
+  style~ : Array[String] = [],
+  slot~ : String = "separator",
 ) -> @html.Html {
   let orientation_value = separator_orientation_value(orientation)
   let element_attrs = ui_attrs(attrs)

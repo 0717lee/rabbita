@@ -15,7 +15,7 @@ priv struct CalendarMultipleModel {
 ///|
 #cfg(target="js")
 priv enum CalendarRangeMsg {
-  CalendarRangeNavigate(Int)
+  CalendarRangeNavigate(Int32)
   CalendarRangeChoose(CalendarDate)
   CalendarRangeSetFocused(CalendarDate)
   CalendarRangeMoveFocus(CalendarDate)
@@ -24,7 +24,7 @@ priv enum CalendarRangeMsg {
 ///|
 #cfg(target="js")
 priv enum CalendarMultipleMsg {
-  CalendarMultipleNavigate(Int)
+  CalendarMultipleNavigate(Int32)
   CalendarMultipleChoose(CalendarDate)
   CalendarMultipleSetFocused(CalendarDate)
   CalendarMultipleMoveFocus(CalendarDate)
@@ -357,9 +357,9 @@ pub fn calendar_range(
   default_month? : CalendarDate,
   default_selected? : DateRange,
   today? : CalendarDate,
-  show_outside_days? : Bool = true,
-  disabled? : Bool = false,
-  aria_label? : String = "Calendar",
+  show_outside_days~ : Bool = true,
+  disabled~ : Bool = false,
+  aria_label~ : String = "Calendar",
   on_select? : @cmd.Emit[DateRange],
   on_month_change? : @cmd.Emit[CalendarDate],
   id? : String,
@@ -371,16 +371,16 @@ pub fn calendar_range(
   next_attrs? : @html.Attrs,
   grid_attrs? : @html.Attrs,
   day_attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  header_style? : Array[String] = [],
-  caption_style? : Array[String] = [],
-  nav_style? : Array[String] = [],
-  previous_style? : Array[String] = [],
-  next_style? : Array[String] = [],
-  grid_style? : Array[String] = [],
-  weekday_style? : Array[String] = [],
-  cell_style? : Array[String] = [],
-  day_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  header_style~ : Array[String] = [],
+  caption_style~ : Array[String] = [],
+  nav_style~ : Array[String] = [],
+  previous_style~ : Array[String] = [],
+  next_style~ : Array[String] = [],
+  grid_style~ : Array[String] = [],
+  weekday_style~ : Array[String] = [],
+  cell_style~ : Array[String] = [],
+  day_style~ : Array[String] = [],
 ) -> @rabbita.Val[@html.Html] {
   let initial = calendar_range_initial_model(
     default_month, default_selected, today,
@@ -433,9 +433,9 @@ pub fn calendar_range(
   default_month? : CalendarDate,
   default_selected? : DateRange,
   today? : CalendarDate,
-  show_outside_days? : Bool = true,
-  disabled? : Bool = false,
-  aria_label? : String = "Calendar",
+  show_outside_days~ : Bool = true,
+  disabled~ : Bool = false,
+  aria_label~ : String = "Calendar",
   on_select? : @cmd.Emit[DateRange],
   on_month_change? : @cmd.Emit[CalendarDate],
   id? : String,
@@ -447,16 +447,16 @@ pub fn calendar_range(
   next_attrs? : @html.Attrs,
   grid_attrs? : @html.Attrs,
   day_attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  header_style? : Array[String] = [],
-  caption_style? : Array[String] = [],
-  nav_style? : Array[String] = [],
-  previous_style? : Array[String] = [],
-  next_style? : Array[String] = [],
-  grid_style? : Array[String] = [],
-  weekday_style? : Array[String] = [],
-  cell_style? : Array[String] = [],
-  day_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  header_style~ : Array[String] = [],
+  caption_style~ : Array[String] = [],
+  nav_style~ : Array[String] = [],
+  previous_style~ : Array[String] = [],
+  next_style~ : Array[String] = [],
+  grid_style~ : Array[String] = [],
+  weekday_style~ : Array[String] = [],
+  cell_style~ : Array[String] = [],
+  day_style~ : Array[String] = [],
 ) -> @rabbita.Val[@html.Html] {
   ignore((on_select, on_month_change))
   let model = calendar_range_initial_model(
@@ -505,11 +505,11 @@ pub fn calendar_range(
 #cfg(target="js")
 pub fn calendar_multiple(
   default_month? : CalendarDate,
-  default_selected? : Array[CalendarDate] = [],
+  default_selected~ : Array[CalendarDate] = [],
   today? : CalendarDate,
-  show_outside_days? : Bool = true,
-  disabled? : Bool = false,
-  aria_label? : String = "Calendar",
+  show_outside_days~ : Bool = true,
+  disabled~ : Bool = false,
+  aria_label~ : String = "Calendar",
   on_select? : @cmd.Emit[Array[CalendarDate]],
   on_month_change? : @cmd.Emit[CalendarDate],
   id? : String,
@@ -521,16 +521,16 @@ pub fn calendar_multiple(
   next_attrs? : @html.Attrs,
   grid_attrs? : @html.Attrs,
   day_attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  header_style? : Array[String] = [],
-  caption_style? : Array[String] = [],
-  nav_style? : Array[String] = [],
-  previous_style? : Array[String] = [],
-  next_style? : Array[String] = [],
-  grid_style? : Array[String] = [],
-  weekday_style? : Array[String] = [],
-  cell_style? : Array[String] = [],
-  day_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  header_style~ : Array[String] = [],
+  caption_style~ : Array[String] = [],
+  nav_style~ : Array[String] = [],
+  previous_style~ : Array[String] = [],
+  next_style~ : Array[String] = [],
+  grid_style~ : Array[String] = [],
+  weekday_style~ : Array[String] = [],
+  cell_style~ : Array[String] = [],
+  day_style~ : Array[String] = [],
 ) -> @rabbita.Val[@html.Html] {
   let initial = calendar_multiple_initial_model(
     default_month, default_selected, today,
@@ -581,11 +581,11 @@ pub fn calendar_multiple(
 #cfg(not(target="js"))
 pub fn calendar_multiple(
   default_month? : CalendarDate,
-  default_selected? : Array[CalendarDate] = [],
+  default_selected~ : Array[CalendarDate] = [],
   today? : CalendarDate,
-  show_outside_days? : Bool = true,
-  disabled? : Bool = false,
-  aria_label? : String = "Calendar",
+  show_outside_days~ : Bool = true,
+  disabled~ : Bool = false,
+  aria_label~ : String = "Calendar",
   on_select? : @cmd.Emit[Array[CalendarDate]],
   on_month_change? : @cmd.Emit[CalendarDate],
   id? : String,
@@ -597,16 +597,16 @@ pub fn calendar_multiple(
   next_attrs? : @html.Attrs,
   grid_attrs? : @html.Attrs,
   day_attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  header_style? : Array[String] = [],
-  caption_style? : Array[String] = [],
-  nav_style? : Array[String] = [],
-  previous_style? : Array[String] = [],
-  next_style? : Array[String] = [],
-  grid_style? : Array[String] = [],
-  weekday_style? : Array[String] = [],
-  cell_style? : Array[String] = [],
-  day_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  header_style~ : Array[String] = [],
+  caption_style~ : Array[String] = [],
+  nav_style~ : Array[String] = [],
+  previous_style~ : Array[String] = [],
+  next_style~ : Array[String] = [],
+  grid_style~ : Array[String] = [],
+  weekday_style~ : Array[String] = [],
+  cell_style~ : Array[String] = [],
+  day_style~ : Array[String] = [],
 ) -> @rabbita.Val[@html.Html] {
   ignore((on_select, on_month_change))
   let model = calendar_multiple_initial_model(

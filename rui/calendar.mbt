@@ -4,9 +4,9 @@
 /// Construction is intentionally opaque so every value stays inside the
 /// supported year range and always names a real day.
 struct CalendarDate {
-  year : Int
-  month : Int
-  day : Int
+  year : Int32
+  month : Int32
+  day : Int32
 } derive(Debug, Eq)
 
 ///|
@@ -32,7 +32,7 @@ priv enum CalendarSelectionMode {
 ///|
 #cfg(target="js")
 priv enum CalendarMsg {
-  CalendarNavigate(Int)
+  CalendarNavigate(Int32)
   CalendarChoose(CalendarDate)
   CalendarSetFocused(CalendarDate)
   CalendarMoveFocus(CalendarDate)
@@ -96,7 +96,7 @@ const CalendarDayOutsideStyle : String = "--rui-calendar-base-fg:var(--rui-muted
 const CalendarOutsidePlaceholderStyle : String = "display:block;width:1.75rem;height:1.75rem;visibility:hidden"
 
 ///|
-fn calendar_clamp(value : Int, minimum : Int, maximum : Int) -> Int {
+fn calendar_clamp(value : Int32, minimum : Int32, maximum : Int32) -> Int32 {
   if value < minimum {
     minimum
   } else if value > maximum {
@@ -107,12 +107,12 @@ fn calendar_clamp(value : Int, minimum : Int, maximum : Int) -> Int {
 }
 
 ///|
-fn calendar_is_leap_year(year : Int) -> Bool {
+fn calendar_is_leap_year(year : Int32) -> Bool {
   year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)
 }
 
 ///|
-fn calendar_days_in_month(year : Int, month : Int) -> Int {
+fn calendar_days_in_month(year : Int32, month : Int32) -> Int32 {
   match month {
     2 => if calendar_is_leap_year(year) { 29 } else { 28 }
     4 | 6 | 9 | 11 => 30
@@ -128,7 +128,11 @@ fn calendar_first_of_month(date : CalendarDate) -> CalendarDate {
 ///|
 /// Construct a valid date. Years are clamped to `1..9999`, months to
 /// `1..12`, and the day to the selected month's valid range.
-pub fn calendar_date(year~ : Int, month~ : Int, day~ : Int) -> CalendarDate {
+pub fn calendar_date(
+  year~ : Int32,
+  month~ : Int32,
+  day~ : Int32,
+) -> CalendarDate {
   let year = calendar_clamp(year, 1, 9999)
   let month = calendar_clamp(month, 1, 12)
   let day = calendar_clamp(day, 1, calendar_days_in_month(year, month))
@@ -136,22 +140,22 @@ pub fn calendar_date(year~ : Int, month~ : Int, day~ : Int) -> CalendarDate {
 }
 
 ///|
-pub fn CalendarDate::year(self : CalendarDate) -> Int {
+pub fn CalendarDate::year(self : CalendarDate) -> Int32 {
   self.year
 }
 
 ///|
-pub fn CalendarDate::month(self : CalendarDate) -> Int {
+pub fn CalendarDate::month(self : CalendarDate) -> Int32 {
   self.month
 }
 
 ///|
-pub fn CalendarDate::day(self : CalendarDate) -> Int {
+pub fn CalendarDate::day(self : CalendarDate) -> Int32 {
   self.day
 }
 
 ///|
-fn calendar_pad_two(value : Int) -> String {
+fn calendar_pad_two(value : Int32) -> String {
   if value < 10 {
     "0\{value}"
   } else {
@@ -160,7 +164,7 @@ fn calendar_pad_two(value : Int) -> String {
 }
 
 ///|
-fn calendar_pad_year(value : Int) -> String {
+fn calendar_pad_year(value : Int32) -> String {
   if value < 10 {
     "000\{value}"
   } else if value < 100 {
@@ -182,7 +186,7 @@ pub fn CalendarDate::to_iso_string(self : CalendarDate) -> String {
 }
 
 ///|
-fn calendar_month_name(month : Int) -> String {
+fn calendar_month_name(month : Int32) -> String {
   match month {
     1 => "January"
     2 => "February"
@@ -200,7 +204,7 @@ fn calendar_month_name(month : Int) -> String {
 }
 
 ///|
-fn calendar_weekday_short(weekday : Int) -> String {
+fn calendar_weekday_short(weekday : Int32) -> String {
   match weekday {
     0 => "Su"
     1 => "Mo"
@@ -213,7 +217,7 @@ fn calendar_weekday_short(weekday : Int) -> String {
 }
 
 ///|
-fn calendar_weekday_long(weekday : Int) -> String {
+fn calendar_weekday_long(weekday : Int32) -> String {
   match weekday {
     0 => "Sunday"
     1 => "Monday"
@@ -226,7 +230,7 @@ fn calendar_weekday_long(weekday : Int) -> String {
 }
 
 ///|
-fn calendar_positive_mod(value : Int, divisor : Int) -> Int {
+fn calendar_positive_mod(value : Int32, divisor : Int32) -> Int32 {
   let remainder = value % divisor
   if remainder < 0 {
     remainder + divisor
@@ -236,7 +240,7 @@ fn calendar_positive_mod(value : Int, divisor : Int) -> Int {
 }
 
 ///|
-fn calendar_weekday(date : CalendarDate) -> Int {
+fn calendar_weekday(date : CalendarDate) -> Int32 {
   let month_offset = match date.month {
     1 => 0
     2 => 3
@@ -259,7 +263,7 @@ fn calendar_weekday(date : CalendarDate) -> Int {
 }
 
 ///|
-fn calendar_shift_month(date : CalendarDate, delta : Int) -> CalendarDate {
+fn calendar_shift_month(date : CalendarDate, delta : Int32) -> CalendarDate {
   if delta < 0 {
     if date.month == 1 {
       calendar_date(year=date.year - 1, month=12, day=1)
@@ -279,7 +283,7 @@ fn calendar_same_month(left : CalendarDate, right : CalendarDate) -> Bool {
 }
 
 ///|
-fn calendar_compare_dates(left : CalendarDate, right : CalendarDate) -> Int {
+fn calendar_compare_dates(left : CalendarDate, right : CalendarDate) -> Int32 {
   if left.year != right.year {
     left.year.compare(right.year)
   } else if left.month != right.month {
@@ -318,7 +322,7 @@ fn calendar_next_day(date : CalendarDate) -> CalendarDate {
 }
 
 ///|
-fn calendar_shift_days(date : CalendarDate, delta : Int) -> CalendarDate {
+fn calendar_shift_days(date : CalendarDate, delta : Int32) -> CalendarDate {
   let mut next = date
   let mut remaining = if delta < 0 { -delta } else { delta }
   while remaining > 0 {
@@ -335,19 +339,22 @@ fn calendar_shift_days(date : CalendarDate, delta : Int) -> CalendarDate {
 ///|
 fn calendar_shift_month_preserving_day(
   date : CalendarDate,
-  delta : Int,
+  delta : Int32,
 ) -> CalendarDate {
   let shifted = calendar_shift_month(date, delta)
   calendar_date(year=shifted.year, month=shifted.month, day=date.day)
 }
 
 ///|
-fn calendar_shift_year(date : CalendarDate, delta : Int) -> CalendarDate {
+fn calendar_shift_year(date : CalendarDate, delta : Int32) -> CalendarDate {
   calendar_date(year=date.year + delta, month=date.month, day=date.day)
 }
 
 ///|
-fn calendar_cell_date(month : CalendarDate, cell : Int) -> (CalendarDate, Bool) {
+fn calendar_cell_date(
+  month : CalendarDate,
+  cell : Int32,
+) -> (CalendarDate, Bool) {
   let first_weekday = calendar_weekday(calendar_first_of_month(month))
   let current_days = calendar_days_in_month(month.year, month.month)
   let day = cell - first_weekday + 1
@@ -670,15 +677,15 @@ fn calendar_nav_button(
 fn calendar_day_button_impl(
   root_id : String?,
   date~ : CalendarDate,
-  selected? : Bool = false,
-  multiple? : Bool = false,
-  range_start? : Bool = false,
-  range_end? : Bool = false,
-  range_middle? : Bool = false,
-  today? : Bool = false,
-  outside? : Bool = false,
-  disabled? : Bool = false,
-  focused? : Bool = false,
+  selected~ : Bool = false,
+  multiple~ : Bool = false,
+  range_start~ : Bool = false,
+  range_end~ : Bool = false,
+  range_middle~ : Bool = false,
+  today~ : Bool = false,
+  outside~ : Bool = false,
+  disabled~ : Bool = false,
+  focused~ : Bool = false,
   on_select? : @cmd.Emit[CalendarDate],
   on_focus_change? : @cmd.Emit[CalendarDate],
   on_focus_move? : @cmd.Emit[CalendarDate],
@@ -686,7 +693,7 @@ fn calendar_day_button_impl(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   let iso_date = date.to_iso_string()
   let element_attrs = ui_attrs(attrs)
@@ -791,11 +798,11 @@ fn calendar_day_button_impl(
 /// stop and DayPicker-compatible arrow, Home/End, and PageUp/PageDown movement.
 pub fn calendar_day_button(
   date~ : CalendarDate,
-  selected? : Bool = false,
-  today? : Bool = false,
-  outside? : Bool = false,
-  disabled? : Bool = false,
-  focused? : Bool = false,
+  selected~ : Bool = false,
+  today~ : Bool = false,
+  outside~ : Bool = false,
+  disabled~ : Bool = false,
+  focused~ : Bool = false,
   on_select? : @cmd.Emit[CalendarDate],
   on_focus_change? : @cmd.Emit[CalendarDate],
   on_focus_move? : @cmd.Emit[CalendarDate],
@@ -803,7 +810,7 @@ pub fn calendar_day_button(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   calendar_day_button_impl(
     None,
@@ -829,7 +836,10 @@ pub fn calendar_day_button(
 }
 
 ///|
-fn calendar_weekday_header(weekday : Int, style : Array[String]) -> @html.Html {
+fn calendar_weekday_header(
+  weekday : Int32,
+  style : Array[String],
+) -> @html.Html {
   @html.th(
     style=ui_styles([UiBoxSizing, CalendarWeekdayStyle], style),
     abbr=calendar_weekday_long(weekday),
@@ -845,7 +855,7 @@ fn calendar_weekday_header(weekday : Int, style : Array[String]) -> @html.Html {
 fn calendar_day_cell(
   root_id : String?,
   month : CalendarDate,
-  cell : Int,
+  cell : Int32,
   selection_mode : CalendarSelectionMode,
   selected_date : CalendarDate?,
   selected_dates : Array[CalendarDate]?,
@@ -965,25 +975,25 @@ fn calendar_day_cell(
 /// every part-level attribute set are cloned before component data is added.
 fn render_calendar(
   month~ : CalendarDate,
-  selection_mode? : CalendarSelectionMode = CalendarSingleSelection,
+  selection_mode~ : CalendarSelectionMode = CalendarSingleSelection,
   selected? : CalendarDate,
   selected_dates? : Array[CalendarDate],
   range_start? : CalendarDate,
   range_end? : CalendarDate,
   today? : CalendarDate,
   focused? : CalendarDate,
-  show_outside_days? : Bool = true,
-  hide_outside_before? : Bool = false,
-  hide_outside_after? : Bool = false,
-  disabled? : Bool = false,
-  aria_label? : String = "Calendar",
+  show_outside_days~ : Bool = true,
+  hide_outside_before~ : Bool = false,
+  hide_outside_after~ : Bool = false,
+  disabled~ : Bool = false,
+  aria_label~ : String = "Calendar",
   on_previous? : @cmd.Cmd,
   on_next? : @cmd.Cmd,
   on_select? : @cmd.Emit[CalendarDate],
   on_focus_change? : @cmd.Emit[CalendarDate],
   on_focus_move? : @cmd.Emit[CalendarDate],
-  show_previous? : Bool = true,
-  show_next? : Bool = true,
+  show_previous~ : Bool = true,
+  show_next~ : Bool = true,
   id? : String,
   class? : String,
   title? : String,
@@ -993,16 +1003,16 @@ fn render_calendar(
   next_attrs? : @html.Attrs,
   grid_attrs? : @html.Attrs,
   day_attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  header_style? : Array[String] = [],
-  caption_style? : Array[String] = [],
-  nav_style? : Array[String] = [],
-  previous_style? : Array[String] = [],
-  next_style? : Array[String] = [],
-  grid_style? : Array[String] = [],
-  weekday_style? : Array[String] = [],
-  cell_style? : Array[String] = [],
-  day_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  header_style~ : Array[String] = [],
+  caption_style~ : Array[String] = [],
+  nav_style~ : Array[String] = [],
+  previous_style~ : Array[String] = [],
+  next_style~ : Array[String] = [],
+  grid_style~ : Array[String] = [],
+  weekday_style~ : Array[String] = [],
+  cell_style~ : Array[String] = [],
+  day_style~ : Array[String] = [],
 ) -> @html.Html {
   let month = calendar_first_of_month(month)
   let focused = focused.unwrap_or(calendar_focus_target(month, selected, today))
@@ -1186,9 +1196,9 @@ pub fn calendar(
   default_month? : CalendarDate,
   default_selected? : CalendarDate,
   today? : CalendarDate,
-  show_outside_days? : Bool = true,
-  disabled? : Bool = false,
-  aria_label? : String = "Calendar",
+  show_outside_days~ : Bool = true,
+  disabled~ : Bool = false,
+  aria_label~ : String = "Calendar",
   on_select? : @cmd.Emit[CalendarDate],
   on_month_change? : @cmd.Emit[CalendarDate],
   id? : String,
@@ -1200,16 +1210,16 @@ pub fn calendar(
   next_attrs? : @html.Attrs,
   grid_attrs? : @html.Attrs,
   day_attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  header_style? : Array[String] = [],
-  caption_style? : Array[String] = [],
-  nav_style? : Array[String] = [],
-  previous_style? : Array[String] = [],
-  next_style? : Array[String] = [],
-  grid_style? : Array[String] = [],
-  weekday_style? : Array[String] = [],
-  cell_style? : Array[String] = [],
-  day_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  header_style~ : Array[String] = [],
+  caption_style~ : Array[String] = [],
+  nav_style~ : Array[String] = [],
+  previous_style~ : Array[String] = [],
+  next_style~ : Array[String] = [],
+  grid_style~ : Array[String] = [],
+  weekday_style~ : Array[String] = [],
+  cell_style~ : Array[String] = [],
+  day_style~ : Array[String] = [],
 ) -> @rabbita.Val[@html.Html] {
   let initial = calendar_initial_model(default_month, default_selected, today)
   let (model, emit) = @rabbita.create_state(initial, update=fn(model, msg, _) {
@@ -1264,9 +1274,9 @@ pub fn calendar(
   default_month? : CalendarDate,
   default_selected? : CalendarDate,
   today? : CalendarDate,
-  show_outside_days? : Bool = true,
-  disabled? : Bool = false,
-  aria_label? : String = "Calendar",
+  show_outside_days~ : Bool = true,
+  disabled~ : Bool = false,
+  aria_label~ : String = "Calendar",
   on_select? : @cmd.Emit[CalendarDate],
   on_month_change? : @cmd.Emit[CalendarDate],
   id? : String,
@@ -1278,16 +1288,16 @@ pub fn calendar(
   next_attrs? : @html.Attrs,
   grid_attrs? : @html.Attrs,
   day_attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  header_style? : Array[String] = [],
-  caption_style? : Array[String] = [],
-  nav_style? : Array[String] = [],
-  previous_style? : Array[String] = [],
-  next_style? : Array[String] = [],
-  grid_style? : Array[String] = [],
-  weekday_style? : Array[String] = [],
-  cell_style? : Array[String] = [],
-  day_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  header_style~ : Array[String] = [],
+  caption_style~ : Array[String] = [],
+  nav_style~ : Array[String] = [],
+  previous_style~ : Array[String] = [],
+  next_style~ : Array[String] = [],
+  grid_style~ : Array[String] = [],
+  weekday_style~ : Array[String] = [],
+  cell_style~ : Array[String] = [],
+  day_style~ : Array[String] = [],
 ) -> @rabbita.Val[@html.Html] {
   ignore((on_select, on_month_change))
   let model = calendar_initial_model(default_month, default_selected, today)

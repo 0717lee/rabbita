@@ -8,7 +8,7 @@ priv struct RenderState {
   defs : Map[String, @cmark.LabelDef]
   ids : Map[String, Bool]
   footnotes : Array[FootnoteUse]
-  footnote_indices : Map[String, Int]
+  footnote_indices : Map[String, Int32]
 }
 
 ///|
@@ -42,10 +42,10 @@ priv struct FootnoteUse {
 pub fn markdown(
   source : String,
   render_codeblock? : (String, String) -> @html.Html,
-  escape_link? : Bool = false,
+  escape_link~ : Bool = false,
   transform_link? : (String) -> String,
   render_heading? : (@cmark.BlockHeading) -> @html.Html,
-  heading_anchors? : Bool = true,
+  heading_anchors~ : Bool = true,
 ) -> @html.Html {
   let doc = @cmark.Doc::from_string(source, strict=false, heading_auto_ids=true)
   let state : RenderState = {
@@ -110,7 +110,7 @@ fn allowed_url(value : String) -> Bool {
   let scheme = StringBuilder()
   for character in value {
     match character {
-      '\u0000'..='\u0020' | '\u007f' => continue
+      '\u0000'..<='\u0020' | '\u007f' => continue
       ':' => {
         let name = scheme.to_string()
         return name == "https" ||

@@ -48,13 +48,13 @@ const FieldLabelStyle : String = "display:flex;width:var(--rui-field-label-width
 
 ///|
 pub fn[C : @html.IsChildren] field_set(
-  disabled? : Bool = false,
+  disabled~ : Bool = false,
   name? : String,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let set_attrs = ui_attrs(attrs).data_set("slot", "field-set")
@@ -82,12 +82,12 @@ pub fn[C : @html.IsChildren] field_set(
 
 ///|
 pub fn[C : @html.IsChildren] field_legend(
-  variant? : FieldLegendVariant = FieldLegend,
+  variant~ : FieldLegendVariant = FieldLegend,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let value = if variant is FieldLegend { "legend" } else { "label" }
@@ -119,7 +119,7 @@ pub fn[C : @html.IsChildren] field_group(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -139,14 +139,14 @@ pub fn[C : @html.IsChildren] field_group(
 
 ///|
 pub fn[C : @html.IsChildren] field(
-  orientation? : FieldOrientation = FieldVertical,
-  disabled? : Bool = false,
-  invalid? : Bool = false,
+  orientation~ : FieldOrientation = FieldVertical,
+  disabled~ : Bool = false,
+  invalid~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let value = field_orientation_value(orientation)
@@ -189,7 +189,7 @@ pub fn[C : @html.IsChildren] field_content(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -214,7 +214,7 @@ pub fn[C : @html.IsChildren] field_label(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.label(
@@ -234,7 +234,7 @@ pub fn[C : @html.IsChildren] field_title(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -258,7 +258,7 @@ pub fn[C : @html.IsChildren] field_description(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.p(
@@ -282,7 +282,7 @@ pub fn[C : @html.IsChildren] field_error(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -306,7 +306,7 @@ pub fn[C : @html.IsChildren] field_separator(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(

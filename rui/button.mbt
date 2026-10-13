@@ -137,10 +137,10 @@ fn button_size_style(size : ButtonSize) -> String {
 ///
 /// User styles are appended last and therefore override the built-in recipe.
 pub fn[C : @html.IsChildren] button(
-  variant? : ButtonVariant = Default,
-  size? : ButtonSize = Default,
-  disabled? : Bool = false,
-  type_? : String = "button",
+  variant~ : ButtonVariant = Default,
+  size~ : ButtonSize = Default,
+  disabled~ : Bool = false,
+  type_~ : String = "button",
   id? : String,
   class? : String,
   title? : String,
@@ -149,8 +149,8 @@ pub fn[C : @html.IsChildren] button(
   autofocus? : Bool,
   on_click? : @cmd.Cmd,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  slot? : String = "button",
+  style~ : Array[String] = [],
+  slot~ : String = "button",
   children : C,
 ) -> @html.Html {
   let element_attrs = ui_attrs(attrs)

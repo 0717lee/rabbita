@@ -1,7 +1,7 @@
 ///|
 struct MenuCoreModel {
   open : Bool
-  active : Int
+  active : Int32
   checked : Array[String]
   radios : Array[(String, String)]
   submenus : Array[String]
@@ -28,7 +28,7 @@ priv struct MenuScope {
   content_id : String
   trigger_id : String
   model : MenuCoreModel
-  counter : Ref[Int]
+  counter : Ref[Int32]
   close_command : @cmd.Cmd
   toggle_command : @cmd.Cmd
   toggle_checked : @cmd.Emit[String]
@@ -238,7 +238,7 @@ fn menu_set_radio_value(
 }
 
 ///|
-fn menu_scope_next_index(scope : MenuScope) -> Int {
+fn menu_scope_next_index(scope : MenuScope) -> Int32 {
   let index = scope.counter.val
   scope.counter.val += 1
   index
@@ -264,10 +264,10 @@ fn menu_state_attrs(
 priv struct MenuSurfaceBinding {
   id : String
   root : @dom.Element
-  dispatch : Ref[(Int, Int, String, String) -> Unit]
+  dispatch : Ref[(Int32, Int32, String, String) -> Unit]
   typeahead : Ref[String]
   typeahead_at : Ref[Double]
-  typeahead_timer : Ref[Int]
+  typeahead_timer : Ref[Int32]
 }
 
 ///|
@@ -376,7 +376,7 @@ fn menu_focus_submenu_trigger(
 fn menu_focus_submenu_first(
   binding : MenuSurfaceBinding,
   key : String,
-  attempt : Int,
+  attempt : Int32,
 ) -> Unit {
   menu_request_frame(() => {
     let owner = ui_find_node_list_element(
@@ -428,7 +428,7 @@ fn menu_focus_dropdown_edge(
   binding : MenuSurfaceBinding,
   content_id : String,
   edge : String,
-  attempt : Int,
+  attempt : Int32,
 ) -> Unit {
   menu_request_frame(() => {
     guard ui_element_by_id(binding.id) is Some(live_root) else { return }
@@ -669,7 +669,7 @@ fn menu_handle_keydown(
 #cfg(target="js")
 fn bind_menu_surface(
   id : String,
-  dispatch : (Int, Int, String, String) -> Unit,
+  dispatch : (Int32, Int32, String, String) -> Unit,
 ) -> Unit {
   guard ui_element_by_id(id) is Some(root) else { return }
   if menu_surface_bindings.get(id) is Some(existing) &&
@@ -737,7 +737,7 @@ fn bind_menu_surface(
 #cfg(target="js")
 priv struct MenuFocusStability {
   item : @dom.Element?
-  frames : Int
+  frames : Int32
 }
 
 ///|
@@ -749,7 +749,7 @@ let menu_focus_stability : Map[String, MenuFocusStability] = Map([])
 fn menu_resolve_focus_item(
   id : String,
   content_id : String,
-  index : Int,
+  index : Int32,
 ) -> @dom.Element? {
   guard ui_element_by_id(id) is Some(root) else { return None }
   let content = if content_id == "" {
@@ -793,7 +793,7 @@ fn menu_resolve_focus_item(
 
 ///|
 #cfg(target="js")
-fn focus_menu_item(id : String, content_id : String, index : Int) -> Bool {
+fn focus_menu_item(id : String, content_id : String, index : Int32) -> Bool {
   let stability_key = id + ":" + content_id + ":\{index}"
   guard menu_resolve_focus_item(id, content_id, index) is Some(item) &&
     item.get_is_connected() else {
@@ -833,8 +833,8 @@ fn focus_menu_item(id : String, content_id : String, index : Int) -> Bool {
 
 ///|
 #cfg(target="js")
-fn focus_first_menu_item(id : String, found : (Int) -> Unit) -> Unit {
-  fn focus_when_visible(attempt : Int) -> Unit {
+fn focus_first_menu_item(id : String, found : (Int32) -> Unit) -> Unit {
+  fn focus_when_visible(attempt : Int32) -> Unit {
     guard ui_element_by_id(id) is Some(root) else { return }
     let binding = if menu_surface_bindings.get(id) is Some(binding) &&
       binding.root.is_same_node(root.as_node()) {
@@ -881,7 +881,7 @@ fn focus_first_menu_item(id : String, found : (Int) -> Unit) -> Unit {
 fn find_open_menu_content(
   id : String,
   slot : String,
-  found : (String, Int) -> Unit,
+  found : (String, Int32) -> Unit,
 ) -> Unit {
   guard ui_element_by_id(id) is Some(root) else { return }
   guard ui_find_descendant(root, element => {
@@ -1167,7 +1167,7 @@ fn menu_position_submenus_cmd(id : String) -> @cmd.Cmd {
 #cfg(target="js")
 fn menu_bind_surface_cmd(
   id : String,
-  set_active : @cmd.Emit[Int],
+  set_active : @cmd.Emit[Int32],
   close_command : @cmd.Cmd,
   set_submenu : @cmd.Emit[MenuSubmenuChange],
 ) -> @cmd.Cmd {
@@ -1197,7 +1197,7 @@ fn menu_bind_surface_cmd(
 #cfg(not(target="js"))
 fn menu_bind_surface_cmd(
   id : String,
-  set_active : @cmd.Emit[Int],
+  set_active : @cmd.Emit[Int32],
   close_command : @cmd.Cmd,
   set_submenu : @cmd.Emit[MenuSubmenuChange],
 ) -> @cmd.Cmd {
@@ -1209,8 +1209,8 @@ fn menu_bind_surface_cmd(
 #cfg(target="js")
 fn menu_focus_item_cmd(
   id : String,
-  index : Int,
-  content_id? : String = "",
+  index : Int32,
+  content_id~ : String = "",
 ) -> @cmd.Cmd {
   @cmd.custom_cmd(kind=AfterRender, _ => {
     ui_after_ready("menu-focus-item:" + id, () => {
@@ -1223,8 +1223,8 @@ fn menu_focus_item_cmd(
 #cfg(not(target="js"))
 fn menu_focus_item_cmd(
   id : String,
-  index : Int,
-  content_id? : String = "",
+  index : Int32,
+  content_id~ : String = "",
 ) -> @cmd.Cmd {
   ignore((id, index, content_id))
   @cmd.none
@@ -1232,7 +1232,7 @@ fn menu_focus_item_cmd(
 
 ///|
 #cfg(target="js")
-fn menu_focus_first_cmd(id : String, set_active : @cmd.Emit[Int]) -> @cmd.Cmd {
+fn menu_focus_first_cmd(id : String, set_active : @cmd.Emit[Int32]) -> @cmd.Cmd {
   @cmd.custom_cmd(kind=AfterRender, scheduler => {
     focus_first_menu_item(id, index => scheduler.add(set_active(index)))
   })
@@ -1243,7 +1243,7 @@ fn menu_focus_first_cmd(id : String, set_active : @cmd.Emit[Int]) -> @cmd.Cmd {
 fn menu_open_marked_cmd(
   id : String,
   slot : String,
-  set_index : @cmd.Emit[Int],
+  set_index : @cmd.Emit[Int32],
 ) -> @cmd.Cmd {
   @cmd.custom_cmd(kind=AfterRender, scheduler => {
     ui_after_mount(
@@ -1267,7 +1267,7 @@ fn menu_open_marked_cmd(
 fn menu_open_marked_cmd(
   id : String,
   slot : String,
-  set_index : @cmd.Emit[Int],
+  set_index : @cmd.Emit[Int32],
 ) -> @cmd.Cmd {
   ignore((id, slot, set_index))
   @cmd.none
@@ -1275,7 +1275,7 @@ fn menu_open_marked_cmd(
 
 ///|
 #cfg(not(target="js"))
-fn menu_focus_first_cmd(id : String, set_active : @cmd.Emit[Int]) -> @cmd.Cmd {
+fn menu_focus_first_cmd(id : String, set_active : @cmd.Emit[Int32]) -> @cmd.Cmd {
   ignore((id, set_active))
   @cmd.none
 }
@@ -1360,8 +1360,8 @@ fn[C : @html.IsChildren] menu_content_surface(
   scope : MenuScope,
   side : PopupSide,
   align : PopupAlign,
-  side_offset : Int,
-  align_offset : Int,
+  side_offset : Int32,
+  align_offset : Int32,
   aria_label : String?,
   class : String?,
   title : String?,

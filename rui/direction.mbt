@@ -21,12 +21,12 @@ fn text_direction_value(direction : TextDirection) -> String {
 ///|
 /// Apply native writing direction to a subtree.
 pub fn[C : @html.IsChildren] direction(
-  direction? : TextDirection = Ltr,
+  direction~ : TextDirection = Ltr,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let direction_value = text_direction_value(direction)

@@ -64,12 +64,12 @@ fn card_part_attrs(attrs : @html.Attrs?, slot : String) -> @html.Attrs {
 /// `--rui-card-spacing` is inherited by every card part. Appending a value through
 /// `style` changes the spacing of the complete composition without CSS setup.
 pub fn[C : @html.IsChildren] card(
-  size? : CardSize = Default,
+  size~ : CardSize = Default,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = card_part_attrs(attrs, "card").data_set(
@@ -101,7 +101,7 @@ pub fn[C : @html.IsChildren] card_header(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -120,7 +120,7 @@ pub fn[C : @html.IsChildren] card_title(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -139,7 +139,7 @@ pub fn[C : @html.IsChildren] card_description(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -158,7 +158,7 @@ pub fn[C : @html.IsChildren] card_action(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -177,7 +177,7 @@ pub fn[C : @html.IsChildren] card_content(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -196,7 +196,7 @@ pub fn[C : @html.IsChildren] card_footer(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(

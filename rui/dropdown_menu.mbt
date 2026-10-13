@@ -21,7 +21,7 @@ priv enum DropdownMenuMsg {
   DropdownSetOpen(Bool)
   DropdownKeyboardClose
   DropdownNativeOpen(Bool)
-  DropdownSetActive(Int)
+  DropdownSetActive(Int32)
   DropdownToggleChecked(String)
   DropdownSetRadio(String, String)
   DropdownSetSubmenu(MenuSubmenuChange)
@@ -41,8 +41,8 @@ fn dropdown_notify(on_open_change : @cmd.Emit[Bool]?, open : Bool) -> @cmd.Cmd {
 #cfg(target="js")
 fn dropdown_restore_trigger_until_stable(
   id : String,
-  attempt : Int,
-  stable_frames : Int,
+  attempt : Int32,
+  stable_frames : Int32,
 ) -> Unit {
   if attempt >= 20 || stable_frames >= 3 {
     return
@@ -135,12 +135,12 @@ fn dropdown_scope(
 #cfg(target="js")
 pub fn dropdown_menu(
   id~ : String,
-  default_open? : Bool = false,
-  default_checked_values? : Array[String] = [],
-  default_radio_values? : Array[(String, String)] = [],
+  default_open~ : Bool = false,
+  default_checked_values~ : Array[String] = [],
+  default_radio_values~ : Array[(String, String)] = [],
   on_open_change? : @cmd.Emit[Bool],
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (DropdownMenuScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   let initial = menu_core_model(
@@ -292,12 +292,12 @@ pub fn dropdown_menu(
 #cfg(not(target="js"))
 pub fn dropdown_menu(
   id~ : String,
-  default_open? : Bool = false,
-  default_checked_values? : Array[String] = [],
-  default_radio_values? : Array[(String, String)] = [],
+  default_open~ : Bool = false,
+  default_checked_values~ : Array[String] = [],
+  default_radio_values~ : Array[(String, String)] = [],
   on_open_change? : @cmd.Emit[Bool],
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (DropdownMenuScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   ignore(on_open_change)
@@ -324,12 +324,12 @@ pub fn dropdown_menu(
 /// Explicit Root spelling matching the compound-component API.
 pub fn dropdown_menu_root(
   id~ : String,
-  default_open? : Bool = false,
-  default_checked_values? : Array[String] = [],
-  default_radio_values? : Array[(String, String)] = [],
+  default_open~ : Bool = false,
+  default_checked_values~ : Array[String] = [],
+  default_radio_values~ : Array[(String, String)] = [],
   on_open_change? : @cmd.Emit[Bool],
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (DropdownMenuScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   dropdown_menu(
@@ -355,15 +355,15 @@ pub fn dropdown_menu_portal(children : Array[@html.Html]) -> @html.Html {
 ///|
 pub fn[C : @html.IsChildren] dropdown_menu_trigger(
   scope : DropdownMenuScope,
-  variant? : ButtonVariant = Outline,
-  size? : ButtonSize = Default,
-  disabled? : Bool = false,
+  variant~ : ButtonVariant = Outline,
+  size~ : ButtonSize = Default,
+  disabled~ : Bool = false,
   aria_label? : String,
   on_click? : @cmd.Cmd,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   menu_trigger_button(
@@ -385,15 +385,15 @@ pub fn[C : @html.IsChildren] dropdown_menu_trigger(
 ///|
 pub fn[C : @html.IsChildren] dropdown_menu_content(
   scope : DropdownMenuScope,
-  side? : PopupSide = Bottom,
-  align? : PopupAlign = Start,
-  side_offset? : Int = 4,
-  align_offset? : Int = 0,
+  side~ : PopupSide = Bottom,
+  align~ : PopupAlign = Start,
+  side_offset~ : Int32 = 4,
+  align_offset~ : Int32 = 0,
   aria_label? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   menu_content_surface(
@@ -418,7 +418,7 @@ pub fn[C : @html.IsChildren] dropdown_menu_group(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   menu_group_surface(
@@ -429,16 +429,16 @@ pub fn[C : @html.IsChildren] dropdown_menu_group(
 ///|
 pub fn[C : @html.IsChildren] dropdown_menu_item(
   scope : DropdownMenuScope,
-  disabled? : Bool = false,
-  inset? : Bool = false,
-  destructive? : Bool = false,
-  close_on_select? : Bool = true,
+  disabled~ : Bool = false,
+  inset~ : Bool = false,
+  destructive~ : Bool = false,
+  close_on_select~ : Bool = true,
   on_select? : @cmd.Cmd,
   aria_label? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   menu_item_surface(
@@ -467,15 +467,15 @@ pub fn[C : @html.IsChildren] dropdown_menu_item(
 pub fn[C : @html.IsChildren] dropdown_menu_checkbox_item(
   scope : DropdownMenuScope,
   value~ : String,
-  disabled? : Bool = false,
-  close_on_select? : Bool = false,
+  disabled~ : Bool = false,
+  close_on_select~ : Bool = false,
   on_checked_change? : @cmd.Emit[Bool],
   on_select? : @cmd.Cmd,
   aria_label? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let checked = menu_contains(scope.menu.model.checked, value)
@@ -514,7 +514,7 @@ pub fn[C : @html.IsChildren] dropdown_menu_radio_group(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (DropdownMenuRadioGroupScope) -> C,
 ) -> @html.Html {
   menu_group_surface(
@@ -532,15 +532,15 @@ pub fn[C : @html.IsChildren] dropdown_menu_radio_group(
 pub fn[C : @html.IsChildren] dropdown_menu_radio_item(
   scope : DropdownMenuRadioGroupScope,
   value~ : String,
-  disabled? : Bool = false,
-  close_on_select? : Bool = false,
+  disabled~ : Bool = false,
+  close_on_select~ : Bool = false,
   on_value_change? : @cmd.Emit[String],
   on_select? : @cmd.Cmd,
   aria_label? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let checked = menu_radio_value(scope.menu.model.radios, scope.group) ==
@@ -574,11 +574,11 @@ pub fn[C : @html.IsChildren] dropdown_menu_radio_item(
 
 ///|
 pub fn[C : @html.IsChildren] dropdown_menu_label(
-  inset? : Bool = false,
+  inset~ : Bool = false,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   menu_label_surface(
@@ -590,7 +590,7 @@ pub fn[C : @html.IsChildren] dropdown_menu_label(
 pub fn dropdown_menu_separator(
   class? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   menu_separator_surface("dropdown-menu-separator", class, attrs, style)
 }
@@ -600,7 +600,7 @@ pub fn[C : @html.IsChildren] dropdown_menu_shortcut(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   menu_shortcut_surface(
@@ -613,7 +613,7 @@ pub fn[C : @html.IsChildren] dropdown_menu_sub(
   scope : DropdownMenuScope,
   value~ : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (DropdownMenuSubScope) -> C,
 ) -> @html.Html {
   let key = menu_submenu_key(scope.menu, value)
@@ -630,13 +630,13 @@ pub fn[C : @html.IsChildren] dropdown_menu_sub(
 ///|
 pub fn[C : @html.IsChildren] dropdown_menu_sub_trigger(
   scope : DropdownMenuSubScope,
-  disabled? : Bool = false,
-  inset? : Bool = false,
+  disabled~ : Bool = false,
+  inset~ : Bool = false,
   aria_label? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   menu_item_surface(
@@ -667,7 +667,7 @@ pub fn[C : @html.IsChildren] dropdown_menu_sub_content(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   menu_sub_content_surface(

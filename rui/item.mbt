@@ -85,7 +85,7 @@ pub fn[C : @html.IsChildren] item_group(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -100,13 +100,13 @@ pub fn[C : @html.IsChildren] item_group(
 
 ///|
 pub fn[C : @html.IsChildren] item(
-  variant? : ItemVariant = ItemDefault,
-  size? : ItemSize = ItemDefaultSize,
+  variant~ : ItemVariant = ItemDefault,
+  size~ : ItemSize = ItemDefaultSize,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -155,20 +155,20 @@ fn item_bind_disabled_link(attrs : @html.Attrs, disabled : Bool) -> Unit {
 /// Render the `asChild` anchor path from the Nova item recipe as a native link.
 pub fn[C : @html.IsChildren] item_link(
   href~ : String,
-  variant? : ItemVariant = ItemDefault,
-  size? : ItemSize = ItemDefaultSize,
-  disabled? : Bool = false,
+  variant~ : ItemVariant = ItemDefault,
+  size~ : ItemSize = ItemDefaultSize,
+  disabled~ : Bool = false,
   aria_label? : String,
-  target? : @html.Target = Self,
+  target~ : @html.Target = Self,
   rel? : String,
   download? : String,
-  escape? : Bool = false,
+  escape~ : Bool = false,
   on_click? : @cmd.Cmd,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = ui_attrs(attrs)
@@ -215,12 +215,12 @@ pub fn[C : @html.IsChildren] item_link(
 
 ///|
 pub fn[C : @html.IsChildren] item_media(
-  variant? : ItemMediaVariant = ItemMediaDefault,
+  variant~ : ItemMediaVariant = ItemMediaDefault,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let value = match variant {
@@ -259,7 +259,7 @@ pub fn[C : @html.IsChildren] item_content(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -281,7 +281,7 @@ pub fn[C : @html.IsChildren] item_title(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -305,7 +305,7 @@ pub fn[C : @html.IsChildren] item_description(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.p(
@@ -329,7 +329,7 @@ pub fn[C : @html.IsChildren] item_actions(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -348,7 +348,7 @@ pub fn[C : @html.IsChildren] item_header(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -372,7 +372,7 @@ pub fn[C : @html.IsChildren] item_footer(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -396,7 +396,7 @@ pub fn item_separator(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   separator(
     slot="item-separator",

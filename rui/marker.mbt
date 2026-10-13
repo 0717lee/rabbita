@@ -35,12 +35,12 @@ fn marker_variant_style(variant : MarkerVariant) -> String {
 
 ///|
 pub fn[C : @html.IsChildren] marker(
-  variant? : MarkerVariant = MarkerDefault,
+  variant~ : MarkerVariant = MarkerDefault,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -78,19 +78,19 @@ fn marker_bind_disabled_link(attrs : @html.Attrs, disabled : Bool) -> Unit {
 /// Render the marker `asChild` anchor path as a native, focusable link.
 pub fn[C : @html.IsChildren] marker_link(
   href~ : String,
-  variant? : MarkerVariant = MarkerDefault,
-  disabled? : Bool = false,
+  variant~ : MarkerVariant = MarkerDefault,
+  disabled~ : Bool = false,
   aria_label? : String,
-  target? : @html.Target = Self,
+  target~ : @html.Target = Self,
   rel? : String,
   download? : String,
-  escape? : Bool = false,
+  escape~ : Bool = false,
   on_click? : @cmd.Cmd,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = ui_attrs(attrs)
@@ -139,7 +139,7 @@ pub fn[C : @html.IsChildren] marker_icon(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.span(
@@ -163,7 +163,7 @@ pub fn[C : @html.IsChildren] marker_content(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.span(

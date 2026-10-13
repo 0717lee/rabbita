@@ -1,22 +1,22 @@
 ///|
 priv enum SliderMsg {
-  SetSliderValue(Int, Int)
-  SetSliderKeyboardValue(Int, Int)
-  CommitSliderValue(Int, Int)
+  SetSliderValue(Int32, Int32)
+  SetSliderKeyboardValue(Int32, Int32)
+  CommitSliderValue(Int32, Int32)
 }
 
 ///|
 const SliderThumbStyle : String = "position:absolute;z-index:2;display:block;width:0.75rem;height:0.75rem;border:1px solid var(--rui-ring,oklch(0.708 0 0));border-radius:9999px;background:var(--rui-slider-thumb,var(--rui-background,oklch(1 0 0)));--rui-slider-thumb-base-shadow:0 0 #0000;box-shadow:var(--rui-slider-thumb-shadow,var(--rui-slider-thumb-base-shadow,0 0 #0000));pointer-events:none"
 
 ///|
-fn slider_parse(value : String, fallback : Int) -> Int {
+fn slider_parse(value : String, fallback : Int32) -> Int32 {
   @string.parse_int(value) catch {
     _ => fallback
   }
 }
 
 ///|
-fn slider_clamp(value : Int, min : Int, max : Int) -> Int {
+fn slider_clamp(value : Int32, min : Int32, max : Int32) -> Int32 {
   if value < min {
     min
   } else if value > max {
@@ -27,7 +27,7 @@ fn slider_clamp(value : Int, min : Int, max : Int) -> Int {
 }
 
 ///|
-fn slider_step_amount(step : Int) -> Int {
+fn slider_step_amount(step : Int32) -> Int32 {
   if step > 0 {
     step
   } else {
@@ -36,7 +36,12 @@ fn slider_step_amount(step : Int) -> Int {
 }
 
 ///|
-fn slider_align_to_step(value : Int, min : Int, max : Int, step : Int) -> Int {
+fn slider_align_to_step(
+  value : Int32,
+  min : Int32,
+  max : Int32,
+  step : Int32,
+) -> Int32 {
   let value = slider_clamp(value, min, max)
   let amount = slider_step_amount(step)
   let offset = value - min
@@ -45,7 +50,7 @@ fn slider_align_to_step(value : Int, min : Int, max : Int, step : Int) -> Int {
 }
 
 ///|
-fn slider_percent(value : Int, min : Int, max : Int) -> Int {
+fn slider_percent(value : Int32, min : Int32, max : Int32) -> Int32 {
   if max <= min {
     0
   } else {
@@ -55,12 +60,12 @@ fn slider_percent(value : Int, min : Int, max : Int) -> Int {
 
 ///|
 fn slider_minimum_gap(
-  count : Int,
-  min : Int,
-  max : Int,
-  step : Int,
-  min_steps_between_values : Int,
-) -> Int {
+  count : Int32,
+  min : Int32,
+  max : Int32,
+  step : Int32,
+  min_steps_between_values : Int32,
+) -> Int32 {
   if count <= 1 || min_steps_between_values <= 0 || max <= min {
     0
   } else {
@@ -73,12 +78,12 @@ fn slider_minimum_gap(
 
 ///|
 fn slider_normalize_values(
-  values : Array[Int],
-  min : Int,
-  max : Int,
-  step : Int,
-  min_steps_between_values : Int,
-) -> Array[Int] {
+  values : Array[Int32],
+  min : Int32,
+  max : Int32,
+  step : Int32,
+  min_steps_between_values : Int32,
+) -> Array[Int32] {
   let requested = if values.length() == 0 { [min] } else { values }
   let normalized = requested.map(value => {
     slider_align_to_step(value, min, max, step)
@@ -100,14 +105,14 @@ fn slider_normalize_values(
 
 ///|
 fn slider_set_thumb_value(
-  values : Array[Int],
-  index : Int,
-  value : Int,
-  min : Int,
-  max : Int,
-  step : Int,
-  min_steps_between_values : Int,
-) -> Array[Int] {
+  values : Array[Int32],
+  index : Int32,
+  value : Int32,
+  min : Int32,
+  max : Int32,
+  step : Int32,
+  min_steps_between_values : Int32,
+) -> Array[Int32] {
   slider_constrain_thumb_value(
     values,
     index,
@@ -121,14 +126,14 @@ fn slider_set_thumb_value(
 
 ///|
 fn slider_constrain_thumb_value(
-  values : Array[Int],
-  index : Int,
-  value : Int,
-  min : Int,
-  max : Int,
-  step : Int,
-  min_steps_between_values : Int,
-) -> Array[Int] {
+  values : Array[Int32],
+  index : Int32,
+  value : Int32,
+  min : Int32,
+  max : Int32,
+  step : Int32,
+  min_steps_between_values : Int32,
+) -> Array[Int32] {
   let next = values.copy()
   if index < 0 || index >= next.length() {
     return next
@@ -151,7 +156,7 @@ fn slider_constrain_thumb_value(
 }
 
 ///|
-fn slider_round_to_step(value : Int, min : Int, step : Int) -> Int {
+fn slider_round_to_step(value : Int32, min : Int32, step : Int32) -> Int32 {
   let amount = slider_step_amount(step)
   let offset = value - min
   min + (offset + amount / 2) / amount * amount
@@ -159,15 +164,15 @@ fn slider_round_to_step(value : Int, min : Int, step : Int) -> Int {
 
 ///|
 fn slider_key_value(
-  value : Int,
-  min : Int,
-  max : Int,
-  step : Int,
-  large_step : Int,
+  value : Int32,
+  min : Int32,
+  max : Int32,
+  step : Int32,
+  large_step : Int32,
   shift : Bool,
   rtl : Bool,
   key : String,
-) -> Int? {
+) -> Int32? {
   let amount = if shift { large_step } else { slider_step_amount(step) }
   let rounded = slider_round_to_step(value, min, step)
   let requested = match key {
@@ -186,17 +191,17 @@ fn slider_key_value(
 
 ///|
 fn slider_thumb_key_value(
-  values : Array[Int],
-  index : Int,
-  min : Int,
-  max : Int,
-  step : Int,
-  min_steps_between_values : Int,
-  large_step : Int,
+  values : Array[Int32],
+  index : Int32,
+  min : Int32,
+  max : Int32,
+  step : Int32,
+  min_steps_between_values : Int32,
+  large_step : Int32,
   shift : Bool,
   rtl : Bool,
   key : String,
-) -> Int? {
+) -> Int32? {
   if index < 0 || index >= values.length() {
     return None
   }
@@ -232,19 +237,19 @@ fn slider_thumb_key_value(
 ///|
 #cfg(target="js")
 priv struct SliderPointerConfig {
-  min : Int
-  max : Int
-  step : Int
-  gap : Int
+  min : Int32
+  max : Int32
+  step : Int32
+  gap : Int32
 }
 
 ///|
 #cfg(target="js")
 priv struct SliderPointerBinding {
   root : @dom.Element
-  mut active_index : Int
-  mut active_pointer_id : Int?
-  mut last_used_index : Int
+  mut active_index : Int32
+  mut active_pointer_id : Int32?
+  mut last_used_index : Int32
 }
 
 ///|
@@ -295,7 +300,7 @@ fn slider_pointer_controls(
 #cfg(target="js")
 fn slider_pointer_config(
   binding : SliderPointerBinding,
-  count : Int,
+  count : Int32,
 ) -> SliderPointerConfig {
   let min = ui_parse_int_or(
     binding.root.get_attribute("data-min").unwrap_or(""),
@@ -328,7 +333,7 @@ fn slider_pointer_config(
 fn slider_pointer_value_at(
   binding : SliderPointerBinding,
   pointer : @dom.PointerEvent,
-) -> Int? {
+) -> Int32? {
   let rect = binding.root.get_bounding_client_rect()
   let vertical = binding.root.get_attribute("data-orientation").unwrap_or("") ==
     "vertical"
@@ -363,9 +368,9 @@ fn slider_pointer_value_at(
 #cfg(target="js")
 fn slider_pointer_closest_index(
   binding : SliderPointerBinding,
-  requested : Int,
+  requested : Int32,
   controls : Array[@dom.HTMLInputElement],
-) -> Int {
+) -> Int32 {
   let mut best = -1
   let mut distance = 0
   for index, input in controls {
@@ -390,7 +395,7 @@ fn slider_pointer_closest_index(
 #cfg(target="js")
 fn slider_pointer_activate(
   binding : SliderPointerBinding,
-  index : Int,
+  index : Int32,
   controls : Array[@dom.HTMLInputElement],
 ) -> Bool {
   if index < 0 || index >= controls.length() {
@@ -591,14 +596,14 @@ fn slider_key_stops_propagation(key : String) -> Bool {
 #cfg(target="js")
 fn slider_control_attrs(
   input_attrs : @html.Attrs?,
-  values : Array[Int],
-  index : Int,
+  values : Array[Int32],
+  index : Int32,
   emit : @cmd.Emit[SliderMsg],
-  min : Int,
-  max : Int,
-  step : Int,
-  min_steps_between_values : Int,
-  large_step : Int,
+  min : Int32,
+  max : Int32,
+  step : Int32,
+  min_steps_between_values : Int32,
+  large_step : Int32,
   orientation : SeparatorOrientation,
   disabled : Bool,
 ) -> @html.Attrs {
@@ -652,14 +657,14 @@ fn slider_control_attrs(
 #cfg(not(target="js"))
 fn slider_control_attrs(
   input_attrs : @html.Attrs?,
-  values : Array[Int],
-  index : Int,
+  values : Array[Int32],
+  index : Int32,
   emit : @cmd.Emit[SliderMsg],
-  min : Int,
-  max : Int,
-  step : Int,
-  min_steps_between_values : Int,
-  large_step : Int,
+  min : Int32,
+  max : Int32,
+  step : Int32,
+  min_steps_between_values : Int32,
+  large_step : Int32,
   orientation : SeparatorOrientation,
   disabled : Bool,
 ) -> @html.Attrs {
@@ -675,12 +680,16 @@ fn slider_control_attrs(
 }
 
 ///|
-fn slider_serialized_values(values : Array[Int]) -> String {
+fn slider_serialized_values(values : Array[Int32]) -> String {
   values.map(value => value.to_string()).join(",")
 }
 
 ///|
-fn slider_thumb_label(aria_label : String, index : Int, count : Int) -> String {
+fn slider_thumb_label(
+  aria_label : String,
+  index : Int32,
+  count : Int32,
+) -> String {
   if count <= 1 {
     aria_label
   } else {
@@ -690,13 +699,13 @@ fn slider_thumb_label(aria_label : String, index : Int, count : Int) -> String {
 
 ///|
 fn render_slider_values(
-  values : Array[Int],
+  values : Array[Int32],
   emit : @cmd.Emit[SliderMsg],
-  min : Int,
-  max : Int,
-  step : Int,
-  min_steps_between_values : Int,
-  large_step : Int,
+  min : Int32,
+  max : Int32,
+  step : Int32,
+  min_steps_between_values : Int32,
+  large_step : Int32,
   orientation : SeparatorOrientation,
   disabled : Bool,
   aria_label : String,
@@ -850,8 +859,8 @@ fn render_slider_values(
 
 ///|
 fn slider_values_notify(
-  notify : @cmd.Emit[Array[Int]]?,
-  values : Array[Int],
+  notify : @cmd.Emit[Array[Int32]]?,
+  values : Array[Int32],
 ) -> @cmd.Cmd {
   if notify is Some(notify) {
     notify(values.copy())
@@ -863,17 +872,17 @@ fn slider_values_notify(
 ///|
 #cfg(target="js")
 fn slider_values_impl(
-  default_values : Array[Int],
-  min : Int,
-  max : Int,
-  step : Int,
-  large_step : Int,
-  min_steps_between_values : Int,
+  default_values : Array[Int32],
+  min : Int32,
+  max : Int32,
+  step : Int32,
+  large_step : Int32,
+  min_steps_between_values : Int32,
   orientation : SeparatorOrientation,
   disabled : Bool,
   aria_label : String,
-  on_value_change : @cmd.Emit[Array[Int]]?,
-  on_value_commit : @cmd.Emit[Array[Int]]?,
+  on_value_change : @cmd.Emit[Array[Int32]]?,
+  on_value_commit : @cmd.Emit[Array[Int32]]?,
   id : String,
   legacy_single_id : Bool,
   class : String?,
@@ -943,17 +952,17 @@ fn slider_values_impl(
 ///|
 #cfg(not(target="js"))
 fn slider_values_impl(
-  default_values : Array[Int],
-  min : Int,
-  max : Int,
-  step : Int,
-  large_step : Int,
-  min_steps_between_values : Int,
+  default_values : Array[Int32],
+  min : Int32,
+  max : Int32,
+  step : Int32,
+  large_step : Int32,
+  min_steps_between_values : Int32,
   orientation : SeparatorOrientation,
   disabled : Bool,
   aria_label : String,
-  on_value_change : @cmd.Emit[Array[Int]]?,
-  on_value_commit : @cmd.Emit[Array[Int]]?,
+  on_value_change : @cmd.Emit[Array[Int32]]?,
+  on_value_commit : @cmd.Emit[Array[Int32]]?,
   id : String,
   legacy_single_id : Bool,
   class : String?,
@@ -993,22 +1002,22 @@ fn slider_values_impl(
 /// `min_steps_between_values` steps apart.
 pub fn slider_values(
   id~ : String,
-  default_values~ : Array[Int],
-  min? : Int = 0,
-  max? : Int = 100,
-  step? : Int = 1,
-  large_step? : Int = 10,
-  min_steps_between_values? : Int = 0,
-  orientation? : SeparatorOrientation = Horizontal,
-  disabled? : Bool = false,
-  aria_label? : String = "Value",
-  on_value_change? : @cmd.Emit[Array[Int]],
-  on_value_commit? : @cmd.Emit[Array[Int]],
+  default_values~ : Array[Int32],
+  min~ : Int32 = 0,
+  max~ : Int32 = 100,
+  step~ : Int32 = 1,
+  large_step~ : Int32 = 10,
+  min_steps_between_values~ : Int32 = 0,
+  orientation~ : SeparatorOrientation = Horizontal,
+  disabled~ : Bool = false,
+  aria_label~ : String = "Value",
+  on_value_change? : @cmd.Emit[Array[Int32]],
+  on_value_commit? : @cmd.Emit[Array[Int32]],
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
   input_attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @rabbita.Val[@html.Html] {
   slider_values_impl(
     default_values, min, max, step, large_step, min_steps_between_values, orientation,
@@ -1019,9 +1028,9 @@ pub fn slider_values(
 
 ///|
 fn slider_single_notify(
-  notify : @cmd.Emit[Int]?,
-  fallback : Int,
-) -> @cmd.Emit[Array[Int]]? {
+  notify : @cmd.Emit[Int32]?,
+  fallback : Int32,
+) -> @cmd.Emit[Array[Int32]]? {
   match notify {
     Some(notify) =>
       Some(
@@ -1036,21 +1045,21 @@ fn slider_single_notify(
 ///|
 pub fn slider(
   id~ : String,
-  default_value? : Int = 0,
-  min? : Int = 0,
-  max? : Int = 100,
-  step? : Int = 1,
-  large_step? : Int = 10,
-  orientation? : SeparatorOrientation = Horizontal,
-  disabled? : Bool = false,
-  aria_label? : String = "Value",
-  on_value_change? : @cmd.Emit[Int],
-  on_value_commit? : @cmd.Emit[Int],
+  default_value~ : Int32 = 0,
+  min~ : Int32 = 0,
+  max~ : Int32 = 100,
+  step~ : Int32 = 1,
+  large_step~ : Int32 = 10,
+  orientation~ : SeparatorOrientation = Horizontal,
+  disabled~ : Bool = false,
+  aria_label~ : String = "Value",
+  on_value_change? : @cmd.Emit[Int32],
+  on_value_commit? : @cmd.Emit[Int32],
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
   input_attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @rabbita.Val[@html.Html] {
   let fallback = slider_clamp(default_value, min, max)
   slider_values_impl(

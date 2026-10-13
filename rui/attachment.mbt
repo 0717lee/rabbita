@@ -107,14 +107,14 @@ fn attachment_state_style(state : AttachmentState) -> String {
 
 ///|
 pub fn[C : @html.IsChildren] attachment(
-  state? : AttachmentState = AttachmentDone,
-  size? : AttachmentSize = AttachmentDefaultSize,
-  orientation? : AttachmentOrientation = AttachmentHorizontal,
+  state~ : AttachmentState = AttachmentDone,
+  size~ : AttachmentSize = AttachmentDefaultSize,
+  orientation~ : AttachmentOrientation = AttachmentHorizontal,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let state_value = attachment_state_value(state)
@@ -159,7 +159,7 @@ pub fn[C : @html.IsChildren] attachment_group(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -180,13 +180,13 @@ pub fn[C : @html.IsChildren] attachment_group(
 
 ///|
 pub fn[C : @html.IsChildren] attachment_media(
-  variant? : AttachmentMediaVariant = AttachmentIcon,
-  error? : Bool = false,
+  variant~ : AttachmentMediaVariant = AttachmentIcon,
+  error~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let variant_value = if variant is AttachmentImage { "image" } else { "icon" }
@@ -223,7 +223,7 @@ pub fn[C : @html.IsChildren] attachment_content(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -247,7 +247,7 @@ pub fn[C : @html.IsChildren] attachment_title(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.span(
@@ -271,7 +271,7 @@ pub fn[C : @html.IsChildren] attachment_description(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.span(
@@ -295,7 +295,7 @@ pub fn[C : @html.IsChildren] attachment_actions(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -315,16 +315,16 @@ pub fn[C : @html.IsChildren] attachment_actions(
 
 ///|
 pub fn[C : @html.IsChildren] attachment_action(
-  variant? : ButtonVariant = Ghost,
-  size? : ButtonSize = IconXs,
-  disabled? : Bool = false,
+  variant~ : ButtonVariant = Ghost,
+  size~ : ButtonSize = IconXs,
+  disabled~ : Bool = false,
   aria_label? : String,
   on_click? : @cmd.Cmd,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let action_attrs = ui_attrs(attrs).data_set("slot", "attachment-action")
@@ -348,14 +348,14 @@ pub fn[C : @html.IsChildren] attachment_action(
 
 ///|
 pub fn[C : @html.IsChildren] attachment_trigger(
-  disabled? : Bool = false,
+  disabled~ : Bool = false,
   on_click? : @cmd.Cmd,
   aria_label? : String,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let trigger_attrs = ui_attrs(attrs).data_set("slot", "attachment-trigger")
@@ -408,18 +408,18 @@ fn attachment_bind_disabled_link(attrs : @html.Attrs, disabled : Bool) -> Unit {
 /// Render the Nova attachment trigger's `asChild` path as a native anchor.
 pub fn[C : @html.IsChildren] attachment_trigger_link(
   href~ : String,
-  disabled? : Bool = false,
+  disabled~ : Bool = false,
   aria_label? : String,
-  target? : @html.Target = Self,
+  target~ : @html.Target = Self,
   rel? : String,
   download? : String,
-  escape? : Bool = false,
+  escape~ : Bool = false,
   on_click? : @cmd.Cmd,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let trigger_attrs = ui_attrs(attrs).data_set("slot", "attachment-trigger")

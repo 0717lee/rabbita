@@ -5,7 +5,7 @@ const HoverCardRootStyle : String = "display:contents"
 const HoverCardContentStyle : String = "position:fixed;inset:auto;left:var(--rui-floating-left,auto);top:var(--rui-floating-top,auto);z-index:50;display:block;width:16rem;max-width:calc(100vw - 1rem);transform-origin:var(--rui-floating-transform-origin,center);margin:0;border:1px solid var(--rui-border,oklch(0.922 0 0));border-radius:var(--rui-radius,0.625rem);background:var(--rui-popover,oklch(1 0 0));padding:0.625rem;color:var(--rui-popover-foreground,oklch(0.145 0 0));font-size:0.875rem;line-height:1.25rem;box-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1),0 2px 4px -2px rgb(0 0 0 / 0.1);outline:none;transition:opacity 100ms ease,transform 100ms ease,visibility 100ms ease"
 
 ///|
-fn hover_card_delay(value : Int) -> Int {
+fn hover_card_delay(value : Int32) -> Int32 {
   if value < 0 {
     0
   } else {
@@ -31,22 +31,22 @@ fn hover_card_trigger_adjustment_style(variant : ButtonVariant) -> String {
 pub fn[C : @html.IsChildren] hover_card_trigger(
   content_id~ : String,
   href~ : String,
-  open? : Bool = false,
-  disabled? : Bool = false,
-  open_delay? : Int = 600,
-  close_delay? : Int = 300,
-  variant? : ButtonVariant = Link,
-  size? : ButtonSize = Default,
-  target? : @html.Target = Self,
+  open~ : Bool = false,
+  disabled~ : Bool = false,
+  open_delay~ : Int32 = 600,
+  close_delay~ : Int32 = 300,
+  variant~ : ButtonVariant = Link,
+  size~ : ButtonSize = Default,
+  target~ : @html.Target = Self,
   rel? : String,
   download? : String,
-  escape? : Bool = false,
+  escape~ : Bool = false,
   on_click? : @cmd.Cmd,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let resolved_id = id.unwrap_or(content_id + "-trigger")
@@ -107,17 +107,17 @@ pub fn[C : @html.IsChildren] hover_card_trigger(
 pub fn[C : @html.IsChildren] hover_card_content(
   id~ : String,
   trigger_id~ : String,
-  open? : Bool = false,
-  side? : PopupSide = Bottom,
-  align? : PopupAlign = Center,
-  side_offset? : Int = 4,
-  align_offset? : Int = 0,
+  open~ : Bool = false,
+  side~ : PopupSide = Bottom,
+  align~ : PopupAlign = Center,
+  side_offset~ : Int32 = 4,
+  align_offset~ : Int32 = 0,
   aria_labelledby? : String,
   aria_describedby? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = popup_state_attrs(attrs, "hover-card-content", open)
@@ -167,7 +167,7 @@ pub fn[C : @html.IsChildren] hover_card_content(
 #cfg(target="js")
 priv struct HoverCardEventBinding {
   root : @dom.Element
-  dispatch : Ref[(Int, Int) -> Unit]
+  dispatch : Ref[(Int32, Int32) -> Unit]
 }
 
 ///|
@@ -181,8 +181,8 @@ fn hover_card_config(
   root : @dom.Element,
   trigger_name : String,
   root_name : String,
-  fallback : Int,
-) -> Int {
+  fallback : Int32,
+) -> Int32 {
   let own = trigger.get_attribute("data-" + trigger_name).unwrap_or("")
   let inherited = root.get_attribute("data-" + root_name).unwrap_or("")
   let value = if own == "" { inherited } else { own }
@@ -196,7 +196,10 @@ fn hover_card_config(
 
 ///|
 #cfg(target="js")
-fn bind_hover_card_events(id : String, dispatch : (Int, Int) -> Unit) -> Bool {
+fn bind_hover_card_events(
+  id : String,
+  dispatch : (Int32, Int32) -> Unit,
+) -> Bool {
   guard ui_element_by_id(id) is Some(popup) else { return false }
   guard ui_element_by_id(id + "-trigger") is Some(trigger) else { return false }
   guard ui_element_by_id(id + "-root") is Some(root) else { return false }
@@ -212,15 +215,15 @@ fn bind_hover_card_events(id : String, dispatch : (Int, Int) -> Unit) -> Bool {
   }
   let binding : HoverCardEventBinding = { root, dispatch: Ref(dispatch), }
   hover_card_event_bindings[id] = binding
-  fn open_delay() -> Int {
+  fn open_delay() -> Int32 {
     hover_card_config(trigger, root, "delay", "open-delay", 600)
   }
 
-  fn close_delay() -> Int {
+  fn close_delay() -> Int32 {
     hover_card_config(trigger, root, "close-delay", "close-delay", 300)
   }
 
-  fn send(kind : Int, wait : Int) -> Unit {
+  fn send(kind : Int32, wait : Int32) -> Unit {
     if !root.has_attribute("data-disabled") {
       (binding.dispatch.val)(kind, wait)
     }
@@ -285,15 +288,15 @@ priv struct HoverCardModel {
   trigger_focused : Bool
   content_hovered : Bool
   content_focused : Bool
-  generation : Int
+  generation : Int32
 } derive(Eq)
 
 ///|
 #cfg(target="js")
 priv enum HoverCardMsg {
-  HoverCardDomEvent(Int, Int)
-  HoverCardOpenAfter(Int)
-  HoverCardCloseAfter(Int)
+  HoverCardDomEvent(Int32, Int32)
+  HoverCardOpenAfter(Int32)
+  HoverCardCloseAfter(Int32)
   HoverCardNativeChanged(Bool)
 }
 
@@ -393,7 +396,7 @@ fn hover_card_open_from_interaction(
   emit : @cmd.Emit[HoverCardMsg],
   current : HoverCardModel,
   next : HoverCardModel,
-  wait : Int,
+  wait : Int32,
 ) -> (HoverCardModel, @cmd.Cmd) {
   if current.open {
     (next, @cmd.none)
@@ -411,7 +414,7 @@ fn hover_card_close_from_interaction(
   on_open_change : @cmd.Emit[Bool]?,
   emit : @cmd.Emit[HoverCardMsg],
   next : HoverCardModel,
-  wait : Int,
+  wait : Int32,
 ) -> (HoverCardModel, @cmd.Cmd) {
   if hover_card_is_active(next) || !next.open {
     (next, @cmd.none)
@@ -558,13 +561,13 @@ fn[T : @html.IsChildren, C : @html.IsChildren] render_hover_card(
   escape : Bool,
   open : Bool,
   disabled : Bool,
-  open_delay : Int,
-  close_delay : Int,
+  open_delay : Int32,
+  close_delay : Int32,
   hoverable : Bool,
   side : PopupSide,
   align : PopupAlign,
-  side_offset : Int,
-  align_offset : Int,
+  side_offset : Int32,
+  align_offset : Int32,
   trigger_variant : ButtonVariant,
   trigger_size : ButtonSize,
   aria_labelledby : String?,
@@ -641,32 +644,32 @@ fn[T : @html.IsChildren, C : @html.IsChildren] render_hover_card(
 #cfg(target="js")
 pub fn[T : @html.IsChildren, C : @html.IsChildren] hover_card(
   id~ : String,
-  href? : String = "#",
-  target? : @html.Target = Self,
+  href~ : String = "#",
+  target~ : @html.Target = Self,
   rel? : String,
   download? : String,
-  escape? : Bool = false,
-  default_open? : Bool = false,
-  disabled? : Bool = false,
-  open_delay? : Int = 600,
-  close_delay? : Int = 300,
-  hoverable? : Bool = true,
-  side? : PopupSide = Bottom,
-  align? : PopupAlign = Center,
-  side_offset? : Int = 4,
-  align_offset? : Int = 0,
-  trigger_variant? : ButtonVariant = Link,
-  trigger_size? : ButtonSize = Default,
+  escape~ : Bool = false,
+  default_open~ : Bool = false,
+  disabled~ : Bool = false,
+  open_delay~ : Int32 = 600,
+  close_delay~ : Int32 = 300,
+  hoverable~ : Bool = true,
+  side~ : PopupSide = Bottom,
+  align~ : PopupAlign = Center,
+  side_offset~ : Int32 = 4,
+  align_offset~ : Int32 = 0,
+  trigger_variant~ : ButtonVariant = Link,
+  trigger_size~ : ButtonSize = Default,
   aria_labelledby? : String,
   aria_describedby? : String,
   on_open_change? : @cmd.Emit[Bool],
   on_trigger_click? : @cmd.Cmd,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   trigger_attrs? : @html.Attrs,
-  trigger_style? : Array[String] = [],
+  trigger_style~ : Array[String] = [],
   content_attrs? : @html.Attrs,
-  content_style? : Array[String] = [],
+  content_style~ : Array[String] = [],
   trigger : T,
   content : C,
 ) -> @rabbita.Val[@html.Html] {
@@ -741,32 +744,32 @@ pub fn[T : @html.IsChildren, C : @html.IsChildren] hover_card(
 #cfg(not(target="js"))
 pub fn[T : @html.IsChildren, C : @html.IsChildren] hover_card(
   id~ : String,
-  href? : String = "#",
-  target? : @html.Target = Self,
+  href~ : String = "#",
+  target~ : @html.Target = Self,
   rel? : String,
   download? : String,
-  escape? : Bool = false,
-  default_open? : Bool = false,
-  disabled? : Bool = false,
-  open_delay? : Int = 600,
-  close_delay? : Int = 300,
-  hoverable? : Bool = true,
-  side? : PopupSide = Bottom,
-  align? : PopupAlign = Center,
-  side_offset? : Int = 4,
-  align_offset? : Int = 0,
-  trigger_variant? : ButtonVariant = Link,
-  trigger_size? : ButtonSize = Default,
+  escape~ : Bool = false,
+  default_open~ : Bool = false,
+  disabled~ : Bool = false,
+  open_delay~ : Int32 = 600,
+  close_delay~ : Int32 = 300,
+  hoverable~ : Bool = true,
+  side~ : PopupSide = Bottom,
+  align~ : PopupAlign = Center,
+  side_offset~ : Int32 = 4,
+  align_offset~ : Int32 = 0,
+  trigger_variant~ : ButtonVariant = Link,
+  trigger_size~ : ButtonSize = Default,
   aria_labelledby? : String,
   aria_describedby? : String,
   on_open_change? : @cmd.Emit[Bool],
   on_trigger_click? : @cmd.Cmd,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   trigger_attrs? : @html.Attrs,
-  trigger_style? : Array[String] = [],
+  trigger_style~ : Array[String] = [],
   content_attrs? : @html.Attrs,
-  content_style? : Array[String] = [],
+  content_style~ : Array[String] = [],
   trigger : T,
   content : C,
 ) -> @rabbita.Val[@html.Html] {

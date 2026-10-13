@@ -1,8 +1,8 @@
 ///|
 struct MenubarModel {
   active_value : String?
-  active_index : Int
-  focus_index : Int
+  active_index : Int32
+  focus_index : Int32
   menu : MenuCoreModel
 } derive(Eq)
 
@@ -13,9 +13,9 @@ pub extend MenubarModel with Eq::{equal, not_equal}
 struct MenubarScope {
   id : String
   model : MenubarModel
-  counter : Ref[Int]
+  counter : Ref[Int32]
   focus_claimed : Ref[Bool]
-  toggle : @cmd.Emit[(String, Int)]
+  toggle : @cmd.Emit[(String, Int32)]
   close_command : @cmd.Cmd
   toggle_checked : @cmd.Emit[String]
   set_radio : @cmd.Emit[(String, String)]
@@ -25,8 +25,8 @@ struct MenubarScope {
 struct MenubarMenuScope {
   menu : MenuScope
   value : String
-  index : Int
-  focus_index : Int
+  index : Int32
+  focus_index : Int32
   focus_claimed : Ref[Bool]
   active_value_set : Bool
 }
@@ -46,16 +46,16 @@ struct MenubarSubScope {
 ///|
 #cfg(target="js")
 priv enum MenubarMsg {
-  MenubarActivate(String, Int)
-  MenubarSwitch(String, Int)
-  MenubarToggle(String, Int)
+  MenubarActivate(String, Int32)
+  MenubarSwitch(String, Int32)
+  MenubarToggle(String, Int32)
   MenubarClose
-  MenubarNative(String, Int, Bool)
-  MenubarSetActive(Int)
+  MenubarNative(String, Int32, Bool)
+  MenubarSetActive(Int32)
   MenubarToggleChecked(String)
   MenubarSetRadio(String, String)
   MenubarSetSubmenu(MenuSubmenuChange)
-  MenubarSetFocus(Int)
+  MenubarSetFocus(Int32)
 }
 
 ///|
@@ -65,13 +65,13 @@ const MenubarStyle : String = "display:inline-flex;max-width:100%;min-width:0;fl
 const MenubarTriggerStyle : String = "height:1.5rem;border:0;background:var(--rui-menu-item-bg,var(--rui-menu-item-base-bg,transparent));padding-inline:0.375rem;color:var(--rui-menu-item-fg,var(--rui-menu-item-base-fg,inherit));box-shadow:none;padding-block:0.125rem"
 
 ///|
-const MenubarHoverClickWindowMs : Int = 250
+const MenubarHoverClickWindowMs : Int32 = 250
 
 ///|
 #cfg(target="js")
 priv struct MenubarHoverSwitch {
   value : String
-  index : Int
+  index : Int32
   at : Double
 }
 
@@ -80,10 +80,10 @@ priv struct MenubarHoverSwitch {
 priv struct MenubarBinding {
   id : String
   root : @dom.Element
-  activate : Ref[(String, Int, Bool) -> Unit]
-  native_change : Ref[(String, Int, Bool) -> Unit]
+  activate : Ref[(String, Int32, Bool) -> Unit]
+  native_change : Ref[(String, Int32, Bool) -> Unit]
   close : Ref[() -> Unit]
-  set_focus : Ref[(Int) -> Unit]
+  set_focus : Ref[(Int32) -> Unit]
   toggle_contents : Array[@dom.Element]
 }
 
@@ -136,10 +136,10 @@ fn menubar_open_trigger(
 #cfg(target="js")
 fn menubar_focus_menu_index(
   binding : MenubarBinding,
-  index : Int,
+  index : Int32,
   last : Bool,
-  attempt : Int,
-  stable_frames : Int,
+  attempt : Int32,
+  stable_frames : Int32,
 ) -> Unit {
   guard ui_element_by_id(binding.id) is Some(live_root) else { return }
   let content = ui_find_node_list_element(
@@ -347,10 +347,10 @@ fn menubar_bind_content_toggles(binding : MenubarBinding) -> Unit {
 #cfg(target="js")
 fn bind_menubar(
   id : String,
-  activate : (String, Int, Bool) -> Unit,
-  native_change : (String, Int, Bool) -> Unit,
+  activate : (String, Int32, Bool) -> Unit,
+  native_change : (String, Int32, Bool) -> Unit,
   close : () -> Unit,
-  set_focus : (Int) -> Unit,
+  set_focus : (Int32) -> Unit,
 ) -> Unit {
   guard ui_element_by_id(id) is Some(root) else { return }
   if menubar_bindings.get(id) is Some(existing) &&
@@ -442,8 +442,8 @@ fn bind_menubar(
 fn consume_menubar_hover_switch(
   id : String,
   value : String,
-  index : Int,
-  max_age_ms : Int,
+  index : Int32,
+  max_age_ms : Int32,
 ) -> Bool {
   let switched = menubar_hover_switches.get(id)
   menubar_hover_switches.remove(id)
@@ -461,7 +461,7 @@ fn menubar_should_toggle(
   id : String,
   active_value : String?,
   value : String,
-  index : Int,
+  index : Int32,
 ) -> Bool {
   let hover_switched = consume_menubar_hover_switch(
     id,
@@ -474,7 +474,7 @@ fn menubar_should_toggle(
 
 ///|
 #cfg(target="js")
-fn focus_menubar_content(id : String, index : Int) -> Bool {
+fn focus_menubar_content(id : String, index : Int32) -> Bool {
   guard ui_element_by_id(id) is Some(root) else { return false }
   guard ui_find_node_list_element(
       root.query_selector_all("[data-slot=\"menubar-content\"]"),
@@ -515,7 +515,7 @@ fn focus_menubar_content(id : String, index : Int) -> Bool {
 
 ///|
 #cfg(target="js")
-fn menubar_focus_content_cmd(id : String, index : Int) -> @cmd.Cmd {
+fn menubar_focus_content_cmd(id : String, index : Int32) -> @cmd.Cmd {
   @cmd.custom_cmd(kind=AfterRender, _ => {
     ui_after_ready("menubar-focus-content:" + id, () => {
       focus_menubar_content(id, index)
@@ -527,9 +527,9 @@ fn menubar_focus_content_cmd(id : String, index : Int) -> @cmd.Cmd {
 #cfg(target="js")
 fn menubar_restore_trigger_until_stable(
   id : String,
-  index : Int,
-  attempt : Int,
-  stable_frames : Int,
+  index : Int32,
+  attempt : Int32,
+  stable_frames : Int32,
 ) -> Unit {
   if attempt >= 20 || stable_frames >= 3 {
     return
@@ -581,7 +581,7 @@ fn menubar_restore_trigger_until_stable(
 
 ///|
 #cfg(target="js")
-fn menubar_restore_trigger_cmd(id : String, index : Int) -> @cmd.Cmd {
+fn menubar_restore_trigger_cmd(id : String, index : Int32) -> @cmd.Cmd {
   @cmd.custom_cmd(kind=AfterRender, _ => {
     menubar_restore_trigger_until_stable(id, index, 0, 0)
   })
@@ -589,7 +589,7 @@ fn menubar_restore_trigger_cmd(id : String, index : Int) -> @cmd.Cmd {
 
 ///|
 #cfg(not(target="js"))
-fn menubar_restore_trigger_cmd(id : String, index : Int) -> @cmd.Cmd {
+fn menubar_restore_trigger_cmd(id : String, index : Int32) -> @cmd.Cmd {
   ignore((id, index))
   @cmd.none
 }
@@ -598,11 +598,11 @@ fn menubar_restore_trigger_cmd(id : String, index : Int) -> @cmd.Cmd {
 #cfg(target="js")
 fn menubar_bind_cmd(
   id : String,
-  activate : @cmd.Emit[(String, Int)],
-  switch_activate : @cmd.Emit[(String, Int)],
-  native_change : @cmd.Emit[(String, Int, Bool)],
+  activate : @cmd.Emit[(String, Int32)],
+  switch_activate : @cmd.Emit[(String, Int32)],
+  native_change : @cmd.Emit[(String, Int32, Bool)],
   close_command : @cmd.Cmd,
-  set_focus : @cmd.Emit[Int],
+  set_focus : @cmd.Emit[Int32],
 ) -> @cmd.Cmd {
   @cmd.custom_cmd(kind=AfterRender, scheduler => {
     ui_after_mount(
@@ -632,12 +632,12 @@ fn menubar_bind_cmd(
 }
 
 ///|
-fn menubar_content_id(id : String, index : Int) -> String {
+fn menubar_content_id(id : String, index : Int32) -> String {
   id + "-content-\{index}"
 }
 
 ///|
-fn menubar_trigger_id(id : String, index : Int) -> String {
+fn menubar_trigger_id(id : String, index : Int32) -> String {
   id + "-trigger-\{index}"
 }
 
@@ -645,7 +645,7 @@ fn menubar_trigger_id(id : String, index : Int) -> String {
 fn menubar_scope(
   id : String,
   model : MenubarModel,
-  toggle : @cmd.Emit[(String, Int)],
+  toggle : @cmd.Emit[(String, Int32)],
   close_command : @cmd.Cmd,
   toggle_checked : @cmd.Emit[String],
   set_radio : @cmd.Emit[(String, String)],
@@ -667,7 +667,7 @@ fn menubar_change_command(
   id : String,
   current : MenubarModel,
   value : String?,
-  index : Int,
+  index : Int32,
 ) -> @cmd.Cmd {
   let hide_previous = if current.active_index >= 0 &&
     current.active_value != value {
@@ -691,14 +691,14 @@ fn menubar_change_command(
 pub fn menubar(
   id~ : String,
   default_value? : String,
-  default_checked_values? : Array[String] = [],
-  default_radio_values? : Array[(String, String)] = [],
+  default_checked_values~ : Array[String] = [],
+  default_radio_values~ : Array[(String, String)] = [],
   on_value_change? : @cmd.Emit[String?],
-  aria_label? : String = "Application menu",
+  aria_label~ : String = "Application menu",
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (MenubarScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   let initial : MenubarModel = {
@@ -993,14 +993,14 @@ pub fn menubar(
 pub fn menubar(
   id~ : String,
   default_value? : String,
-  default_checked_values? : Array[String] = [],
-  default_radio_values? : Array[(String, String)] = [],
+  default_checked_values~ : Array[String] = [],
+  default_radio_values~ : Array[(String, String)] = [],
   on_value_change? : @cmd.Emit[String?],
-  aria_label? : String = "Application menu",
+  aria_label~ : String = "Application menu",
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (MenubarScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   ignore(on_value_change)
@@ -1057,14 +1057,14 @@ pub fn menubar(
 pub fn menubar_root(
   id~ : String,
   default_value? : String,
-  default_checked_values? : Array[String] = [],
-  default_radio_values? : Array[(String, String)] = [],
+  default_checked_values~ : Array[String] = [],
+  default_radio_values~ : Array[(String, String)] = [],
   on_value_change? : @cmd.Emit[String?],
-  aria_label? : String = "Application menu",
+  aria_label~ : String = "Application menu",
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (MenubarScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   menubar(
@@ -1095,7 +1095,7 @@ pub fn[C : @html.IsChildren] menubar_menu(
   scope : MenubarScope,
   value~ : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (MenubarMenuScope) -> C,
 ) -> @html.Html {
   let index = scope.counter.val
@@ -1132,13 +1132,13 @@ pub fn[C : @html.IsChildren] menubar_menu(
 ///|
 pub fn[C : @html.IsChildren] menubar_trigger(
   scope : MenubarMenuScope,
-  disabled? : Bool = false,
+  disabled~ : Bool = false,
   aria_label? : String,
   on_click? : @cmd.Cmd,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let preferred = if scope.active_value_set {
@@ -1184,13 +1184,13 @@ pub fn[C : @html.IsChildren] menubar_trigger(
 ///|
 pub fn[C : @html.IsChildren] menubar_content(
   scope : MenubarMenuScope,
-  side_offset? : Int = 8,
-  align_offset? : Int = 0,
+  side_offset~ : Int32 = 8,
+  align_offset~ : Int32 = 0,
   aria_label? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let content_attrs = ui_attrs(attrs)
@@ -1219,7 +1219,7 @@ pub fn[C : @html.IsChildren] menubar_group(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   menu_group_surface(
@@ -1230,16 +1230,16 @@ pub fn[C : @html.IsChildren] menubar_group(
 ///|
 pub fn[C : @html.IsChildren] menubar_item(
   scope : MenubarMenuScope,
-  disabled? : Bool = false,
-  inset? : Bool = false,
-  destructive? : Bool = false,
-  close_on_select? : Bool = true,
+  disabled~ : Bool = false,
+  inset~ : Bool = false,
+  destructive~ : Bool = false,
+  close_on_select~ : Bool = true,
   on_select? : @cmd.Cmd,
   aria_label? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   menu_item_surface(
@@ -1268,12 +1268,12 @@ pub fn[C : @html.IsChildren] menubar_item(
 pub fn[C : @html.IsChildren] menubar_checkbox_item(
   scope : MenubarMenuScope,
   value~ : String,
-  disabled? : Bool = false,
-  close_on_select? : Bool = false,
+  disabled~ : Bool = false,
+  close_on_select~ : Bool = false,
   on_checked_change? : @cmd.Emit[Bool],
   on_select? : @cmd.Cmd,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let checked = menu_contains(scope.menu.model.checked, value)
@@ -1310,7 +1310,7 @@ pub fn[C : @html.IsChildren] menubar_radio_group(
   value~ : String,
   aria_label? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (MenubarRadioGroupScope) -> C,
 ) -> @html.Html {
   menu_group_surface(
@@ -1328,12 +1328,12 @@ pub fn[C : @html.IsChildren] menubar_radio_group(
 pub fn[C : @html.IsChildren] menubar_radio_item(
   scope : MenubarRadioGroupScope,
   value~ : String,
-  disabled? : Bool = false,
-  close_on_select? : Bool = false,
+  disabled~ : Bool = false,
+  close_on_select~ : Bool = false,
   on_value_change? : @cmd.Emit[String],
   on_select? : @cmd.Cmd,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let checked = menu_radio_value(scope.menu.model.radios, scope.group) ==
@@ -1367,9 +1367,9 @@ pub fn[C : @html.IsChildren] menubar_radio_item(
 
 ///|
 pub fn[C : @html.IsChildren] menubar_label(
-  inset? : Bool = false,
+  inset~ : Bool = false,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   menu_label_surface("menubar-label", inset, None, None, attrs, style, children)
@@ -1378,7 +1378,7 @@ pub fn[C : @html.IsChildren] menubar_label(
 ///|
 pub fn menubar_separator(
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   menu_separator_surface("menubar-separator", None, attrs, style)
 }
@@ -1386,7 +1386,7 @@ pub fn menubar_separator(
 ///|
 pub fn[C : @html.IsChildren] menubar_shortcut(
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   menu_shortcut_surface("menubar-shortcut", None, None, attrs, style, children)
@@ -1397,7 +1397,7 @@ pub fn[C : @html.IsChildren] menubar_sub(
   scope : MenubarMenuScope,
   value~ : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (MenubarSubScope) -> C,
 ) -> @html.Html {
   let key = menu_submenu_key(scope.menu, value)
@@ -1414,10 +1414,10 @@ pub fn[C : @html.IsChildren] menubar_sub(
 ///|
 pub fn[C : @html.IsChildren] menubar_sub_trigger(
   scope : MenubarSubScope,
-  disabled? : Bool = false,
-  inset? : Bool = false,
+  disabled~ : Bool = false,
+  inset~ : Bool = false,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   menu_item_surface(
@@ -1446,7 +1446,7 @@ pub fn[C : @html.IsChildren] menubar_sub_trigger(
 pub fn[C : @html.IsChildren] menubar_sub_content(
   scope : MenubarSubScope,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   menu_sub_content_surface(

@@ -268,7 +268,7 @@ pub fn accordion_entry(
   value~ : String,
   label~ : String,
   content~ : @html.Html,
-  disabled? : Bool = false,
+  disabled~ : Bool = false,
 ) -> AccordionEntry {
   { value, label, content, disabled, }
 }
@@ -276,14 +276,14 @@ pub fn accordion_entry(
 ///|
 /// Render the root for a composed accordion.
 pub fn[C : @html.IsChildren] accordion_root(
-  type_? : AccordionType = Single,
-  disabled? : Bool = false,
+  type_~ : AccordionType = Single,
+  disabled~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = ui_attrs(attrs)
@@ -319,14 +319,14 @@ pub fn[C : @html.IsChildren] accordion_root(
 /// Render one accordion item container.
 pub fn[C : @html.IsChildren] accordion_item(
   value~ : String,
-  open? : Bool = false,
-  disabled? : Bool = false,
+  open~ : Bool = false,
+  disabled~ : Bool = false,
   name? : String,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = accordion_state_attrs(attrs, "accordion-item", open)
@@ -355,16 +355,16 @@ pub fn[C : @html.IsChildren] accordion_item(
 /// Render one native button accordion trigger.
 pub fn[C : @html.IsChildren] accordion_trigger(
   value~ : String,
-  open? : Bool = false,
-  disabled? : Bool = false,
+  open~ : Bool = false,
+  disabled~ : Bool = false,
   controls? : String,
-  show_indicator? : Bool = true,
+  show_indicator~ : Bool = true,
   on_value_change? : @cmd.Emit[String],
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = accordion_state_attrs(attrs, "accordion-trigger", open)
@@ -422,14 +422,14 @@ pub fn[C : @html.IsChildren] accordion_trigger(
 /// Render one accordion panel.
 pub fn[C : @html.IsChildren] accordion_content(
   value~ : String,
-  open? : Bool = false,
-  force_mount? : Bool = false,
+  open~ : Bool = false,
+  force_mount~ : Bool = false,
   labelledby? : String,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = accordion_state_attrs(attrs, "accordion-content", open)
@@ -475,21 +475,21 @@ pub fn[C : @html.IsChildren] accordion_content(
 fn render_accordion(
   items~ : Array[AccordionEntry],
   values~ : Array[String],
-  type_? : AccordionType = Single,
-  collapsible? : Bool = true,
-  disabled? : Bool = false,
-  show_indicator? : Bool = true,
-  force_mount? : Bool = false,
+  type_~ : AccordionType = Single,
+  collapsible~ : Bool = true,
+  disabled~ : Bool = false,
+  show_indicator~ : Bool = true,
+  force_mount~ : Bool = false,
   on_value_change? : @cmd.Emit[String],
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  item_style? : Array[String] = [],
-  trigger_style? : Array[String] = [],
-  content_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  item_style~ : Array[String] = [],
+  trigger_style~ : Array[String] = [],
+  content_style~ : Array[String] = [],
 ) -> @html.Html {
   let item_nodes : Array[@html.Html] = []
   for index, item in items {
@@ -562,22 +562,22 @@ fn render_accordion(
 #cfg(target="js")
 pub fn accordion(
   items~ : Array[AccordionEntry],
-  type_? : AccordionType = Single,
-  collapsible? : Bool = true,
-  disabled? : Bool = false,
+  type_~ : AccordionType = Single,
+  collapsible~ : Bool = true,
+  disabled~ : Bool = false,
   default_value? : String,
-  default_values? : Array[String] = [],
-  show_indicator? : Bool = true,
-  force_mount? : Bool = false,
+  default_values~ : Array[String] = [],
+  show_indicator~ : Bool = true,
+  force_mount~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  item_style? : Array[String] = [],
-  trigger_style? : Array[String] = [],
-  content_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  item_style~ : Array[String] = [],
+  trigger_style~ : Array[String] = [],
+  content_style~ : Array[String] = [],
 ) -> @rabbita.Val[@html.Html] {
   let initial = accordion_initial_values(
     items, type_, default_value, default_values,
@@ -615,22 +615,22 @@ pub fn accordion(
 #cfg(not(target="js"))
 pub fn accordion(
   items~ : Array[AccordionEntry],
-  type_? : AccordionType = Single,
-  collapsible? : Bool = true,
-  disabled? : Bool = false,
+  type_~ : AccordionType = Single,
+  collapsible~ : Bool = true,
+  disabled~ : Bool = false,
   default_value? : String,
-  default_values? : Array[String] = [],
-  show_indicator? : Bool = true,
-  force_mount? : Bool = false,
+  default_values~ : Array[String] = [],
+  show_indicator~ : Bool = true,
+  force_mount~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  item_style? : Array[String] = [],
-  trigger_style? : Array[String] = [],
-  content_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  item_style~ : Array[String] = [],
+  trigger_style~ : Array[String] = [],
+  content_style~ : Array[String] = [],
 ) -> @rabbita.Val[@html.Html] {
   let values = accordion_initial_values(
     items, type_, default_value, default_values,

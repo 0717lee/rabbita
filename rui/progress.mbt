@@ -48,7 +48,7 @@ const ProgressLabelStyle : String = "font-size:0.875rem;line-height:1.25rem;font
 const ProgressValueStyle : String = "margin-inline-start:auto;color:var(--rui-muted-foreground,oklch(0.556 0 0));font-size:0.875rem;line-height:1.25rem;font-variant-numeric:tabular-nums"
 
 ///|
-fn progress_effective_max(min : Int, max : Int) -> Int {
+fn progress_effective_max(min : Int32, max : Int32) -> Int32 {
   if max < min {
     min
   } else {
@@ -57,7 +57,7 @@ fn progress_effective_max(min : Int, max : Int) -> Int {
 }
 
 ///|
-fn progress_clamped_value(value : Int, min : Int, max : Int) -> Int {
+fn progress_clamped_value(value : Int32, min : Int32, max : Int32) -> Int32 {
   let max = progress_effective_max(min, max)
   if max == min {
     min
@@ -71,7 +71,7 @@ fn progress_clamped_value(value : Int, min : Int, max : Int) -> Int {
 }
 
 ///|
-fn progress_percentage(value : Int, min : Int, max : Int) -> Int {
+fn progress_percentage(value : Int32, min : Int32, max : Int32) -> Int32 {
   let max = progress_effective_max(min, max)
   if max == min {
     100
@@ -82,7 +82,7 @@ fn progress_percentage(value : Int, min : Int, max : Int) -> Int {
 }
 
 ///|
-fn progress_state(value : Int?, min : Int, max : Int) -> ProgressState {
+fn progress_state(value : Int32?, min : Int32, max : Int32) -> ProgressState {
   if value is Some(value) {
     let max = progress_effective_max(min, max)
     if progress_clamped_value(value, min, max) == max {
@@ -115,7 +115,7 @@ fn progress_state_attrs(
 }
 
 ///|
-fn progress_indicator_width(value : Int?, min : Int, max : Int) -> String {
+fn progress_indicator_width(value : Int32?, min : Int32, max : Int32) -> String {
   if value is Some(value) {
     "width:\{progress_percentage(value, min, max)}%"
   } else {
@@ -124,7 +124,7 @@ fn progress_indicator_width(value : Int?, min : Int, max : Int) -> String {
 }
 
 ///|
-fn progress_aria_text(value : Int?, min : Int, max : Int) -> String {
+fn progress_aria_text(value : Int32?, min : Int32, max : Int32) -> String {
   if value is Some(value) {
     "\{progress_percentage(value, min, max)}%"
   } else {
@@ -133,7 +133,7 @@ fn progress_aria_text(value : Int?, min : Int, max : Int) -> String {
 }
 
 ///|
-fn progress_display_text(value : Int?, min : Int, max : Int) -> String {
+fn progress_display_text(value : Int32?, min : Int32, max : Int32) -> String {
   if value is Some(value) {
     "\{progress_percentage(value, min, max)}%"
   } else {
@@ -149,9 +149,9 @@ fn progress_display_text(value : Int?, min : Int, max : Int) -> String {
 /// normalized to `min`. `None` renders the indeterminate state and omits
 /// `aria-valuenow`.
 pub fn progress(
-  value? : Int,
-  min? : Int = 0,
-  max? : Int = 100,
+  value? : Int32,
+  min~ : Int32 = 0,
+  max~ : Int32 = 100,
   aria_label? : String,
   aria_value_text? : String,
   labelledby? : String,
@@ -160,8 +160,8 @@ pub fn progress(
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  children? : Array[@html.Html] = [],
+  style~ : Array[String] = [],
+  children~ : Array[@html.Html] = [],
 ) -> @html.Html {
   let state = progress_state(value, min, max)
   let effective_max = progress_effective_max(min, max)
@@ -208,15 +208,15 @@ pub fn progress(
 
 ///|
 pub fn[C : @html.IsChildren] progress_track(
-  value? : Int,
-  min? : Int = 0,
-  max? : Int = 100,
+  value? : Int32,
+  min~ : Int32 = 0,
+  max~ : Int32 = 100,
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -236,15 +236,15 @@ pub fn[C : @html.IsChildren] progress_track(
 
 ///|
 pub fn progress_indicator(
-  value? : Int,
-  min? : Int = 0,
-  max? : Int = 100,
+  value? : Int32,
+  min~ : Int32 = 0,
+  max~ : Int32 = 100,
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   let indicator = @html.div(
     style=ui_styles(
@@ -277,15 +277,15 @@ pub fn progress_indicator(
 /// Render a progress label. Pass the same `id` to `progress(labelledby=...)`
 /// because a stateless Rabbita function cannot register the label implicitly.
 pub fn[C : @html.IsChildren] progress_label(
-  value? : Int,
-  min? : Int = 0,
-  max? : Int = 100,
+  value? : Int32,
+  min~ : Int32 = 0,
+  max~ : Int32 = 100,
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = progress_state_attrs(
@@ -308,16 +308,16 @@ pub fn[C : @html.IsChildren] progress_label(
 /// Render the formatted percentage, or an empty span for indeterminate state.
 /// `text` overrides the default formatting while preserving `aria-hidden`.
 pub fn progress_value(
-  value? : Int,
-  min? : Int = 0,
-  max? : Int = 100,
+  value? : Int32,
+  min~ : Int32 = 0,
+  max~ : Int32 = 100,
   text? : String,
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   let element_attrs = progress_state_attrs(
     attrs,

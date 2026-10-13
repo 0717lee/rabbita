@@ -27,11 +27,11 @@ fn sonner_rich_color_stylesheet() -> @html.Html {
 /// Stateful rich-color toast host matching shadcn's Sonner surface while using
 /// Rabbita incremental state instead of a global JavaScript singleton.
 pub fn sonner(
-  max_toasts? : Int = 3,
-  position? : String = "bottom-right",
+  max_toasts~ : Int32 = 3,
+  position~ : String = "bottom-right",
   class? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (ToastScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   toaster_impl("sonner", true, max_toasts, position, class, attrs, style, scope => {

@@ -24,7 +24,7 @@ pub fn[C : @html.IsChildren] message_group(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -42,12 +42,12 @@ pub fn[C : @html.IsChildren] message_group(
 
 ///|
 pub fn[C : @html.IsChildren] message(
-  align? : ContentAlignment = AlignStart,
+  align~ : ContentAlignment = AlignStart,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let value = content_alignment_value(align)
@@ -78,7 +78,7 @@ pub fn[C : @html.IsChildren] message_avatar(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -103,7 +103,7 @@ pub fn[C : @html.IsChildren] message_content(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -128,7 +128,7 @@ pub fn[C : @html.IsChildren] message_header(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -153,7 +153,7 @@ pub fn[C : @html.IsChildren] message_footer(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(

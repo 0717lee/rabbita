@@ -125,7 +125,7 @@ fn ui_click_element(element : @dom.Element) -> Unit {
 
 ///|
 #cfg(target="js")
-fn ui_set_element_tab_index(element : @dom.Element, value : Int) -> Unit {
+fn ui_set_element_tab_index(element : @dom.Element, value : Int32) -> Unit {
   if element.to_html_element() is Some(html_element) {
     html_element.set_tab_index(value)
   }
@@ -227,7 +227,7 @@ fn ui_roving_target(
 }
 
 ///|
-fn ui_parse_int_or(value : String, fallback : Int) -> Int {
+fn ui_parse_int_or(value : String, fallback : Int32) -> Int32 {
   @string.parse_int(value) catch {
     _ => fallback
   }

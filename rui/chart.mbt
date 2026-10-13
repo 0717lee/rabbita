@@ -41,12 +41,12 @@ fn chart_indicator_style(indicator : ChartIndicator, color : String) -> String {
 /// Nova chart surface for an application-provided SVG, canvas, or chart engine.
 pub fn[C : @html.IsChildren] chart_container(
   aria_label? : String,
-  aspect? : String = "16 / 9",
+  aspect~ : String = "16 / 9",
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let chart_attrs = ui_attrs(attrs).data_set("slot", "chart")
@@ -81,7 +81,7 @@ pub fn[C : @html.IsChildren] chart_tooltip(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.span(
@@ -101,12 +101,12 @@ pub fn[C : @html.IsChildren] chart_tooltip(
 /// starting with `--` are kept verbatim. Unlike shadcn's Recharts helper this
 /// never emits a `<style>` element, so it remains CSP-friendly and copyable.
 pub fn[C : @html.IsChildren] chart_style(
-  variables? : Array[(String, String)] = [],
+  variables~ : Array[(String, String)] = [],
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let carrier_attrs = ui_attrs(attrs).data_set("slot", "chart-style")
@@ -132,12 +132,12 @@ pub fn[C : @html.IsChildren] chart_style(
 
 ///|
 pub fn[C : @html.IsChildren] chart_tooltip_content(
-  active? : Bool = true,
+  active~ : Bool = true,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -166,7 +166,7 @@ pub fn[C : @html.IsChildren] chart_tooltip_label(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -183,13 +183,13 @@ pub fn[C : @html.IsChildren] chart_tooltip_label(
 pub fn chart_tooltip_item(
   label~ : String,
   value~ : String,
-  color? : String = "currentColor",
-  indicator? : ChartIndicator = ChartDot,
+  color~ : String = "currentColor",
+  indicator~ : ChartIndicator = ChartDot,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   @html.div(
     id?,
@@ -227,12 +227,12 @@ pub fn chart_tooltip_item(
 ///|
 fn[C : @html.IsChildren] chart_legend_surface(
   slot : String,
-  position? : String = "bottom",
+  position~ : String = "bottom",
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -261,12 +261,12 @@ fn[C : @html.IsChildren] chart_legend_surface(
 /// This compatibility spelling predates the explicit shadcn content part;
 /// prefer [`chart_legend_content`] for new compound composition.
 pub fn[C : @html.IsChildren] chart_legend(
-  position? : String = "bottom",
+  position~ : String = "bottom",
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   chart_legend_surface(
@@ -284,12 +284,12 @@ pub fn[C : @html.IsChildren] chart_legend(
 ///|
 /// Render the official shadcn chart legend content surface.
 pub fn[C : @html.IsChildren] chart_legend_content(
-  position? : String = "bottom",
+  position~ : String = "bottom",
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   chart_legend_surface(
@@ -306,12 +306,12 @@ pub fn[C : @html.IsChildren] chart_legend_content(
 
 ///|
 pub fn[C : @html.IsChildren] chart_legend_item(
-  color? : String = "currentColor",
+  color~ : String = "currentColor",
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(

@@ -12,7 +12,7 @@ priv enum InputOtpMsg {
 /// Opaque render scope owned by `input_otp`.
 struct InputOtpScope {
   model : InputOtpModel
-  max_length : Int
+  max_length : Int32
   invalid : Bool
   disabled : Bool
   input_id : String
@@ -20,7 +20,7 @@ struct InputOtpScope {
 }
 
 ///|
-fn otp_normalize(value : String, max_length : Int) -> String {
+fn otp_normalize(value : String, max_length : Int32) -> String {
   let mut result = ""
   let mut count = 0
   for character in value {
@@ -59,7 +59,7 @@ pub fn[C : @html.IsChildren] input_otp_group(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -75,12 +75,12 @@ pub fn[C : @html.IsChildren] input_otp_group(
 ///|
 pub fn input_otp_slot(
   scope~ : InputOtpScope,
-  index~ : Int,
+  index~ : Int32,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   let chars = otp_chars(scope.model.value)
   let char_count = chars.length()
@@ -152,7 +152,7 @@ pub fn input_otp_separator(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   @html.div(
     id?,
@@ -174,7 +174,7 @@ pub fn input_otp_separator(
 ///|
 fn input_otp_default_view(
   scope : InputOtpScope,
-  separator_after : Int,
+  separator_after : Int32,
 ) -> @html.Html {
   let split = if separator_after > 0 && separator_after < scope.max_length {
     separator_after
@@ -206,7 +206,7 @@ fn input_otp_default_view(
 ///|
 fn render_input_otp(
   scope : InputOtpScope,
-  separator_after : Int,
+  separator_after : Int32,
   aria_label : String,
   inputmode : String,
   pattern : String?,
@@ -260,13 +260,13 @@ fn render_input_otp(
 #cfg(target="js")
 pub fn input_otp(
   id~ : String,
-  max_length? : Int = 6,
-  default_value? : String = "",
-  separator_after? : Int = -1,
-  disabled? : Bool = false,
-  invalid? : Bool = false,
-  aria_label? : String = "One-time password",
-  inputmode? : String = "numeric",
+  max_length~ : Int32 = 6,
+  default_value~ : String = "",
+  separator_after~ : Int32 = -1,
+  disabled~ : Bool = false,
+  invalid~ : Bool = false,
+  aria_label~ : String = "One-time password",
+  inputmode~ : String = "numeric",
   pattern? : String,
   on_value_change? : @cmd.Emit[String],
   on_complete? : @cmd.Emit[String],
@@ -274,7 +274,7 @@ pub fn input_otp(
   title? : String,
   attrs? : @html.Attrs,
   input_attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   render? : (InputOtpScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   let initial_value = otp_normalize(default_value, max_length)
@@ -320,13 +320,13 @@ pub fn input_otp(
 #cfg(not(target="js"))
 pub fn input_otp(
   id~ : String,
-  max_length? : Int = 6,
-  default_value? : String = "",
-  separator_after? : Int = -1,
-  disabled? : Bool = false,
-  invalid? : Bool = false,
-  aria_label? : String = "One-time password",
-  inputmode? : String = "numeric",
+  max_length~ : Int32 = 6,
+  default_value~ : String = "",
+  separator_after~ : Int32 = -1,
+  disabled~ : Bool = false,
+  invalid~ : Bool = false,
+  aria_label~ : String = "One-time password",
+  inputmode~ : String = "numeric",
   pattern? : String,
   on_value_change? : @cmd.Emit[String],
   on_complete? : @cmd.Emit[String],
@@ -334,7 +334,7 @@ pub fn input_otp(
   title? : String,
   attrs? : @html.Attrs,
   input_attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   render? : (InputOtpScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   ignore((on_value_change, on_complete))

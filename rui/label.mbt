@@ -6,13 +6,13 @@ const LabelBaseStyle : String = "display:flex;align-items:center;gap:0.5rem;colo
 /// shadcn/ui's field-context disabled state.
 pub fn[C : @html.IsChildren] label(
   for_? : String,
-  disabled? : Bool = false,
+  disabled~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let attrs = ui_attrs(attrs).data_set("slot", "label")

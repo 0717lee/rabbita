@@ -12,11 +12,11 @@ pub fn[C : @html.IsChildren] alert_dialog(
   title? : String,
   hidden? : Bool,
   open? : Bool,
-  closedby? : String = "closerequest",
+  closedby~ : String = "closerequest",
   on_close? : @cmd.Emit[String],
   on_cancel? : @cmd.Cmd,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.dialog(
@@ -40,7 +40,7 @@ pub fn[C : @html.IsChildren] alert_dialog_header(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -62,7 +62,7 @@ pub fn[C : @html.IsChildren] alert_dialog_footer(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -84,7 +84,7 @@ pub fn[C : @html.IsChildren] alert_dialog_title(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.h2(
@@ -103,7 +103,7 @@ pub fn[C : @html.IsChildren] alert_dialog_description(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.p(
@@ -123,7 +123,7 @@ pub fn[C : @html.IsChildren] alert_dialog_media(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -139,7 +139,7 @@ pub fn[C : @html.IsChildren] alert_dialog_media(
 ///|
 /// Render the primary submit button for a `<form method="dialog">`.
 pub fn[C : @html.IsChildren] alert_dialog_action(
-  disabled? : Bool = false,
+  disabled~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
@@ -147,7 +147,7 @@ pub fn[C : @html.IsChildren] alert_dialog_action(
   value? : String,
   on_click? : @cmd.Cmd,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = ui_attrs(attrs)
@@ -173,7 +173,7 @@ pub fn[C : @html.IsChildren] alert_dialog_action(
 ///|
 /// Render a cancel submit button with autofocus and no form validation.
 pub fn[C : @html.IsChildren] alert_dialog_cancel(
-  disabled? : Bool = false,
+  disabled~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
@@ -181,7 +181,7 @@ pub fn[C : @html.IsChildren] alert_dialog_cancel(
   value? : String,
   on_click? : @cmd.Cmd,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = ui_attrs(attrs).formnovalidate(true)

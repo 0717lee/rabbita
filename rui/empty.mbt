@@ -37,7 +37,7 @@ pub fn[C : @html.IsChildren] empty(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -56,7 +56,7 @@ pub fn[C : @html.IsChildren] empty_header(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -71,12 +71,12 @@ pub fn[C : @html.IsChildren] empty_header(
 
 ///|
 pub fn[C : @html.IsChildren] empty_media(
-  variant? : EmptyMediaVariant = EmptyMediaDefault,
+  variant~ : EmptyMediaVariant = EmptyMediaDefault,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let variant_value = match variant {
@@ -112,7 +112,7 @@ pub fn[C : @html.IsChildren] empty_title(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -131,7 +131,7 @@ pub fn[C : @html.IsChildren] empty_description(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -150,7 +150,7 @@ pub fn[C : @html.IsChildren] empty_content(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(

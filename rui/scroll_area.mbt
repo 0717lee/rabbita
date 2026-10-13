@@ -1,11 +1,11 @@
 ///|
 pub fn[C : @html.IsChildren] scroll_area(
-  orientation? : SeparatorOrientation = Vertical,
+  orientation~ : SeparatorOrientation = Vertical,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let value = separator_orientation_value(orientation)
@@ -37,12 +37,12 @@ pub fn[C : @html.IsChildren] scroll_area(
 /// Optional visual scrollbar track for layouts that want shadcn's composition.
 /// Native scrolling remains on `scroll_area`; this element is decorative.
 pub fn scroll_bar(
-  orientation? : SeparatorOrientation = Vertical,
+  orientation~ : SeparatorOrientation = Vertical,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   let value = separator_orientation_value(orientation)
   @html.div(
@@ -117,7 +117,7 @@ priv struct ScrollAreaDimensions {
 ///|
 #cfg(target="js")
 priv struct ScrollAreaDrag {
-  pointer_id : Int
+  pointer_id : Int32
   grab : Double
 }
 
@@ -411,7 +411,7 @@ fn scroll_area_is_scrollable(metrics : ScrollAreaMetrics) -> Bool {
 }
 
 ///|
-fn scroll_area_thumb_size_hundredths(metrics : ScrollAreaMetrics) -> Int {
+fn scroll_area_thumb_size_hundredths(metrics : ScrollAreaMetrics) -> Int32 {
   if !scroll_area_is_scrollable(metrics) || metrics.content <= 0.0 {
     10000
   } else {
@@ -422,7 +422,7 @@ fn scroll_area_thumb_size_hundredths(metrics : ScrollAreaMetrics) -> Int {
 }
 
 ///|
-fn scroll_area_thumb_offset_hundredths(metrics : ScrollAreaMetrics) -> Int {
+fn scroll_area_thumb_offset_hundredths(metrics : ScrollAreaMetrics) -> Int32 {
   let max_offset = scroll_area_max_offset(metrics)
   if max_offset <= 0.0 {
     0
@@ -437,7 +437,7 @@ fn scroll_area_thumb_offset_hundredths(metrics : ScrollAreaMetrics) -> Int {
 }
 
 ///|
-fn scroll_area_percent(value : Int) -> String {
+fn scroll_area_percent(value : Int32) -> String {
   let clamped = value.clamp(min=0, max=10000)
   let whole = clamped / 100
   let fraction = clamped % 100
@@ -610,12 +610,12 @@ fn[C : @html.IsChildren] render_scroll_area_with_scrollbar(
 /// component state, so the thumb geometry stays logical across browser modes.
 #cfg(target="js")
 pub fn[C : @html.IsChildren] scroll_area_with_scrollbar(
-  orientation? : SeparatorOrientation = Vertical,
+  orientation~ : SeparatorOrientation = Vertical,
   id~ : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @rabbita.Val[@html.Html] {
   let viewport_id = "\{id}-viewport"
@@ -654,12 +654,12 @@ pub fn[C : @html.IsChildren] scroll_area_with_scrollbar(
 ///|
 #cfg(not(target="js"))
 pub fn[C : @html.IsChildren] scroll_area_with_scrollbar(
-  orientation? : SeparatorOrientation = Vertical,
+  orientation~ : SeparatorOrientation = Vertical,
   id~ : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @rabbita.Val[@html.Html] {
   @rabbita.Val::constant(

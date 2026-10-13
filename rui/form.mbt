@@ -13,7 +13,7 @@ pub fn[C : @html.IsChildren] form(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.form(
@@ -41,15 +41,15 @@ pub fn[C : @html.IsChildren] form(
 /// relationships explicit on the composed controls.
 pub fn[C : @html.IsChildren] form_field(
   name~ : String,
-  invalid? : Bool = false,
-  required? : Bool = false,
+  invalid~ : Bool = false,
+  required~ : Bool = false,
   describedby? : String,
   errormessage? : String,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let field_attrs = ui_attrs(attrs)
@@ -85,12 +85,12 @@ pub fn[C : @html.IsChildren] form_field(
 
 ///|
 pub fn[C : @html.IsChildren] form_item(
-  invalid? : Bool = false,
+  invalid~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let item_attrs = ui_attrs(attrs)
@@ -120,7 +120,7 @@ pub fn[C : @html.IsChildren] form_label(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.label(
@@ -145,7 +145,7 @@ pub fn[C : @html.IsChildren] form_control(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -164,7 +164,7 @@ pub fn[C : @html.IsChildren] form_description(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.p(
@@ -188,7 +188,7 @@ pub fn[C : @html.IsChildren] form_message(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(

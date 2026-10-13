@@ -1,13 +1,13 @@
 ///|
 priv struct CommandModel {
   query : String
-  active : Int
+  active : Int32
 } derive(Eq)
 
 ///|
 priv enum CommandMessage {
-  CommandSetQuery(String, Int)
-  CommandSetActive(Int)
+  CommandSetQuery(String, Int32)
+  CommandSetActive(Int32)
   CommandSelect(String, @cmd.Cmd)
   CommandReset
 }
@@ -32,8 +32,8 @@ struct CommandScope {
   model : CommandModel
   catalog : Array[CommandEntry]
   collecting : Bool
-  cursor : Ref[Int]
-  group_cursor : Ref[Int]
+  cursor : Ref[Int32]
+  group_cursor : Ref[Int32]
   list_id : Ref[String]
   filter : (String, String, Array[String]) -> Bool
   should_filter : Bool
@@ -114,7 +114,7 @@ fn command_entry_matches(
 }
 
 ///|
-fn command_match_count(scope : CommandScope) -> Int {
+fn command_match_count(scope : CommandScope) -> Int32 {
   let mut count = 0
   for entry in scope.catalog {
     if command_entry_matches(
@@ -130,7 +130,7 @@ fn command_match_count(scope : CommandScope) -> Int {
 }
 
 ///|
-fn command_entry_enabled(scope : CommandScope, index : Int) -> Bool {
+fn command_entry_enabled(scope : CommandScope, index : Int32) -> Bool {
   index >= 0 &&
   index < scope.catalog.length() &&
   !scope.catalog[index].disabled &&
@@ -149,7 +149,7 @@ fn command_first_match(
   reverse : Bool,
   should_filter : Bool,
   filter : (String, String, Array[String]) -> Bool,
-) -> Int {
+) -> Int32 {
   if reverse {
     let mut index = catalog.length() - 1
     while index >= 0 {
@@ -172,7 +172,7 @@ fn command_first_match(
 }
 
 ///|
-fn command_next_match(scope : CommandScope, direction : Int) -> Int {
+fn command_next_match(scope : CommandScope, direction : Int32) -> Int32 {
   let length = scope.catalog.length()
   if length == 0 {
     return -1
@@ -200,7 +200,7 @@ fn command_next_match(scope : CommandScope, direction : Int) -> Int {
 }
 
 ///|
-fn command_item_id(scope : CommandScope, index : Int) -> String {
+fn command_item_id(scope : CommandScope, index : Int32) -> String {
   if index >= 0 &&
     index < scope.catalog.length() &&
     scope.catalog[index].id is Some(id) {
@@ -234,7 +234,7 @@ fn command_notify_string(
 
 ///|
 #cfg(target="js")
-fn command_scroll_active_now(root_id : String, index : Int) -> Unit {
+fn command_scroll_active_now(root_id : String, index : Int32) -> Unit {
   guard ui_element_by_id(root_id) is Some(root) else { return }
   guard root.query_selector("[data-command-index=\"\{index}\"]") is Some(option) else {
     return
@@ -244,7 +244,7 @@ fn command_scroll_active_now(root_id : String, index : Int) -> Unit {
 
 ///|
 #cfg(target="js")
-fn command_scroll_active(root_id : String, index : Int) -> @cmd.Cmd {
+fn command_scroll_active(root_id : String, index : Int32) -> @cmd.Cmd {
   if index < 0 {
     return @cmd.none
   }
@@ -255,7 +255,7 @@ fn command_scroll_active(root_id : String, index : Int) -> @cmd.Cmd {
 
 ///|
 #cfg(not(target="js"))
-fn command_scroll_active(root_id : String, index : Int) -> @cmd.Cmd {
+fn command_scroll_active(root_id : String, index : Int32) -> @cmd.Cmd {
   ignore((root_id, index))
   @cmd.none
 }
@@ -467,17 +467,17 @@ pub fn command_query(scope : CommandScope) -> String {
 /// `aria-activedescendant`.
 pub fn command_input(
   scope~ : CommandScope,
-  placeholder? : String = "Type a command or search...",
-  aria_label? : String = "Search commands",
-  auto_complete? : @html.AutoComplete = Off,
-  disabled? : Bool = false,
+  placeholder~ : String = "Type a command or search...",
+  aria_label~ : String = "Search commands",
+  auto_complete~ : @html.AutoComplete = Off,
+  disabled~ : Bool = false,
   on_input? : @cmd.Emit[String],
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  input_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  input_style~ : Array[String] = [],
 ) -> @html.Html {
   if scope.collecting {
     return @html.nothing
@@ -558,12 +558,12 @@ pub fn command_input(
 ///|
 pub fn[C : @html.IsChildren] command_list(
   scope~ : CommandScope,
-  aria_label? : String = "Commands",
+  aria_label~ : String = "Commands",
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   if scope.collecting {
@@ -591,7 +591,7 @@ pub fn[C : @html.IsChildren] command_empty(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   if scope.collecting {
@@ -633,8 +633,8 @@ pub fn[C : @html.IsChildren] command_group(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  heading_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  heading_style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   if scope.collecting {
@@ -686,7 +686,7 @@ pub fn command_separator(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   @html.div(
     style=ui_styles([UiBoxSizing, CommandSeparatorStyle], style),
@@ -705,16 +705,16 @@ pub fn command_separator(
 pub fn[C : @html.IsChildren] command_item(
   scope~ : CommandScope,
   value~ : String,
-  keywords? : Array[String] = [],
-  disabled? : Bool = false,
-  force_mount? : Bool = false,
+  keywords~ : Array[String] = [],
+  disabled~ : Bool = false,
+  force_mount~ : Bool = false,
   on_select? : @cmd.Emit[String],
   on_click? : @cmd.Cmd,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let commands : Array[@cmd.Cmd] = []
@@ -801,7 +801,7 @@ pub fn[C : @html.IsChildren] command_shortcut(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.span(
@@ -866,15 +866,15 @@ fn command_update(
 #cfg(target="js")
 pub fn command_box(
   id~ : String,
-  default_query? : String = "",
-  should_filter? : Bool = true,
+  default_query~ : String = "",
+  should_filter~ : Bool = true,
   filter? : (String, String, Array[String]) -> Bool,
   on_value_select? : @cmd.Emit[String],
   on_query_change? : @cmd.Emit[String],
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (CommandScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   let matcher = filter.unwrap_or(command_default_filter)
@@ -898,15 +898,15 @@ pub fn command_box(
 #cfg(not(target="js"))
 pub fn command_box(
   id~ : String,
-  default_query? : String = "",
-  should_filter? : Bool = true,
+  default_query~ : String = "",
+  should_filter~ : Bool = true,
   filter? : (String, String, Array[String]) -> Bool,
   on_value_select? : @cmd.Emit[String],
   on_query_change? : @cmd.Emit[String],
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (CommandScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   ignore((on_value_select, on_query_change))
@@ -940,13 +940,13 @@ pub fn command_box(
 #cfg(target="js")
 pub fn command_dialog(
   id~ : String,
-  default_query? : String = "",
-  should_filter? : Bool = true,
+  default_query~ : String = "",
+  should_filter~ : Bool = true,
   filter? : (String, String, Array[String]) -> Bool,
-  close_on_select? : Bool = true,
+  close_on_select~ : Bool = true,
   open? : Bool,
-  closedby? : String = "any",
-  aria_label? : String = "Command menu",
+  closedby~ : String = "any",
+  aria_label~ : String = "Command menu",
   on_value_select? : @cmd.Emit[String],
   on_query_change? : @cmd.Emit[String],
   on_close? : @cmd.Emit[String],
@@ -954,7 +954,7 @@ pub fn command_dialog(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (CommandScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   let root_id = "\{id}-command"
@@ -1014,13 +1014,13 @@ pub fn command_dialog(
 #cfg(not(target="js"))
 pub fn command_dialog(
   id~ : String,
-  default_query? : String = "",
-  should_filter? : Bool = true,
+  default_query~ : String = "",
+  should_filter~ : Bool = true,
   filter? : (String, String, Array[String]) -> Bool,
-  close_on_select? : Bool = true,
+  close_on_select~ : Bool = true,
   open? : Bool,
-  closedby? : String = "any",
-  aria_label? : String = "Command menu",
+  closedby~ : String = "any",
+  aria_label~ : String = "Command menu",
   on_value_select? : @cmd.Emit[String],
   on_query_change? : @cmd.Emit[String],
   on_close? : @cmd.Emit[String],
@@ -1028,7 +1028,7 @@ pub fn command_dialog(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (CommandScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   ignore((close_on_select, on_value_select, on_query_change))

@@ -58,9 +58,9 @@ pub fn[C : @html.IsChildren] table(
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   container_attrs? : @html.Attrs,
-  container_style? : Array[String] = [],
+  container_style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let table_node = @html.table(
@@ -89,7 +89,7 @@ pub fn[C : @html.IsChildren] table_header(
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.thead(
@@ -110,7 +110,7 @@ pub fn[C : @html.IsChildren] table_body(
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.tbody(
@@ -131,7 +131,7 @@ pub fn[C : @html.IsChildren] table_footer(
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.tfoot(
@@ -147,14 +147,14 @@ pub fn[C : @html.IsChildren] table_footer(
 
 ///|
 pub fn[C : @html.IsChildren] table_row(
-  selected? : Bool = false,
-  expanded? : Bool = false,
+  selected~ : Bool = false,
+  expanded~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = table_part_attrs(attrs, "table-row")
@@ -184,17 +184,17 @@ pub fn[C : @html.IsChildren] table_row(
 
 ///|
 pub fn[C : @html.IsChildren] table_head(
-  scope? : @html.Scope = Col,
+  scope~ : @html.Scope = Col,
   abbr? : String,
-  colspan? : Int,
-  rowspan? : Int,
+  colspan? : Int32,
+  rowspan? : Int32,
   headers? : String,
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.th(
@@ -215,15 +215,15 @@ pub fn[C : @html.IsChildren] table_head(
 
 ///|
 pub fn[C : @html.IsChildren] table_cell(
-  colspan? : Int,
-  rowspan? : Int,
+  colspan? : Int32,
+  rowspan? : Int32,
   headers? : String,
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.td(
@@ -247,7 +247,7 @@ pub fn[C : @html.IsChildren] table_caption(
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.caption(

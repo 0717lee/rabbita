@@ -13,34 +13,34 @@ pub extend ToastVariant with Eq::{equal, not_equal}
 
 ///|
 priv struct ToastEntry {
-  id : Int
+  id : Int32
   title : String
   description : String?
   variant : ToastVariant
   closing : Bool
-  swipe_direction : Int
+  swipe_direction : Int32
 } derive(Eq)
 
 ///|
 priv struct ToastModel {
-  next_id : Int
+  next_id : Int32
   entries : Array[ToastEntry]
   pause_sources : Array[String]
-  expired : Array[Int]
+  expired : Array[Int32]
 } derive(Eq)
 
 ///|
 priv enum ToastMsg {
-  ShowToast(String, String?, ToastVariant, Int)
-  DismissToast(Int, Int)
-  AutoDismissToast(Int)
+  ShowToast(String, String?, ToastVariant, Int32)
+  DismissToast(Int32, Int32)
+  AutoDismissToast(Int32)
   SetToastPaused(String, Bool)
-  RemoveToast(Int)
+  RemoveToast(Int32)
   DismissAllToasts
 }
 
 ///|
-const ToastExitDurationMs : Int = 150
+const ToastExitDurationMs : Int32 = 150
 
 ///|
 const ToastSurfaceStyle : String = "position:relative;display:grid;width:100%;grid-template-columns:1fr auto;align-items:start;gap:0.25rem 0.75rem;border:1px solid;border-radius:var(--rui-toast-radius,var(--rui-toast-base-radius,1rem));padding:0.875rem 1rem;box-shadow:var(--rui-toast-shadow,var(--rui-toast-base-shadow,0 4px 12px rgb(0 0 0 / 0.1)));touch-action:pan-y;transition:opacity 150ms ease,transform 150ms ease,box-shadow 200ms ease"
@@ -68,14 +68,14 @@ pub fn ToastScope::show(
   self : ToastScope,
   title~ : String,
   description? : String,
-  variant? : ToastVariant = ToastDefault,
-  duration_ms? : Int = 4000,
+  variant~ : ToastVariant = ToastDefault,
+  duration_ms~ : Int32 = 4000,
 ) -> @cmd.Cmd {
   (self.emit)(ShowToast(title, description, variant, duration_ms))
 }
 
 ///|
-pub fn ToastScope::dismiss(self : ToastScope, id~ : Int) -> @cmd.Cmd {
+pub fn ToastScope::dismiss(self : ToastScope, id~ : Int32) -> @cmd.Cmd {
   (self.emit)(DismissToast(id, 0))
 }
 
@@ -115,13 +115,13 @@ fn toast_variant_style(variant : ToastVariant, rich_colors : Bool) -> String {
 
 ///|
 pub fn[C : @html.IsChildren] toast(
-  variant? : ToastVariant = ToastDefault,
-  open? : Bool = true,
+  variant~ : ToastVariant = ToastDefault,
+  open~ : Bool = true,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -168,7 +168,7 @@ pub fn[C : @html.IsChildren] toast_title(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -190,7 +190,7 @@ pub fn[C : @html.IsChildren] toast_description(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -215,7 +215,7 @@ pub fn[C : @html.IsChildren] toast_action(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   button(
@@ -235,13 +235,13 @@ pub fn[C : @html.IsChildren] toast_action(
 ///|
 pub fn toast_close(
   scope~ : ToastScope,
-  toast_id~ : Int,
-  label? : String = "Close notification",
+  toast_id~ : Int32,
+  label~ : String = "Close notification",
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   button(
     variant=Ghost,
@@ -260,7 +260,7 @@ pub fn toast_close(
 ///|
 fn toast_trimmed(
   entries : Array[ToastEntry],
-  max_toasts : Int,
+  max_toasts : Int32,
 ) -> Array[ToastEntry] {
   let limit = if max_toasts < 1 { 1 } else { max_toasts }
   let start = if entries.length() > limit {
@@ -278,7 +278,7 @@ fn toast_trimmed(
 }
 
 ///|
-fn toast_remove(entries : Array[ToastEntry], id : Int) -> Array[ToastEntry] {
+fn toast_remove(entries : Array[ToastEntry], id : Int32) -> Array[ToastEntry] {
   let result : Array[ToastEntry] = []
   for entry in entries {
     if entry.id != id {
@@ -291,8 +291,8 @@ fn toast_remove(entries : Array[ToastEntry], id : Int) -> Array[ToastEntry] {
 ///|
 fn toast_mark_closing(
   entries : Array[ToastEntry],
-  id : Int,
-  swipe_direction : Int,
+  id : Int32,
+  swipe_direction : Int32,
 ) -> (Array[ToastEntry], Bool) {
   let result : Array[ToastEntry] = []
   let mut changed = false
@@ -310,9 +310,9 @@ fn toast_mark_closing(
 ///|
 fn toast_mark_all_closing(
   entries : Array[ToastEntry],
-) -> (Array[ToastEntry], Array[Int]) {
+) -> (Array[ToastEntry], Array[Int32]) {
   let result : Array[ToastEntry] = []
-  let ids : Array[Int] = []
+  let ids : Array[Int32] = []
   for entry in entries {
     if entry.closing {
       result.push(entry)
@@ -328,11 +328,11 @@ fn toast_mark_all_closing(
 #cfg(target="js")
 priv struct ToastPointerState {
   surface : @dom.Element
-  pointer_id : Int
+  pointer_id : Int32
   start_x : Double
   start_y : Double
   start_time : Double
-  direction : Int
+  direction : Int32
   mut active : Bool
   transition : String
 }
@@ -455,7 +455,7 @@ fn toast_pointer_move(event : @dom.MouseEvent) -> Bool {
 
 ///|
 #cfg(target="js")
-fn toast_pointer_end(event : @dom.MouseEvent) -> Int {
+fn toast_pointer_end(event : @dom.MouseEvent) -> Int32 {
   guard event.to_pointer_event() is Some(pointer) else { return 0 }
   guard pointer.current_target().to_option() is Some(current_target) else {
     return 0
@@ -499,7 +499,7 @@ fn toast_pointer_cancel(event : @dom.MouseEvent) -> Unit {
 fn toast_bind_pointer_attrs(
   attrs : @html.Attrs,
   scope : ToastScope,
-  id : Int,
+  id : Int32,
 ) -> Unit {
   ignore(
     attrs
@@ -538,7 +538,7 @@ fn toast_bind_pointer_attrs(
 fn toast_bind_pointer_attrs(
   attrs : @html.Attrs,
   scope : ToastScope,
-  id : Int,
+  id : Int32,
 ) -> Unit {
   ignore((attrs, scope, id))
 }
@@ -724,14 +724,14 @@ fn toast_remove_pause_source(
 ///|
 fn toast_remove_entry_pause_sources(
   sources : Array[String],
-  id : Int,
+  id : Int32,
 ) -> Array[String] {
   let result = toast_remove_pause_source(sources, "hover-\{id}")
   toast_remove_pause_source(result, "focus-\{id}")
 }
 
 ///|
-fn toast_contains_entry(entries : Array[ToastEntry], id : Int) -> Bool {
+fn toast_contains_entry(entries : Array[ToastEntry], id : Int32) -> Bool {
   for entry in entries {
     if entry.id == id {
       return true
@@ -742,10 +742,10 @@ fn toast_contains_entry(entries : Array[ToastEntry], id : Int) -> Bool {
 
 ///|
 fn toast_filter_expired(
-  expired : Array[Int],
+  expired : Array[Int32],
   entries : Array[ToastEntry],
-) -> Array[Int] {
-  let result : Array[Int] = []
+) -> Array[Int32] {
+  let result : Array[Int32] = []
   for id in expired {
     if toast_contains_entry(entries, id) {
       result.push(id)
@@ -758,7 +758,7 @@ fn toast_filter_expired(
 fn toast_with_pause_sources(
   model : ToastModel,
   pause_sources : Array[String],
-) -> (ToastModel, Array[Int]) {
+) -> (ToastModel, Array[Int32]) {
   let resumed = model.pause_sources.length() > 0 && pause_sources.length() == 0
   (
     {
@@ -783,7 +783,7 @@ fn toast_set_paused(
   model : ToastModel,
   source : String,
   paused : Bool,
-) -> (ToastModel, Array[Int]) {
+) -> (ToastModel, Array[Int32]) {
   if paused {
     if model.pause_sources.contains(source) {
       (model, [])
@@ -807,7 +807,7 @@ fn toast_set_paused(
 fn toaster_impl(
   slot : String,
   rich_colors : Bool,
-  max_toasts : Int,
+  max_toasts : Int32,
   position : String,
   class : String?,
   attrs : @html.Attrs?,
@@ -973,7 +973,7 @@ fn toaster_impl(
 fn toaster_impl(
   slot : String,
   rich_colors : Bool,
-  max_toasts : Int,
+  max_toasts : Int32,
   position : String,
   class : String?,
   attrs : @html.Attrs?,
@@ -999,11 +999,11 @@ fn toaster_impl(
 
 ///|
 pub fn toaster(
-  max_toasts? : Int = 3,
-  position? : String = "bottom-right",
+  max_toasts~ : Int32 = 3,
+  position~ : String = "bottom-right",
   class? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (ToastScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   toaster_impl(

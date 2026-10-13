@@ -2,7 +2,7 @@
 fn render_block(
   state : RenderState,
   block : @cmark.Block,
-  tight? : Bool = false,
+  tight~ : Bool = false,
 ) -> @html.Html {
   match block {
     Blocks({ v, .. }) =>

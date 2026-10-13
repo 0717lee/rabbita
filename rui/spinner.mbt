@@ -5,12 +5,12 @@ const SpinnerStyle : String = "display:inline-flex;width:1rem;height:1rem;align-
 /// Render a self-contained SVG spinner. `theme` supplies the CSS keyframes and
 /// reduced-motion override so motion is not tracked by runtime script.
 pub fn spinner(
-  label? : String = "Loading",
+  label~ : String = "Loading",
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   @html.span(
     id?,

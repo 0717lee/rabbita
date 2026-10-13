@@ -12,17 +12,17 @@ pub extend ResizablePanelSide with Eq::{equal, not_equal}
 
 ///|
 priv enum ResizableGroupMsg {
-  SetResizableGroupSizes(Array[Int])
-  ResizeResizableGroupAt(Int, Int)
+  SetResizableGroupSizes(Array[Int32])
+  ResizeResizableGroupAt(Int32, Int32)
 }
 
 ///|
 /// Opaque render scope owned by [`resizable_group`].
 struct ResizableGroupScope {
   id : String
-  sizes : Array[Int]
-  min_sizes : Array[Int]
-  max_sizes : Array[Int]
+  sizes : Array[Int32]
+  min_sizes : Array[Int32]
+  max_sizes : Array[Int32]
   orientation : SeparatorOrientation
   aria_label : String
   emit : @cmd.Emit[ResizableGroupMsg]
@@ -38,13 +38,13 @@ struct ResizableScope {
 ///|
 priv struct ResizableHandleBounds {
   valid : Bool
-  value : Int
-  min : Int
-  max : Int
+  value : Int32
+  min : Int32
+  max : Int32
 }
 
 ///|
-fn resizable_int_min(left : Int, right : Int) -> Int {
+fn resizable_int_min(left : Int32, right : Int32) -> Int32 {
   if left < right {
     left
   } else {
@@ -53,7 +53,7 @@ fn resizable_int_min(left : Int, right : Int) -> Int {
 }
 
 ///|
-fn resizable_int_max(left : Int, right : Int) -> Int {
+fn resizable_int_max(left : Int32, right : Int32) -> Int32 {
   if left > right {
     left
   } else {
@@ -62,7 +62,7 @@ fn resizable_int_max(left : Int, right : Int) -> Int {
 }
 
 ///|
-fn resizable_clamp(value : Int, min : Int, max : Int) -> Int {
+fn resizable_clamp(value : Int32, min : Int32, max : Int32) -> Int32 {
   if value < min {
     min
   } else if value > max {
@@ -73,19 +73,23 @@ fn resizable_clamp(value : Int, min : Int, max : Int) -> Int {
 }
 
 ///|
-fn resizable_parse(value : String, fallback : Int) -> Int {
+fn resizable_parse(value : String, fallback : Int32) -> Int32 {
   @string.parse_int(value) catch {
     _ => fallback
   }
 }
 
 ///|
-fn resizable_value_at(values : Array[Int], index : Int, fallback : Int) -> Int {
+fn resizable_value_at(
+  values : Array[Int32],
+  index : Int32,
+  fallback : Int32,
+) -> Int32 {
   values.get(index).unwrap_or(fallback)
 }
 
 ///|
-fn resizable_sum(values : Array[Int]) -> Int {
+fn resizable_sum(values : Array[Int32]) -> Int32 {
   let mut total = 0
   for value in values {
     total += value
@@ -94,7 +98,7 @@ fn resizable_sum(values : Array[Int]) -> Int {
 }
 
 ///|
-fn resizable_prefix_size(values : Array[Int], end : Int) -> Int {
+fn resizable_prefix_size(values : Array[Int32], end : Int32) -> Int32 {
   let mut total = 0
   for index, value in values {
     if index < end {
@@ -107,13 +111,13 @@ fn resizable_prefix_size(values : Array[Int], end : Int) -> Int {
 ///|
 fn resizable_pointer_percent(
   orientation : SeparatorOrientation,
-  client_x : Int,
-  client_y : Int,
-  group_left : Int,
-  group_top : Int,
-  group_width : Int,
-  group_height : Int,
-) -> Int? {
+  client_x : Int32,
+  client_y : Int32,
+  group_left : Int32,
+  group_top : Int32,
+  group_width : Int32,
+  group_height : Int32,
+) -> Int32? {
   let (position, start, length) = if orientation is Vertical {
     (client_y, group_top, group_height)
   } else {
@@ -128,14 +132,14 @@ fn resizable_pointer_percent(
 
 ///|
 fn resizable_normalize_sizes(
-  values : Array[Int],
-  min_sizes : Array[Int],
-  max_sizes : Array[Int],
-) -> Array[Int] {
+  values : Array[Int32],
+  min_sizes : Array[Int32],
+  max_sizes : Array[Int32],
+) -> Array[Int32] {
   if values.length() == 0 {
     return [100]
   }
-  let sizes : Array[Int] = []
+  let sizes : Array[Int32] = []
   for index, value in values {
     sizes.push(resizable_clamp(value, min_sizes[index], max_sizes[index]))
   }
@@ -177,17 +181,17 @@ fn resizable_normalize_sizes(
 
 ///|
 fn resizable_prepare_layout(
-  default_sizes : Array[Int],
-  min_sizes : Array[Int],
-  max_sizes : Array[Int],
-) -> (Array[Int], Array[Int], Array[Int]) {
+  default_sizes : Array[Int32],
+  min_sizes : Array[Int32],
+  max_sizes : Array[Int32],
+) -> (Array[Int32], Array[Int32], Array[Int32]) {
   let defaults = if default_sizes.length() == 0 {
     [100]
   } else {
     default_sizes.copy()
   }
-  let minimums : Array[Int] = []
-  let maximums : Array[Int] = []
+  let minimums : Array[Int32] = []
+  let maximums : Array[Int32] = []
   for index, _ in defaults {
     let minimum = resizable_clamp(
       resizable_value_at(min_sizes, index, 0),
@@ -207,10 +211,10 @@ fn resizable_prepare_layout(
 
 ///|
 fn resizable_handle_bounds(
-  sizes : Array[Int],
-  min_sizes : Array[Int],
-  max_sizes : Array[Int],
-  between : Int,
+  sizes : Array[Int32],
+  min_sizes : Array[Int32],
+  max_sizes : Array[Int32],
+  between : Int32,
 ) -> ResizableHandleBounds {
   if between < 0 || between + 1 >= sizes.length() {
     return { valid: false, value: 0, min: 0, max: 0, }
@@ -235,12 +239,12 @@ fn resizable_handle_bounds(
 
 ///|
 fn resizable_resize_between(
-  sizes : Array[Int],
-  min_sizes : Array[Int],
-  max_sizes : Array[Int],
-  between : Int,
-  requested : Int,
-) -> Array[Int] {
+  sizes : Array[Int32],
+  min_sizes : Array[Int32],
+  max_sizes : Array[Int32],
+  between : Int32,
+  requested : Int32,
+) -> Array[Int32] {
   let next = sizes.copy()
   let bounds = resizable_handle_bounds(sizes, min_sizes, max_sizes, between)
   if !bounds.valid {
@@ -255,12 +259,12 @@ fn resizable_resize_between(
 
 ///|
 fn resizable_resize_at_percent(
-  sizes : Array[Int],
-  min_sizes : Array[Int],
-  max_sizes : Array[Int],
-  between : Int,
-  percent : Int,
-) -> Array[Int] {
+  sizes : Array[Int32],
+  min_sizes : Array[Int32],
+  max_sizes : Array[Int32],
+  between : Int32,
+  percent : Int32,
+) -> Array[Int32] {
   resizable_resize_between(
     sizes,
     min_sizes,
@@ -272,12 +276,12 @@ fn resizable_resize_at_percent(
 
 ///|
 fn resizable_key_size(
-  size : Int,
-  min : Int,
-  max : Int,
+  size : Int32,
+  min : Int32,
+  max : Int32,
   orientation : SeparatorOrientation,
   key : String,
-) -> Int? {
+) -> Int32? {
   let requested = match (orientation, key) {
     (_, "Home") => Some(min)
     (_, "End") => Some(max)
@@ -309,13 +313,13 @@ fn resizable_key_for_direction(
 
 ///|
 fn resizable_key_sizes(
-  sizes : Array[Int],
-  min_sizes : Array[Int],
-  max_sizes : Array[Int],
-  between : Int,
+  sizes : Array[Int32],
+  min_sizes : Array[Int32],
+  max_sizes : Array[Int32],
+  between : Int32,
   orientation : SeparatorOrientation,
   key : String,
-) -> Array[Int]? {
+) -> Array[Int32]? {
   let bounds = resizable_handle_bounds(sizes, min_sizes, max_sizes, between)
   if !bounds.valid {
     return None
@@ -337,8 +341,8 @@ fn resizable_is_arrow_key(key : String) -> Bool {
 ///|
 #cfg(target="js")
 priv struct ResizablePointerActive {
-  pointer_id : Int
-  between : Int
+  pointer_id : Int32
+  between : Int32
   handle : @dom.Element
 }
 
@@ -346,7 +350,7 @@ priv struct ResizablePointerActive {
 #cfg(target="js")
 priv struct ResizablePointerBinding {
   root : @dom.Element
-  mut resize : (Int, Int, Int, Int, Int, Int, Int) -> Unit
+  mut resize : (Int32, Int32, Int32, Int32, Int32, Int32, Int32) -> Unit
   mut active : ResizablePointerActive?
 }
 
@@ -486,7 +490,7 @@ fn resizable_bind_pointer_listeners(binding : ResizablePointerBinding) -> Unit {
 #cfg(target="js")
 fn bind_resizable_pointer(
   id : String,
-  resize : (Int, Int, Int, Int, Int, Int, Int) -> Unit,
+  resize : (Int32, Int32, Int32, Int32, Int32, Int32, Int32) -> Unit,
 ) -> Unit {
   guard ui_element_by_id(id) is Some(root) else { return }
   resizable_prune_pointer_bindings()
@@ -545,7 +549,7 @@ fn resizable_bind_pointer_cmd(
 #cfg(target="js")
 fn resizable_group_input_attrs(
   scope : ResizableGroupScope,
-  between : Int,
+  between : Int32,
   label : String,
 ) -> @html.Attrs {
   let attrs = @html.Attrs::build()
@@ -591,7 +595,7 @@ fn resizable_group_input_attrs(
 #cfg(not(target="js"))
 fn resizable_group_input_attrs(
   scope : ResizableGroupScope,
-  between : Int,
+  between : Int32,
   label : String,
 ) -> @html.Attrs {
   ignore(between)
@@ -643,16 +647,16 @@ fn[C : @html.IsChildren] render_resizable_group(
 #cfg(target="js")
 pub fn[C : @html.IsChildren] resizable_group(
   id~ : String,
-  default_sizes~ : Array[Int],
-  min_sizes? : Array[Int] = [],
-  max_sizes? : Array[Int] = [],
-  orientation? : SeparatorOrientation = Horizontal,
-  aria_label? : String = "Resize panels",
-  on_resize? : @cmd.Emit[Array[Int]],
+  default_sizes~ : Array[Int32],
+  min_sizes~ : Array[Int32] = [],
+  max_sizes~ : Array[Int32] = [],
+  orientation~ : SeparatorOrientation = Horizontal,
+  aria_label~ : String = "Resize panels",
+  on_resize? : @cmd.Emit[Array[Int32]],
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (ResizableGroupScope) -> C,
 ) -> @rabbita.Val[@html.Html] {
   let (initial, minimums, maximums) = resizable_prepare_layout(
@@ -700,16 +704,16 @@ pub fn[C : @html.IsChildren] resizable_group(
 #cfg(not(target="js"))
 pub fn[C : @html.IsChildren] resizable_group(
   id~ : String,
-  default_sizes~ : Array[Int],
-  min_sizes? : Array[Int] = [],
-  max_sizes? : Array[Int] = [],
-  orientation? : SeparatorOrientation = Horizontal,
-  aria_label? : String = "Resize panels",
-  on_resize? : @cmd.Emit[Array[Int]],
+  default_sizes~ : Array[Int32],
+  min_sizes~ : Array[Int32] = [],
+  max_sizes~ : Array[Int32] = [],
+  orientation~ : SeparatorOrientation = Horizontal,
+  aria_label~ : String = "Resize panels",
+  on_resize? : @cmd.Emit[Array[Int32]],
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (ResizableGroupScope) -> C,
 ) -> @rabbita.Val[@html.Html] {
   ignore(on_resize)
@@ -740,12 +744,12 @@ pub fn[C : @html.IsChildren] resizable_group(
 ///|
 pub fn[C : @html.IsChildren] resizable_group_panel(
   scope~ : ResizableGroupScope,
-  index~ : Int,
+  index~ : Int32,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let size = resizable_value_at(scope.sizes, index, 0)
@@ -769,7 +773,7 @@ pub fn[C : @html.IsChildren] resizable_group_panel(
 ///|
 fn render_resizable_handle(
   scope : ResizableGroupScope,
-  between : Int,
+  between : Int32,
   outer_id : String?,
   control_id : String,
   with_handle : Bool,
@@ -899,13 +903,13 @@ fn render_resizable_handle(
 ///|
 pub fn resizable_group_handle(
   scope~ : ResizableGroupScope,
-  between~ : Int,
-  with_handle? : Bool = false,
+  between~ : Int32,
+  with_handle~ : Bool = false,
   aria_label? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   let handle_id = "\{scope.id}-handle-\{between}"
   render_resizable_handle(
@@ -925,16 +929,16 @@ pub fn resizable_group_handle(
 ///|
 pub fn[C : @html.IsChildren] resizable_panel_group(
   id~ : String,
-  default_size? : Int = 50,
-  min? : Int = 10,
-  max? : Int = 90,
-  orientation? : SeparatorOrientation = Horizontal,
-  aria_label? : String = "Resize panels",
-  on_resize? : @cmd.Emit[Int],
+  default_size~ : Int32 = 50,
+  min~ : Int32 = 10,
+  max~ : Int32 = 90,
+  orientation~ : SeparatorOrientation = Horizontal,
+  aria_label~ : String = "Resize panels",
+  on_resize? : @cmd.Emit[Int32],
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (ResizableScope) -> C,
 ) -> @rabbita.Val[@html.Html] {
   let min = resizable_clamp(min, 0, 100)
@@ -969,7 +973,7 @@ pub fn[C : @html.IsChildren] resizable_panel(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let side_value = if side is FirstPanel { "first" } else { "second" }
@@ -994,13 +998,13 @@ pub fn[C : @html.IsChildren] resizable_panel(
 ///|
 pub fn resizable_handle(
   scope~ : ResizableScope,
-  with_handle? : Bool = false,
+  with_handle~ : Bool = false,
   aria_label? : String,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   render_resizable_handle(
     scope.group,

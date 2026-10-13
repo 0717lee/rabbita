@@ -15,7 +15,7 @@ fn tooltip_test_model(open : Bool) -> TooltipModel {
 fn tooltip_test_update(
   current : TooltipModel,
   message : TooltipMsg,
-  close_on_click? : Bool = true,
+  close_on_click~ : Bool = true,
 ) -> TooltipModel {
   let (next, _) = tooltip_update(
     "test-tooltip",

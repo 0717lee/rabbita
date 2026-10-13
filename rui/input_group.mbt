@@ -50,13 +50,13 @@ fn input_group_align_style(align : InputGroupAddonAlign) -> String {
 
 ///|
 pub fn[C : @html.IsChildren] input_group(
-  disabled? : Bool = false,
-  invalid? : Bool = false,
+  disabled~ : Bool = false,
+  invalid~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let group_attrs = ui_attrs(attrs)
@@ -94,13 +94,13 @@ pub fn[C : @html.IsChildren] input_group(
 
 ///|
 pub fn[C : @html.IsChildren] input_group_addon(
-  align? : InputGroupAddonAlign = InputInlineStart,
+  align~ : InputGroupAddonAlign = InputInlineStart,
   for_? : String,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let addon_attrs = ui_attrs(attrs)
@@ -143,7 +143,7 @@ pub fn[C : @html.IsChildren] input_group_text(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.span(
@@ -169,7 +169,7 @@ pub fn[C : @html.IsChildren] input_group_text(
 /// `style`; callers never need to know the Input Group's internal data slots.
 pub fn input_group_control(
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   render : (@html.Attrs, Array[String]) -> @html.Html,
 ) -> @html.Html {
   let control_attrs = ui_attrs(attrs)
@@ -209,15 +209,15 @@ fn input_group_button_size_style(size : InputGroupButtonSize) -> String {
 
 ///|
 pub fn[C : @html.IsChildren] input_group_button(
-  size? : InputGroupButtonSize = InputButtonXs,
-  variant? : ButtonVariant = Ghost,
-  disabled? : Bool = false,
+  size~ : InputGroupButtonSize = InputButtonXs,
+  variant~ : ButtonVariant = Ghost,
+  disabled~ : Bool = false,
   on_click? : @cmd.Cmd,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let (button_size, size_value) = input_group_button_size(size)
@@ -243,22 +243,22 @@ pub fn[C : @html.IsChildren] input_group_button(
 
 ///|
 pub fn input_group_input(
-  input_type? : @html.InputType = Text,
+  input_type~ : @html.InputType = Text,
   name? : String,
   value? : String,
   placeholder? : String,
   read_only? : Bool,
-  disabled? : Bool = false,
+  disabled~ : Bool = false,
   required? : Bool,
   autofocus? : Bool,
-  invalid? : Bool = false,
+  invalid~ : Bool = false,
   on_change? : @cmd.Emit[String],
   on_input? : @cmd.Emit[String],
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   input(
     input_type~,
@@ -290,21 +290,21 @@ pub fn input_group_input(
 pub fn input_group_textarea(
   name? : String,
   value? : String,
-  rows? : Int,
-  cols? : Int,
+  rows? : Int32,
+  cols? : Int32,
   placeholder? : String,
   read_only? : Bool,
-  disabled? : Bool = false,
+  disabled~ : Bool = false,
   required? : Bool,
   autofocus? : Bool,
-  invalid? : Bool = false,
+  invalid~ : Bool = false,
   on_change? : @cmd.Emit[String],
   on_input? : @cmd.Emit[String],
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   textarea(
     name?,

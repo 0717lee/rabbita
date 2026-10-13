@@ -61,12 +61,12 @@ fn badge_variant_value(variant : BadgeVariant) -> String {
 
 ///|
 pub fn[C : @html.IsChildren] badge(
-  variant? : BadgeVariant = Default,
+  variant~ : BadgeVariant = Default,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = ui_attrs(attrs)
@@ -115,19 +115,19 @@ fn badge_bind_disabled_link(attrs : @html.Attrs, disabled : Bool) -> Unit {
 /// Render the `asChild` anchor path from the Nova badge recipe as a native link.
 pub fn[C : @html.IsChildren] badge_link(
   href~ : String,
-  variant? : BadgeVariant = Default,
-  disabled? : Bool = false,
+  variant~ : BadgeVariant = Default,
+  disabled~ : Bool = false,
   aria_label? : String,
-  target? : @html.Target = Self,
+  target~ : @html.Target = Self,
   rel? : String,
   download? : String,
-  escape? : Bool = false,
+  escape~ : Bool = false,
   on_click? : @cmd.Cmd,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = ui_attrs(attrs)

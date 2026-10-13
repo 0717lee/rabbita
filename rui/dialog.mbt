@@ -21,13 +21,13 @@ pub fn[C : @html.IsChildren] dialog(
   title? : String,
   hidden? : Bool,
   open? : Bool,
-  closedby? : String = "any",
-  show_close? : Bool = true,
-  close_label? : String = "Close",
+  closedby~ : String = "any",
+  show_close~ : Bool = true,
+  close_label~ : String = "Close",
   on_close? : @cmd.Emit[String],
   on_cancel? : @cmd.Cmd,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.dialog(
@@ -89,7 +89,7 @@ pub fn[C : @html.IsChildren] dialog_header(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -112,7 +112,7 @@ pub fn[C : @html.IsChildren] dialog_footer(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -134,7 +134,7 @@ pub fn[C : @html.IsChildren] dialog_title(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.h2(
@@ -153,7 +153,7 @@ pub fn[C : @html.IsChildren] dialog_description(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.p(

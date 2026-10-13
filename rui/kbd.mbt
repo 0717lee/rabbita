@@ -10,7 +10,7 @@ pub fn[C : @html.IsChildren] kbd(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.kbd(
@@ -29,7 +29,7 @@ pub fn[C : @html.IsChildren] kbd_group(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.kbd(

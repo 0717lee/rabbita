@@ -10,7 +10,7 @@ struct SelectOption {
 pub fn select_option(
   value~ : String,
   label~ : String,
-  disabled? : Bool = false,
+  disabled~ : Bool = false,
 ) -> SelectOption {
   { value, label, disabled, }
 }
@@ -19,24 +19,24 @@ pub fn select_option(
 priv struct SelectModel {
   open : Bool
   value : String?
-  active : Int
+  active : Int32
   search : String
-  search_generation : Int
+  search_generation : Int32
 } derive(Eq)
 
 ///|
 priv enum SelectMsg {
   SelectToggle
   SelectNativeChanged(Bool)
-  SelectMove(Int)
-  SelectHighlight(Int)
+  SelectMove(Int32)
+  SelectHighlight(Int32)
   SelectFirst
   SelectLast
-  SelectChoose(Int)
+  SelectChoose(Int32)
   SelectClose
   SelectDismiss
   SelectTypeahead(String)
-  SelectClearTypeahead(Int)
+  SelectClearTypeahead(Int32)
 }
 
 ///|
@@ -52,8 +52,8 @@ struct SelectScope {
   name : String?
   side : PopupSide
   align : PopupAlign
-  side_offset : Int
-  align_offset : Int
+  side_offset : Int32
+  align_offset : Int32
   emit : @cmd.Emit[SelectMsg]
   content_id : Ref[String]
   trigger_id : Ref[String]
@@ -72,7 +72,7 @@ const SelectContentStyle : String = "position:fixed;inset:auto;left:var(--rui-fl
 const SelectItemStyle : String = "position:relative;display:flex;width:100%;align-items:center;gap:0.375rem;border:0;border-radius:calc(var(--rui-radius,0.625rem) - 0.125rem);background:var(--rui-menu-item-bg,var(--rui-menu-item-base-bg,transparent));padding-block:0.25rem;padding-inline:0.375rem 2rem;color:var(--rui-menu-item-fg,var(--rui-menu-item-base-fg,inherit));font:inherit;font-size:0.875rem;line-height:1.25rem;text-align:start;white-space:nowrap;outline:none;cursor:pointer"
 
 ///|
-fn select_find_value(options : Array[SelectOption], value : String?) -> Int {
+fn select_find_value(options : Array[SelectOption], value : String?) -> Int32 {
   if value is Some(value) {
     for index, option in options {
       if option.value == value && !option.disabled {
@@ -84,7 +84,7 @@ fn select_find_value(options : Array[SelectOption], value : String?) -> Int {
 }
 
 ///|
-fn select_first_enabled(options : Array[SelectOption], reverse : Bool) -> Int {
+fn select_first_enabled(options : Array[SelectOption], reverse : Bool) -> Int32 {
   if reverse {
     let mut index = options.length() - 1
     while index >= 0 {
@@ -106,9 +106,9 @@ fn select_first_enabled(options : Array[SelectOption], reverse : Bool) -> Int {
 ///|
 fn select_next_enabled(
   options : Array[SelectOption],
-  current : Int,
-  direction : Int,
-) -> Int {
+  current : Int32,
+  direction : Int32,
+) -> Int32 {
   let length = options.length()
   if length == 0 {
     return -1
@@ -138,9 +138,9 @@ fn select_next_enabled(
 ///|
 fn select_typeahead_index(
   options : Array[SelectOption],
-  current : Int,
+  current : Int32,
   search : String,
-) -> Int {
+) -> Int32 {
   if search == "" || options.length() == 0 {
     return -1
   }
@@ -179,7 +179,7 @@ fn select_label_for(scope : SelectScope) -> String {
 }
 
 ///|
-fn select_item_id(scope : SelectScope, index : Int) -> String {
+fn select_item_id(scope : SelectScope, index : Int32) -> String {
   "\{scope.id}-item-\{index}"
 }
 
@@ -449,7 +449,7 @@ fn select_notify_value(notify : @cmd.Emit[String]?, value : String) -> @cmd.Cmd 
 fn select_resolve_active(
   options : Array[SelectOption],
   model : SelectModel,
-) -> Int {
+) -> Int32 {
   if model.active >= 0 &&
     model.active < options.length() &&
     !options[model.active].disabled {
@@ -489,7 +489,7 @@ pub fn select_value(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   prefix? : @html.Html,
 ) -> @html.Html {
   let empty = scope.model.value is None
@@ -533,7 +533,7 @@ pub fn select_trigger(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   let resolved_id = id.unwrap_or("\{scope.id}-trigger")
   scope.trigger_id.val = resolved_id
@@ -595,7 +595,7 @@ pub fn[C : @html.IsChildren] select_group(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let group_attrs = ui_attrs(attrs)
@@ -620,7 +620,7 @@ pub fn[C : @html.IsChildren] select_label(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -647,7 +647,7 @@ pub fn[C : @html.IsChildren] select_item(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let mut index = -1
@@ -731,7 +731,7 @@ pub fn select_separator(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   @html.div(
     id?,
@@ -751,7 +751,7 @@ pub fn select_separator(
 ///|
 fn select_scroll_button(
   scope : SelectScope,
-  direction : Int,
+  direction : Int32,
   slot : String,
   label : String,
   attrs : @html.Attrs?,
@@ -787,9 +787,9 @@ fn select_scroll_button(
 ///|
 pub fn select_scroll_up_button(
   scope~ : SelectScope,
-  label? : String = "Scroll up",
+  label~ : String = "Scroll up",
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   select_scroll_button(
     scope, -1, "select-scroll-up-button", label, attrs, style,
@@ -799,9 +799,9 @@ pub fn select_scroll_up_button(
 ///|
 pub fn select_scroll_down_button(
   scope~ : SelectScope,
-  label? : String = "Scroll down",
+  label~ : String = "Scroll down",
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   select_scroll_button(
     scope, 1, "select-scroll-down-button", label, attrs, style,
@@ -815,7 +815,7 @@ pub fn[C : @html.IsChildren] select_content(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let resolved_id = id.unwrap_or("\{scope.id}-content")
@@ -927,22 +927,22 @@ pub fn select(
   id~ : String,
   options~ : Array[SelectOption],
   default_value? : String,
-  default_open? : Bool = false,
-  placeholder? : String = "Select an option",
-  disabled? : Bool = false,
-  invalid? : Bool = false,
-  required? : Bool = false,
+  default_open~ : Bool = false,
+  placeholder~ : String = "Select an option",
+  disabled~ : Bool = false,
+  invalid~ : Bool = false,
+  required~ : Bool = false,
   name? : String,
-  side? : PopupSide = Bottom,
-  align? : PopupAlign = Start,
-  side_offset? : Int = 4,
-  align_offset? : Int = 0,
+  side~ : PopupSide = Bottom,
+  align~ : PopupAlign = Start,
+  side_offset~ : Int32 = 4,
+  align_offset~ : Int32 = 0,
   on_value_change? : @cmd.Emit[String],
   on_open_change? : @cmd.Emit[Bool],
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   render? : (SelectScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   let selected = select_find_value(options, default_value)
@@ -1277,22 +1277,22 @@ pub fn select(
   id~ : String,
   options~ : Array[SelectOption],
   default_value? : String,
-  default_open? : Bool = false,
-  placeholder? : String = "Select an option",
-  disabled? : Bool = false,
-  invalid? : Bool = false,
-  required? : Bool = false,
+  default_open~ : Bool = false,
+  placeholder~ : String = "Select an option",
+  disabled~ : Bool = false,
+  invalid~ : Bool = false,
+  required~ : Bool = false,
   name? : String,
-  side? : PopupSide = Bottom,
-  align? : PopupAlign = Start,
-  side_offset? : Int = 4,
-  align_offset? : Int = 0,
+  side~ : PopupSide = Bottom,
+  align~ : PopupAlign = Start,
+  side_offset~ : Int32 = 4,
+  align_offset~ : Int32 = 0,
   on_value_change? : @cmd.Emit[String],
   on_open_change? : @cmd.Emit[Bool],
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   render? : (SelectScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   ignore((on_value_change, on_open_change))

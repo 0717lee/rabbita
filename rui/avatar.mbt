@@ -26,7 +26,7 @@ pub extend AvatarImageStatus with Eq::{equal, not_equal}
 
 ///|
 #cfg(target="js")
-fn bind_avatar_image(id : String, notify : (Int) -> Unit) -> Unit {
+fn bind_avatar_image(id : String, notify : (Int32) -> Unit) -> Unit {
   guard ui_element_by_id(id) is Some(element) else { return }
   guard element.to_html_image_element() is Some(image) else { return }
   image.add_event_listener("load", _ => notify(1))
@@ -114,13 +114,13 @@ fn avatar_part_attrs(attrs : @html.Attrs?, slot : String) -> @html.Attrs {
 /// properties. The root does not own image-loading state; omit `avatar_image`
 /// while showing a fallback, or control that choice in the parent TEA model.
 pub fn[C : @html.IsChildren] avatar(
-  size? : AvatarSize = Default,
+  size~ : AvatarSize = Default,
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = avatar_part_attrs(attrs, "avatar").data_set(
@@ -152,8 +152,8 @@ pub fn[C : @html.IsChildren] avatar(
 pub fn avatar_image(
   src? : String,
   alt? : String,
-  width? : Int,
-  height? : Int,
+  width? : Int32,
+  height? : Int32,
   srcset? : String,
   sizes? : String,
   loading? : String,
@@ -163,7 +163,7 @@ pub fn avatar_image(
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   @html.img(
     style=ui_styles([UiBoxSizing, AvatarImageStyle], style),
@@ -190,7 +190,7 @@ pub fn[C : @html.IsChildren] avatar_fallback(
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.span(
@@ -211,7 +211,7 @@ pub fn[C : @html.IsChildren] avatar_badge(
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.span(
@@ -232,7 +232,7 @@ pub fn[C : @html.IsChildren] avatar_group(
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -251,13 +251,13 @@ pub fn[C : @html.IsChildren] avatar_group(
 
 ///|
 pub fn[C : @html.IsChildren] avatar_group_count(
-  size? : AvatarSize = Default,
+  size~ : AvatarSize = Default,
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = avatar_part_attrs(attrs, "avatar-group-count").data_set(
@@ -330,16 +330,16 @@ pub fn[C : @html.IsChildren] avatar_with_fallback(
   id~ : String,
   src~ : String,
   alt? : String,
-  size? : AvatarSize = Default,
+  size~ : AvatarSize = Default,
   on_status_change? : @cmd.Emit[AvatarImageStatus],
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   image_attrs? : @html.Attrs,
-  image_style? : Array[String] = [],
+  image_style~ : Array[String] = [],
   fallback_attrs? : @html.Attrs,
-  fallback_style? : Array[String] = [],
+  fallback_style~ : Array[String] = [],
   fallback : C,
 ) -> @rabbita.Val[@html.Html] {
   let initial = if src == "" { AvatarError } else { AvatarLoading }
@@ -379,16 +379,16 @@ pub fn[C : @html.IsChildren] avatar_with_fallback(
   id~ : String,
   src~ : String,
   alt? : String,
-  size? : AvatarSize = Default,
+  size~ : AvatarSize = Default,
   on_status_change? : @cmd.Emit[AvatarImageStatus],
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   image_attrs? : @html.Attrs,
-  image_style? : Array[String] = [],
+  image_style~ : Array[String] = [],
   fallback_attrs? : @html.Attrs,
-  fallback_style? : Array[String] = [],
+  fallback_style~ : Array[String] = [],
   fallback : C,
 ) -> @rabbita.Val[@html.Html] {
   ignore(on_status_change)

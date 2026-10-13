@@ -20,7 +20,7 @@ priv struct DataTableModel {
   query : String
   sort_key : String?
   sort_descending : Bool
-  page : Int
+  page : Int32
   selected : Array[String]
   hidden_columns : Array[String]
   columns_open : Bool
@@ -30,7 +30,7 @@ priv struct DataTableModel {
 priv enum DataTableMsg {
   DataTableSetQuery(String)
   DataTableSort(String)
-  DataTableSetPage(Int)
+  DataTableSetPage(Int32)
   DataTableSetSelection(Array[String])
   DataTableToggleColumn(String)
   DataTableToggleColumns
@@ -98,10 +98,10 @@ pub fn[T] data_table_column(
   label~ : String,
   value~ : (T) -> String,
   render? : (T) -> @html.Html,
-  sortable? : Bool = true,
-  searchable? : Bool = true,
-  hideable? : Bool = true,
-  numeric? : Bool = false,
+  sortable~ : Bool = true,
+  searchable~ : Bool = true,
+  hideable~ : Bool = true,
+  numeric~ : Bool = false,
 ) -> DataTableColumn[T] {
   { key, label, value, render, sortable, searchable, hideable, numeric, }
 }
@@ -142,7 +142,7 @@ fn data_table_toggle(values : Array[String], value : String) -> Array[String] {
 fn[T] data_table_column_index(
   columns : Array[DataTableColumn[T]],
   key : String,
-) -> Int {
+) -> Int32 {
   for index, column in columns {
     if column.key == key {
       return index
@@ -174,8 +174,8 @@ fn[T] data_table_visible_indices(
   rows : Array[T],
   columns : Array[DataTableColumn[T]],
   model : DataTableModel,
-) -> Array[Int] {
-  let indices : Array[Int] = []
+) -> Array[Int32] {
+  let indices : Array[Int32] = []
   for index, row in rows {
     if data_table_row_matches(row, columns, model.query) {
       indices.push(index)
@@ -201,7 +201,7 @@ fn[T] data_table_visible_indices(
 }
 
 ///|
-fn data_table_page_count(row_count : Int, page_size : Int) -> Int {
+fn data_table_page_count(row_count : Int32, page_size : Int32) -> Int32 {
   if row_count == 0 {
     1
   } else {
@@ -210,7 +210,7 @@ fn data_table_page_count(row_count : Int, page_size : Int) -> Int {
 }
 
 ///|
-fn data_table_effective_page(page : Int, page_count : Int) -> Int {
+fn data_table_effective_page(page : Int32, page_count : Int32) -> Int32 {
   if page < 0 {
     0
   } else if page >= page_count {
@@ -420,7 +420,7 @@ fn[T] render_data_table(
   columns : Array[DataTableColumn[T]],
   row_key : (T) -> String,
   model : DataTableModel,
-  page_size : Int,
+  page_size : Int32,
   searchable : Bool,
   selectable : Bool,
   show_columns : Bool,
@@ -851,23 +851,23 @@ pub fn[T] data_table(
   rows~ : Array[T],
   columns~ : Array[DataTableColumn[T]],
   row_key~ : (T) -> String,
-  page_size? : Int = 5,
-  searchable? : Bool = true,
-  selectable? : Bool = true,
-  show_columns? : Bool = true,
-  search_placeholder? : String = "Filter rows…",
-  empty_text? : String = "No results.",
-  aria_label? : String = "Data table",
+  page_size~ : Int32 = 5,
+  searchable~ : Bool = true,
+  selectable~ : Bool = true,
+  show_columns~ : Bool = true,
+  search_placeholder~ : String = "Filter rows…",
+  empty_text~ : String = "No results.",
+  aria_label~ : String = "Data table",
   default_sort_key? : String,
-  default_sort_descending? : Bool = false,
-  default_selected? : Array[String] = [],
-  default_hidden_columns? : Array[String] = [],
+  default_sort_descending~ : Bool = false,
+  default_selected~ : Array[String] = [],
+  default_hidden_columns~ : Array[String] = [],
   on_selection_change? : @cmd.Emit[Array[String]],
   on_query_change? : @cmd.Emit[String],
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @rabbita.Val[@html.Html] {
   let initial = data_table_initial_model(
     default_sort_key, default_sort_descending, default_selected, default_hidden_columns,
@@ -931,23 +931,23 @@ pub fn[T] data_table(
   rows~ : Array[T],
   columns~ : Array[DataTableColumn[T]],
   row_key~ : (T) -> String,
-  page_size? : Int = 5,
-  searchable? : Bool = true,
-  selectable? : Bool = true,
-  show_columns? : Bool = true,
-  search_placeholder? : String = "Filter rows…",
-  empty_text? : String = "No results.",
-  aria_label? : String = "Data table",
+  page_size~ : Int32 = 5,
+  searchable~ : Bool = true,
+  selectable~ : Bool = true,
+  show_columns~ : Bool = true,
+  search_placeholder~ : String = "Filter rows…",
+  empty_text~ : String = "No results.",
+  aria_label~ : String = "Data table",
   default_sort_key? : String,
-  default_sort_descending? : Bool = false,
-  default_selected? : Array[String] = [],
-  default_hidden_columns? : Array[String] = [],
+  default_sort_descending~ : Bool = false,
+  default_selected~ : Array[String] = [],
+  default_hidden_columns~ : Array[String] = [],
   on_selection_change? : @cmd.Emit[Array[String]],
   on_query_change? : @cmd.Emit[String],
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @rabbita.Val[@html.Html] {
   ignore((on_selection_change, on_query_change))
   let page_size = if page_size < 1 { 1 } else { page_size }

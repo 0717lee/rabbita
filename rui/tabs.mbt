@@ -250,7 +250,7 @@ pub fn tab_entry(
   label~ : String,
   icon? : @html.Html,
   content~ : @html.Html,
-  disabled? : Bool = false,
+  disabled~ : Bool = false,
 ) -> TabEntry {
   { value, label, icon, content, disabled, }
 }
@@ -279,13 +279,13 @@ fn tab_entry_trigger_content(item : TabEntry) -> @html.Html {
 /// Render the root for a composed tabs interface.
 pub fn[C : @html.IsChildren] tabs_root(
   value? : String,
-  orientation? : TabsOrientation = TabsHorizontal,
+  orientation~ : TabsOrientation = TabsHorizontal,
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = ui_attrs(attrs)
@@ -317,14 +317,14 @@ pub fn[C : @html.IsChildren] tabs_root(
 ///|
 /// Render the ARIA `tablist` container.
 pub fn[C : @html.IsChildren] tabs_list(
-  orientation? : TabsOrientation = TabsHorizontal,
-  variant? : TabsListVariant = TabsDefault,
+  orientation~ : TabsOrientation = TabsHorizontal,
+  variant~ : TabsListVariant = TabsDefault,
   aria_label? : String,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = ui_attrs(attrs)
@@ -365,8 +365,8 @@ pub fn[C : @html.IsChildren] tabs_list(
 /// in `attrs`.
 pub fn[C : @html.IsChildren] tabs_trigger(
   value~ : String,
-  selected? : Bool = false,
-  disabled? : Bool = false,
+  selected~ : Bool = false,
+  disabled~ : Bool = false,
   tab_stop? : Bool,
   controls? : String,
   on_value_change? : @cmd.Emit[String],
@@ -374,7 +374,7 @@ pub fn[C : @html.IsChildren] tabs_trigger(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let tab_stop = tab_stop.unwrap_or(selected && !disabled)
@@ -424,14 +424,14 @@ pub fn[C : @html.IsChildren] tabs_trigger(
 /// Render one ARIA tab panel.
 pub fn[C : @html.IsChildren] tabs_content(
   value~ : String,
-  selected? : Bool = false,
-  force_mount? : Bool = false,
+  selected~ : Bool = false,
+  force_mount~ : Bool = false,
   labelledby? : String,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = tabs_state_attrs(attrs, "tabs-content", selected)
@@ -459,10 +459,10 @@ pub fn[C : @html.IsChildren] tabs_content(
 fn render_tabs(
   items~ : Array[TabEntry],
   value? : String,
-  orientation? : TabsOrientation = TabsHorizontal,
-  list_variant? : TabsListVariant = TabsDefault,
+  orientation~ : TabsOrientation = TabsHorizontal,
+  list_variant~ : TabsListVariant = TabsDefault,
   aria_label? : String,
-  force_mount? : Bool = false,
+  force_mount~ : Bool = false,
   on_value_change? : @cmd.Emit[String],
   id? : String,
   class? : String,
@@ -470,10 +470,10 @@ fn render_tabs(
   hidden? : Bool,
   attrs? : @html.Attrs,
   list_attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  list_style? : Array[String] = [],
-  trigger_style? : Array[String] = [],
-  content_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  list_style~ : Array[String] = [],
+  trigger_style~ : Array[String] = [],
+  content_style~ : Array[String] = [],
 ) -> @html.Html {
   let trigger_nodes : Array[@html.Html] = []
   let content_nodes : Array[@html.Html] = []
@@ -545,20 +545,20 @@ fn render_tabs(
 pub fn tabs(
   items~ : Array[TabEntry],
   default_value? : String,
-  orientation? : TabsOrientation = TabsHorizontal,
-  list_variant? : TabsListVariant = TabsDefault,
+  orientation~ : TabsOrientation = TabsHorizontal,
+  list_variant~ : TabsListVariant = TabsDefault,
   aria_label? : String,
-  force_mount? : Bool = false,
+  force_mount~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
   list_attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  list_style? : Array[String] = [],
-  trigger_style? : Array[String] = [],
-  content_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  list_style~ : Array[String] = [],
+  trigger_style~ : Array[String] = [],
+  content_style~ : Array[String] = [],
 ) -> @rabbita.Val[@html.Html] {
   let (value, set_value) = @rabbita.create_variable(
     tabs_initial_value(items, default_value),
@@ -594,20 +594,20 @@ pub fn tabs(
 pub fn tabs(
   items~ : Array[TabEntry],
   default_value? : String,
-  orientation? : TabsOrientation = TabsHorizontal,
-  list_variant? : TabsListVariant = TabsDefault,
+  orientation~ : TabsOrientation = TabsHorizontal,
+  list_variant~ : TabsListVariant = TabsDefault,
   aria_label? : String,
-  force_mount? : Bool = false,
+  force_mount~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
   list_attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  list_style? : Array[String] = [],
-  trigger_style? : Array[String] = [],
-  content_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  list_style~ : Array[String] = [],
+  trigger_style~ : Array[String] = [],
+  content_style~ : Array[String] = [],
 ) -> @rabbita.Val[@html.Html] {
   let value = tabs_initial_value(items, default_value)
   @rabbita.Val::constant(

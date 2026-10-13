@@ -258,14 +258,14 @@ pub fn[C : @html.IsChildren] drawer(
   class? : String,
   title? : String,
   hidden? : Bool,
-  direction? : DrawerDirection = DrawerBottom,
-  swipe_area? : Int = 0,
+  direction~ : DrawerDirection = DrawerBottom,
+  swipe_area~ : Int32 = 0,
   open? : Bool,
-  closedby? : String = "any",
+  closedby~ : String = "any",
   on_close? : @cmd.Emit[String],
   on_cancel? : @cmd.Cmd,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let attrs = ui_attrs(attrs)
@@ -321,7 +321,7 @@ pub fn[C : @html.IsChildren] drawer_header(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -340,7 +340,7 @@ pub fn[C : @html.IsChildren] drawer_footer(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -359,7 +359,7 @@ pub fn[C : @html.IsChildren] drawer_title(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.h2(
@@ -378,7 +378,7 @@ pub fn[C : @html.IsChildren] drawer_description(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.p(

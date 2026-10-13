@@ -113,14 +113,14 @@ fn collapsible_indicator(open : Bool) -> @html.Html {
 ///|
 /// Render the root used by a controlled collapsible.
 pub fn[C : @html.IsChildren] collapsible_root(
-  open? : Bool = false,
-  disabled? : Bool = false,
+  open~ : Bool = false,
+  disabled~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = collapsible_state_attrs(attrs, "collapsible", open).aria_disabled(
@@ -156,16 +156,16 @@ pub fn[C : @html.IsChildren] collapsible_root(
 /// component appends its state request after any caller click handler stored
 /// in `attrs`.
 pub fn[C : @html.IsChildren] collapsible_trigger(
-  open? : Bool = false,
-  disabled? : Bool = false,
+  open~ : Bool = false,
+  disabled~ : Bool = false,
   controls? : String,
-  show_indicator? : Bool = true,
+  show_indicator~ : Bool = true,
   on_open_change? : @cmd.Emit[Bool],
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = collapsible_state_attrs(
@@ -224,15 +224,15 @@ pub fn[C : @html.IsChildren] collapsible_trigger(
 /// Render the collapsible panel. Content remains mounted so both entering and
 /// leaving states can animate without a component-specific script.
 pub fn[C : @html.IsChildren] collapsible_content(
-  open? : Bool = false,
-  force_mount? : Bool = false,
+  open~ : Bool = false,
+  force_mount~ : Bool = false,
   labelledby? : String,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  body_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  body_style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = collapsible_state_attrs(
@@ -277,9 +277,9 @@ pub fn[C : @html.IsChildren] collapsible_content(
 /// Render the current collapsible state for the public incremental component.
 fn[T : @html.IsChildren, C : @html.IsChildren] render_collapsible(
   open~ : Bool,
-  disabled? : Bool = false,
-  show_indicator? : Bool = true,
-  force_mount? : Bool = false,
+  disabled~ : Bool = false,
+  show_indicator~ : Bool = true,
+  force_mount~ : Bool = false,
   on_open_change? : @cmd.Emit[Bool],
   id? : String,
   trigger_id? : String,
@@ -290,10 +290,10 @@ fn[T : @html.IsChildren, C : @html.IsChildren] render_collapsible(
   attrs? : @html.Attrs,
   trigger_attrs? : @html.Attrs,
   content_attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  trigger_style? : Array[String] = [],
-  content_style? : Array[String] = [],
-  content_body_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  trigger_style~ : Array[String] = [],
+  content_style~ : Array[String] = [],
+  content_body_style~ : Array[String] = [],
   trigger~ : T,
   content~ : C,
 ) -> @html.Html {
@@ -353,10 +353,10 @@ fn[T : @html.IsChildren, C : @html.IsChildren] render_collapsible(
 /// Build a self-contained collapsible with component-local incremental state.
 #cfg(target="js")
 pub fn[T : @html.IsChildren, C : @html.IsChildren] collapsible(
-  default_open? : Bool = false,
-  disabled? : Bool = false,
-  show_indicator? : Bool = true,
-  force_mount? : Bool = false,
+  default_open~ : Bool = false,
+  disabled~ : Bool = false,
+  show_indicator~ : Bool = true,
+  force_mount~ : Bool = false,
   id? : String,
   trigger_id? : String,
   content_id? : String,
@@ -366,10 +366,10 @@ pub fn[T : @html.IsChildren, C : @html.IsChildren] collapsible(
   attrs? : @html.Attrs,
   trigger_attrs? : @html.Attrs,
   content_attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  trigger_style? : Array[String] = [],
-  content_style? : Array[String] = [],
-  content_body_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  trigger_style~ : Array[String] = [],
+  content_style~ : Array[String] = [],
+  content_body_style~ : Array[String] = [],
   trigger~ : T,
   content~ : C,
 ) -> @rabbita.Val[@html.Html] {
@@ -406,10 +406,10 @@ pub fn[T : @html.IsChildren, C : @html.IsChildren] collapsible(
 /// incremental value.
 #cfg(not(target="js"))
 pub fn[T : @html.IsChildren, C : @html.IsChildren] collapsible(
-  default_open? : Bool = false,
-  disabled? : Bool = false,
-  show_indicator? : Bool = true,
-  force_mount? : Bool = false,
+  default_open~ : Bool = false,
+  disabled~ : Bool = false,
+  show_indicator~ : Bool = true,
+  force_mount~ : Bool = false,
   id? : String,
   trigger_id? : String,
   content_id? : String,
@@ -419,10 +419,10 @@ pub fn[T : @html.IsChildren, C : @html.IsChildren] collapsible(
   attrs? : @html.Attrs,
   trigger_attrs? : @html.Attrs,
   content_attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  trigger_style? : Array[String] = [],
-  content_style? : Array[String] = [],
-  content_body_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  trigger_style~ : Array[String] = [],
+  content_style~ : Array[String] = [],
+  content_body_style~ : Array[String] = [],
   trigger~ : T,
   content~ : C,
 ) -> @rabbita.Val[@html.Html] {

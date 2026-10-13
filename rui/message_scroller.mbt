@@ -89,11 +89,11 @@ fn[C : @html.IsChildren] render_message_scroller(
 #cfg(target="js")
 pub fn[C : @html.IsChildren] message_scroller(
   id~ : String,
-  default_at_end? : Bool = true,
+  default_at_end~ : Bool = true,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (MessageScrollerScope) -> C,
 ) -> @rabbita.Val[@html.Html] {
   let viewport_id = "\{id}-viewport"
@@ -131,11 +131,11 @@ pub fn[C : @html.IsChildren] message_scroller(
 #cfg(not(target="js"))
 pub fn[C : @html.IsChildren] message_scroller(
   id~ : String,
-  default_at_end? : Bool = true,
+  default_at_end~ : Bool = true,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (MessageScrollerScope) -> C,
 ) -> @rabbita.Val[@html.Html] {
   let position = { at_start: !default_at_end, at_end: default_at_end, }
@@ -188,7 +188,7 @@ pub fn[C : @html.IsChildren] message_scroller_viewport(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = message_scroller_viewport_attrs(scope, attrs)
@@ -218,7 +218,7 @@ pub fn[C : @html.IsChildren] message_scroller_content(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -238,12 +238,12 @@ pub fn[C : @html.IsChildren] message_scroller_content(
 
 ///|
 pub fn[C : @html.IsChildren] message_scroller_item(
-  scroll_anchor? : Bool = false,
+  scroll_anchor~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -271,15 +271,15 @@ pub fn[C : @html.IsChildren] message_scroller_item(
 ///|
 pub fn[C : @html.IsChildren] message_scroller_button(
   scope~ : MessageScrollerScope,
-  direction? : MessageScrollDirection = ScrollEnd,
+  direction~ : MessageScrollDirection = ScrollEnd,
   label? : String,
-  variant? : ButtonVariant = Secondary,
-  size? : ButtonSize = IconSm,
+  variant~ : ButtonVariant = Secondary,
+  size~ : ButtonSize = IconSm,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let end_ = direction is ScrollEnd

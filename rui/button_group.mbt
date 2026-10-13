@@ -24,13 +24,13 @@ fn button_group_orientation_style(orientation : SeparatorOrientation) -> String 
 /// The interaction sheet merges adjacent borders and corner radii. Keeping
 /// those rules on the children preserves each control's own variant surface.
 pub fn[C : @html.IsChildren] button_group(
-  orientation? : SeparatorOrientation = Horizontal,
+  orientation~ : SeparatorOrientation = Horizontal,
   id? : String,
   class? : String,
   title? : String,
   aria_label? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let orientation_value = separator_orientation_value(orientation)
@@ -65,7 +65,7 @@ pub fn[C : @html.IsChildren] button_group_text(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -80,12 +80,12 @@ pub fn[C : @html.IsChildren] button_group_text(
 
 ///|
 pub fn button_group_separator(
-  orientation? : SeparatorOrientation = Vertical,
+  orientation~ : SeparatorOrientation = Vertical,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   let orientation_value = separator_orientation_value(orientation)
   let element_attrs = ui_attrs(attrs)

@@ -10,7 +10,7 @@ struct ToggleGroupScope {
   multiple : Bool
   variant : ToggleVariant
   size : ToggleSize
-  spacing : Int
+  spacing : Int32
   emit : @cmd.Emit[ToggleGroupMsg]
   tab_claimed : Ref[Bool]
 }
@@ -117,7 +117,7 @@ fn[C : @html.IsChildren] render_toggle_group(
   orientation : SeparatorOrientation,
   variant : ToggleVariant,
   size : ToggleSize,
-  spacing : Int,
+  spacing : Int32,
   aria_label : String?,
   id : String?,
   class : String?,
@@ -172,19 +172,19 @@ fn[C : @html.IsChildren] render_toggle_group(
 /// optional callback observes each committed value set.
 #cfg(target="js")
 pub fn[C : @html.IsChildren] toggle_group(
-  default_values? : Array[String] = [],
-  multiple? : Bool = false,
-  orientation? : SeparatorOrientation = Horizontal,
-  variant? : ToggleVariant = Default,
-  size? : ToggleSize = Default,
-  spacing? : Int = 0,
+  default_values~ : Array[String] = [],
+  multiple~ : Bool = false,
+  orientation~ : SeparatorOrientation = Horizontal,
+  variant~ : ToggleVariant = Default,
+  size~ : ToggleSize = Default,
+  spacing~ : Int32 = 0,
   aria_label? : String,
   on_value_change? : @cmd.Emit[Array[String]],
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (ToggleGroupScope) -> C,
 ) -> @rabbita.Val[@html.Html] {
   let (values, emit) = @rabbita.create_state(default_values, update=fn(
@@ -232,19 +232,19 @@ pub fn[C : @html.IsChildren] toggle_group(
 ///|
 #cfg(not(target="js"))
 pub fn[C : @html.IsChildren] toggle_group(
-  default_values? : Array[String] = [],
-  multiple? : Bool = false,
-  orientation? : SeparatorOrientation = Horizontal,
-  variant? : ToggleVariant = Default,
-  size? : ToggleSize = Default,
-  spacing? : Int = 0,
+  default_values~ : Array[String] = [],
+  multiple~ : Bool = false,
+  orientation~ : SeparatorOrientation = Horizontal,
+  variant~ : ToggleVariant = Default,
+  size~ : ToggleSize = Default,
+  spacing~ : Int32 = 0,
   aria_label? : String,
   on_value_change? : @cmd.Emit[Array[String]],
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (ToggleGroupScope) -> C,
 ) -> @rabbita.Val[@html.Html] {
   ignore(on_value_change)
@@ -279,13 +279,13 @@ pub fn[C : @html.IsChildren] toggle_group(
 pub fn[C : @html.IsChildren] toggle_group_item(
   scope~ : ToggleGroupScope,
   value~ : String,
-  disabled? : Bool = false,
+  disabled~ : Bool = false,
   aria_label? : String,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let pressed = toggle_group_contains(scope.values, value)

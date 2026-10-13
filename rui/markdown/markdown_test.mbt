@@ -26,7 +26,7 @@ async fn render(
 
 ///|
 #cfg(not(target="js"))
-fn count_tag(output : String, tag : String) -> Int {
+fn count_tag(output : String, tag : String) -> Int32 {
   output.split("<" + tag + " ").count() +
   output.split("<" + tag + ">").count() -
   2

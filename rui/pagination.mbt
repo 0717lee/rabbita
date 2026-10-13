@@ -73,12 +73,12 @@ fn pagination_bind_disabled(attrs : @html.Attrs, disabled : Bool) -> Unit {
 ///|
 /// Render the semantic navigation root for a pagination control.
 pub fn[C : @html.IsChildren] pagination(
-  aria_label? : String = "pagination",
+  aria_label~ : String = "pagination",
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = pagination_part_attrs(attrs, "pagination")
@@ -104,7 +104,7 @@ pub fn[C : @html.IsChildren] pagination_content(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.ul(
@@ -124,7 +124,7 @@ pub fn[C : @html.IsChildren] pagination_item(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.li(
@@ -143,19 +143,19 @@ pub fn[C : @html.IsChildren] pagination_item(
 /// Active links expose both `aria-current="page"` and stable data state.
 pub fn[C : @html.IsChildren] pagination_link(
   href~ : String,
-  is_active? : Bool = false,
-  disabled? : Bool = false,
-  size? : ButtonSize = Icon,
+  is_active~ : Bool = false,
+  disabled~ : Bool = false,
+  size~ : ButtonSize = Icon,
   aria_label? : String,
-  target? : @html.Target = Self,
+  target~ : @html.Target = Self,
   rel? : String,
   download? : String,
-  escape? : Bool = false,
+  escape~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let variant : ButtonVariant = if is_active { Outline } else { Ghost }
@@ -208,18 +208,18 @@ pub fn[C : @html.IsChildren] pagination_link(
 /// Render a previous-page anchor with a dependency-free CSS chevron.
 pub fn pagination_previous(
   href~ : String,
-  disabled? : Bool = false,
-  text? : String = "Previous",
-  aria_label? : String = "Go to previous page",
-  target? : @html.Target = Self,
+  disabled~ : Bool = false,
+  text~ : String = "Previous",
+  aria_label~ : String = "Go to previous page",
+  target~ : @html.Target = Self,
   rel? : String,
   download? : String,
-  escape? : Bool = false,
+  escape~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   let element_attrs = ui_attrs(attrs).data_set("direction", "previous")
   pagination_link(
@@ -260,18 +260,18 @@ pub fn pagination_previous(
 /// Render a next-page anchor with a dependency-free CSS chevron.
 pub fn pagination_next(
   href~ : String,
-  disabled? : Bool = false,
-  text? : String = "Next",
-  aria_label? : String = "Go to next page",
-  target? : @html.Target = Self,
+  disabled~ : Bool = false,
+  text~ : String = "Next",
+  aria_label~ : String = "Go to next page",
+  target~ : @html.Target = Self,
   rel? : String,
   download? : String,
-  escape? : Bool = false,
+  escape~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   let element_attrs = ui_attrs(attrs).data_set("direction", "next")
   pagination_link(
@@ -311,12 +311,12 @@ pub fn pagination_next(
 ///|
 /// Render the collapsed-range marker used by long pagination controls.
 pub fn pagination_ellipsis(
-  label? : String = "More pages",
+  label~ : String = "More pages",
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   let element_attrs = pagination_part_attrs(attrs, "pagination-ellipsis")
     .role("presentation")

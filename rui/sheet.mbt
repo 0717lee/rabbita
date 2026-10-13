@@ -60,15 +60,15 @@ pub fn[C : @html.IsChildren] sheet(
   class? : String,
   title? : String,
   hidden? : Bool,
-  side? : SheetSide = SheetRight,
+  side~ : SheetSide = SheetRight,
   open? : Bool,
-  closedby? : String = "any",
-  show_close? : Bool = true,
-  close_label? : String = "Close",
+  closedby~ : String = "any",
+  show_close~ : Bool = true,
+  close_label~ : String = "Close",
   on_close? : @cmd.Emit[String],
   on_cancel? : @cmd.Cmd,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.dialog(
@@ -128,7 +128,7 @@ pub fn[C : @html.IsChildren] sheet_header(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -150,7 +150,7 @@ pub fn[C : @html.IsChildren] sheet_footer(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -175,7 +175,7 @@ pub fn[C : @html.IsChildren] sheet_title(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.h2(
@@ -194,7 +194,7 @@ pub fn[C : @html.IsChildren] sheet_description(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.p(

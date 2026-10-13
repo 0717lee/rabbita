@@ -71,21 +71,21 @@ fn native_select_disabled_style(disabled : Bool) -> String {
 /// `value` is written as a DOM property for controlled browser rendering.
 /// Options can also set `selected` for meaningful standalone SSR output.
 pub fn[C : @html.IsChildren] native_select(
-  size? : NativeSelectSize = NativeSelectDefault,
+  size~ : NativeSelectSize = NativeSelectDefault,
   value? : String,
   name? : String,
-  disabled? : Bool = false,
+  disabled~ : Bool = false,
   required? : Bool,
   autofocus? : Bool,
-  invalid? : Bool = false,
+  invalid~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   aria_label? : String,
   on_change? : @cmd.Emit[String],
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  wrapper_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  wrapper_style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let size_value = native_select_size_value(size)
@@ -165,7 +165,7 @@ pub fn[C : @html.IsChildren] native_select_option(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.option(
@@ -190,7 +190,7 @@ pub fn[C : @html.IsChildren] native_select_optgroup(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.optgroup(

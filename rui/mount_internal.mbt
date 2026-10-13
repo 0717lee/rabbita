@@ -3,19 +3,19 @@
 // runs while its generation is still current, so a remount using the same id
 // can supersede stale work without storing callback state on `globalThis`.
 #cfg(target="js")
-let ui_after_mount_pending : Map[String, Map[String, Int]] = Map([])
+let ui_after_mount_pending : Map[String, Map[String, Int32]] = Map([])
 
 ///|
 #cfg(target="js")
-let ui_after_ready_pending : Map[String, Int] = Map([])
+let ui_after_ready_pending : Map[String, Int32] = Map([])
 
 ///|
 #cfg(target="js")
-let ui_after_operation_generation : Ref[Int] = Ref(0)
+let ui_after_operation_generation : Ref[Int32] = Ref(0)
 
 ///|
 #cfg(target="js")
-fn ui_next_after_operation_generation() -> Int {
+fn ui_next_after_operation_generation() -> Int32 {
   ui_after_operation_generation.val = ui_after_operation_generation.val + 1
   ui_after_operation_generation.val
 }
@@ -42,12 +42,12 @@ fn ui_after_request_frame(callback : () -> Unit) -> Unit {
 fn ui_after_mount(
   id : String,
   mounted : () -> Unit,
-  purpose? : String = "default",
+  purpose~ : String = "default",
 ) -> Unit {
   let lanes = if ui_after_mount_pending.get(id) is Some(lanes) {
     lanes
   } else {
-    let lanes : Map[String, Int] = Map([])
+    let lanes : Map[String, Int32] = Map([])
     ui_after_mount_pending[id] = lanes
     lanes
   }
@@ -67,7 +67,7 @@ fn ui_after_mount(
     }
   }
 
-  fn try_mount(attempt : Int) -> Unit {
+  fn try_mount(attempt : Int32) -> Unit {
     if !is_current() {
       return
     }
@@ -108,7 +108,7 @@ fn ui_after_ready(key : String, ready : () -> Bool raise) -> Unit {
     }
   }
 
-  fn try_ready(attempt : Int) -> Unit {
+  fn try_ready(attempt : Int32) -> Unit {
     if !is_current() {
       return
     }

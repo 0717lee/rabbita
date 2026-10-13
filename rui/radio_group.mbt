@@ -116,13 +116,13 @@ fn radio_group_bind_keyboard(attrs : @html.Attrs) -> Unit {
 /// Each item remains a real `<input type="radio">`, so same-name items retain
 /// the browser's arrow-key navigation and form behavior.
 pub fn[C : @html.IsChildren] radio_group_root(
-  orientation? : RadioGroupOrientation = RadioVertical,
+  orientation~ : RadioGroupOrientation = RadioVertical,
   id? : String,
   class? : String,
   title? : String,
   aria_label? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = ui_attrs(attrs)
@@ -153,17 +153,17 @@ pub fn[C : @html.IsChildren] radio_group_root(
 fn render_radio_group_item(
   value~ : String,
   name? : String,
-  checked? : Bool = false,
-  disabled? : Bool = false,
+  checked~ : Bool = false,
+  disabled~ : Bool = false,
   required? : Bool,
-  invalid? : Bool = false,
+  invalid~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   aria_label? : String,
   on_value_change? : @cmd.Emit[String],
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   let state = if checked { "checked" } else { "unchecked" }
   let control_attrs = ui_attrs(attrs)
@@ -222,17 +222,17 @@ struct RadioGroupScope {
 fn[C : @html.IsChildren] render_radio_group(
   value~ : String,
   name? : String,
-  disabled? : Bool = false,
-  required? : Bool = false,
-  invalid? : Bool = false,
-  orientation? : RadioGroupOrientation = RadioVertical,
+  disabled~ : Bool = false,
+  required~ : Bool = false,
+  invalid~ : Bool = false,
+  orientation~ : RadioGroupOrientation = RadioVertical,
   on_value_change? : @cmd.Emit[String],
   id? : String,
   class? : String,
   title? : String,
   aria_label? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (RadioGroupScope) -> C,
 ) -> @html.Html {
   let emit = @cmd.Emit(next => {
@@ -266,19 +266,19 @@ fn[C : @html.IsChildren] render_radio_group(
 /// Build a black-box radio group with component-local incremental selection.
 #cfg(target="js")
 pub fn[C : @html.IsChildren] radio_group(
-  default_value? : String = "",
+  default_value~ : String = "",
   name? : String,
-  disabled? : Bool = false,
-  required? : Bool = false,
-  invalid? : Bool = false,
-  orientation? : RadioGroupOrientation = RadioVertical,
+  disabled~ : Bool = false,
+  required~ : Bool = false,
+  invalid~ : Bool = false,
+  orientation~ : RadioGroupOrientation = RadioVertical,
   on_value_change? : @cmd.Emit[String],
   id? : String,
   class? : String,
   title? : String,
   aria_label? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (RadioGroupScope) -> C,
 ) -> @rabbita.Val[@html.Html] {
   let (value, set_value) = @rabbita.create_variable(default_value)
@@ -312,19 +312,19 @@ pub fn[C : @html.IsChildren] radio_group(
 ///|
 #cfg(not(target="js"))
 pub fn[C : @html.IsChildren] radio_group(
-  default_value? : String = "",
+  default_value~ : String = "",
   name? : String,
-  disabled? : Bool = false,
-  required? : Bool = false,
-  invalid? : Bool = false,
-  orientation? : RadioGroupOrientation = RadioVertical,
+  disabled~ : Bool = false,
+  required~ : Bool = false,
+  invalid~ : Bool = false,
+  orientation~ : RadioGroupOrientation = RadioVertical,
   on_value_change? : @cmd.Emit[String],
   id? : String,
   class? : String,
   title? : String,
   aria_label? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (RadioGroupScope) -> C,
 ) -> @rabbita.Val[@html.Html] {
   ignore(on_value_change)
@@ -352,15 +352,15 @@ pub fn[C : @html.IsChildren] radio_group(
 pub fn radio_group_item(
   scope~ : RadioGroupScope,
   value~ : String,
-  disabled? : Bool = false,
-  required? : Bool = false,
-  invalid? : Bool = false,
+  disabled~ : Bool = false,
+  required~ : Bool = false,
+  invalid~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   aria_label? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   let disabled = scope.disabled || disabled
   let name = scope.name

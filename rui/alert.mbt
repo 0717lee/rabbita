@@ -47,12 +47,12 @@ fn alert_part_attrs(attrs : @html.Attrs?, slot : String) -> @html.Attrs {
 /// Title, description, and action parts occupy stable grid tracks. This keeps
 /// optional actions from covering text without relying on stylesheet `:has()`.
 pub fn[C : @html.IsChildren] alert(
-  variant? : AlertVariant = Default,
+  variant~ : AlertVariant = Default,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = alert_part_attrs(attrs, "alert").role("alert")
@@ -81,7 +81,7 @@ pub fn[C : @html.IsChildren] alert_title(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -100,7 +100,7 @@ pub fn[C : @html.IsChildren] alert_description(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -119,7 +119,7 @@ pub fn[C : @html.IsChildren] alert_action(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(

@@ -1194,12 +1194,12 @@ fn ui_interaction_stylesheet() -> @html.Html {
 /// Every component still carries light-theme fallback values. Append custom
 /// CSS variables through `style` to override any token.
 pub fn[C : @html.IsChildren] theme(
-  mode? : ColorMode = Light,
+  mode~ : ColorMode = Light,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = ui_attrs(attrs).data_set("rui-theme", "")

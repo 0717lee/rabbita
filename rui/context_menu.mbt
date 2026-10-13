@@ -1,8 +1,8 @@
 ///|
 struct ContextMenuScope {
   menu : MenuScope
-  point_x : Int
-  point_y : Int
+  point_x : Int32
+  point_y : Int32
 }
 
 ///|
@@ -21,19 +21,19 @@ struct ContextMenuSubScope {
 #cfg(target="js")
 priv struct ContextMenuModel {
   menu : MenuCoreModel
-  x : Int
-  y : Int
-  point_x : Int
-  point_y : Int
+  x : Int32
+  y : Int32
+  point_x : Int32
+  point_y : Int32
 } derive(Eq)
 
 ///|
 #cfg(target="js")
 priv enum ContextMenuMsg {
-  ContextOpenAt(Int, Int, Int, Int)
+  ContextOpenAt(Int32, Int32, Int32, Int32)
   ContextSetOpen(Bool)
   ContextNativeOpen(Bool)
-  ContextSetActive(Int)
+  ContextSetActive(Int32)
   ContextToggleChecked(String)
   ContextSetRadio(String, String)
   ContextSetSubmenu(MenuSubmenuChange)
@@ -51,7 +51,7 @@ const ContextMenuPointStyle : String = "position:absolute;width:0;height:0;point
 #cfg(target="js")
 priv struct ContextMenuTriggerBinding {
   element : @dom.Element
-  open_at : Ref[(Int, Int, Int, Int) -> Unit]
+  open_at : Ref[(Int32, Int32, Int32, Int32) -> Unit]
 }
 
 ///|
@@ -96,7 +96,7 @@ fn context_menu_open_from_point(
 #cfg(target="js")
 fn bind_context_menu_trigger(
   id : String,
-  open_at : (Int, Int, Int, Int) -> Unit,
+  open_at : (Int32, Int32, Int32, Int32) -> Unit,
 ) -> Unit {
   guard ui_element_by_id(id) is Some(trigger) else { return }
   if context_menu_trigger_bindings.get(id) is Some(binding) &&
@@ -144,10 +144,10 @@ fn bind_context_menu_trigger(
 #cfg(target="js")
 fn show_context_menu(
   id : String,
-  x : Int,
-  y : Int,
-  point_x : Int,
-  point_y : Int,
+  x : Int32,
+  y : Int32,
+  point_x : Int32,
+  point_y : Int32,
 ) -> Unit {
   guard ui_element_by_id(id) is Some(popup) else { return }
   guard popup.to_html_element() is Some(html) else { return }
@@ -240,7 +240,7 @@ fn bind_context_menu_close(id : String, request_close : () -> Unit) -> Unit {
 priv struct ContextMenuExitBinding {
   element : @dom.Element
   listener : Ref[@dom.Listener?]
-  timeout : Ref[Int?]
+  timeout : Ref[Int32?]
 }
 
 ///|
@@ -354,7 +354,7 @@ fn hide_context_menu_after_transition(id : String) -> Unit {
 fn context_bind_trigger_cmd(
   trigger_id : String,
   content_id : String,
-  open_at : @cmd.Emit[(Int, Int, Int, Int)],
+  open_at : @cmd.Emit[(Int32, Int32, Int32, Int32)],
 ) -> @cmd.Cmd {
   @cmd.custom_cmd(kind=AfterRender, scheduler => {
     ui_after_mount(
@@ -420,10 +420,10 @@ fn context_hide_after_transition_cmd(id : String) -> @cmd.Cmd {
 #cfg(target="js")
 fn context_show_cmd(
   id : String,
-  x : Int,
-  y : Int,
-  point_x : Int,
-  point_y : Int,
+  x : Int32,
+  y : Int32,
+  point_x : Int32,
+  point_y : Int32,
 ) -> @cmd.Cmd {
   @cmd.custom_cmd(kind=AfterRender, _ => {
     ui_after_mount(
@@ -438,10 +438,10 @@ fn context_show_cmd(
 #cfg(not(target="js"))
 fn context_show_cmd(
   id : String,
-  x : Int,
-  y : Int,
-  point_x : Int,
-  point_y : Int,
+  x : Int32,
+  y : Int32,
+  point_x : Int32,
+  point_y : Int32,
 ) -> @cmd.Cmd {
   ignore((id, x, y, point_x, point_y))
   @cmd.none
@@ -451,8 +451,8 @@ fn context_show_cmd(
 fn context_scope(
   id : String,
   model : MenuCoreModel,
-  point_x : Int,
-  point_y : Int,
+  point_x : Int32,
+  point_y : Int32,
   set_open : @cmd.Emit[Bool],
   toggle_checked : @cmd.Emit[String],
   set_radio : @cmd.Emit[(String, String)],
@@ -479,12 +479,12 @@ fn context_scope(
 #cfg(target="js")
 pub fn context_menu(
   id~ : String,
-  default_open? : Bool = false,
-  default_checked_values? : Array[String] = [],
-  default_radio_values? : Array[(String, String)] = [],
+  default_open~ : Bool = false,
+  default_checked_values~ : Array[String] = [],
+  default_radio_values~ : Array[(String, String)] = [],
   on_open_change? : @cmd.Emit[Bool],
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (ContextMenuScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   let initial : ContextMenuModel = {
@@ -669,12 +669,12 @@ pub fn context_menu(
 #cfg(not(target="js"))
 pub fn context_menu(
   id~ : String,
-  default_open? : Bool = false,
-  default_checked_values? : Array[String] = [],
-  default_radio_values? : Array[(String, String)] = [],
+  default_open~ : Bool = false,
+  default_checked_values~ : Array[String] = [],
+  default_radio_values~ : Array[(String, String)] = [],
   on_open_change? : @cmd.Emit[Bool],
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (ContextMenuScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   ignore(on_open_change)
@@ -703,12 +703,12 @@ pub fn context_menu(
 /// Explicit Root spelling matching the compound-component API.
 pub fn context_menu_root(
   id~ : String,
-  default_open? : Bool = false,
-  default_checked_values? : Array[String] = [],
-  default_radio_values? : Array[(String, String)] = [],
+  default_open~ : Bool = false,
+  default_checked_values~ : Array[String] = [],
+  default_radio_values~ : Array[(String, String)] = [],
   on_open_change? : @cmd.Emit[Bool],
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (ContextMenuScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   context_menu(
@@ -734,11 +734,11 @@ pub fn context_menu_portal(children : Array[@html.Html]) -> @html.Html {
 ///|
 pub fn[C : @html.IsChildren] context_menu_trigger(
   scope : ContextMenuScope,
-  tabindex? : Int = 0,
+  tabindex~ : Int32 = 0,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -777,7 +777,7 @@ pub fn[C : @html.IsChildren] context_menu_content(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   menu_content_surface(
@@ -802,7 +802,7 @@ pub fn[C : @html.IsChildren] context_menu_group(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   menu_group_surface(
@@ -813,16 +813,16 @@ pub fn[C : @html.IsChildren] context_menu_group(
 ///|
 pub fn[C : @html.IsChildren] context_menu_item(
   scope : ContextMenuScope,
-  disabled? : Bool = false,
-  inset? : Bool = false,
-  destructive? : Bool = false,
-  close_on_select? : Bool = true,
+  disabled~ : Bool = false,
+  inset~ : Bool = false,
+  destructive~ : Bool = false,
+  close_on_select~ : Bool = true,
   on_select? : @cmd.Cmd,
   aria_label? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   menu_item_surface(
@@ -851,15 +851,15 @@ pub fn[C : @html.IsChildren] context_menu_item(
 pub fn[C : @html.IsChildren] context_menu_checkbox_item(
   scope : ContextMenuScope,
   value~ : String,
-  disabled? : Bool = false,
-  close_on_select? : Bool = false,
+  disabled~ : Bool = false,
+  close_on_select~ : Bool = false,
   on_checked_change? : @cmd.Emit[Bool],
   on_select? : @cmd.Cmd,
   aria_label? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let checked = menu_contains(scope.menu.model.checked, value)
@@ -898,7 +898,7 @@ pub fn[C : @html.IsChildren] context_menu_radio_group(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (ContextMenuRadioGroupScope) -> C,
 ) -> @html.Html {
   menu_group_surface(
@@ -916,15 +916,15 @@ pub fn[C : @html.IsChildren] context_menu_radio_group(
 pub fn[C : @html.IsChildren] context_menu_radio_item(
   scope : ContextMenuRadioGroupScope,
   value~ : String,
-  disabled? : Bool = false,
-  close_on_select? : Bool = false,
+  disabled~ : Bool = false,
+  close_on_select~ : Bool = false,
   on_value_change? : @cmd.Emit[String],
   on_select? : @cmd.Cmd,
   aria_label? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let checked = menu_radio_value(scope.menu.model.radios, scope.group) ==
@@ -958,11 +958,11 @@ pub fn[C : @html.IsChildren] context_menu_radio_item(
 
 ///|
 pub fn[C : @html.IsChildren] context_menu_label(
-  inset? : Bool = false,
+  inset~ : Bool = false,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   menu_label_surface(
@@ -974,7 +974,7 @@ pub fn[C : @html.IsChildren] context_menu_label(
 pub fn context_menu_separator(
   class? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   menu_separator_surface("context-menu-separator", class, attrs, style)
 }
@@ -984,7 +984,7 @@ pub fn[C : @html.IsChildren] context_menu_shortcut(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   menu_shortcut_surface(
@@ -997,7 +997,7 @@ pub fn[C : @html.IsChildren] context_menu_sub(
   scope : ContextMenuScope,
   value~ : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (ContextMenuSubScope) -> C,
 ) -> @html.Html {
   let key = menu_submenu_key(scope.menu, value)
@@ -1014,13 +1014,13 @@ pub fn[C : @html.IsChildren] context_menu_sub(
 ///|
 pub fn[C : @html.IsChildren] context_menu_sub_trigger(
   scope : ContextMenuSubScope,
-  disabled? : Bool = false,
-  inset? : Bool = false,
+  disabled~ : Bool = false,
+  inset~ : Bool = false,
   aria_label? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   menu_item_surface(
@@ -1051,7 +1051,7 @@ pub fn[C : @html.IsChildren] context_menu_sub_content(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   menu_sub_content_surface(

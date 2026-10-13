@@ -81,18 +81,18 @@ fn checkbox_bind_keyboard_attrs(attrs : @html.Attrs) -> Unit {
 /// intentionally does not change this checkbox.
 /// The component is not a form control and does not create a hidden input.
 pub fn render(
-  checked? : Bool = false,
-  indeterminate? : Bool = false,
-  disabled? : Bool = false,
-  read_only? : Bool = false,
-  invalid? : Bool = false,
+  checked~ : Bool = false,
+  indeterminate~ : Bool = false,
+  disabled~ : Bool = false,
+  read_only~ : Bool = false,
+  invalid~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   aria_label? : String,
   on_checked_change? : @cmd.Emit[Bool],
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   let (aria_checked, data_state) = checkbox_state(checked, indeterminate)
   let next_checked = !checked

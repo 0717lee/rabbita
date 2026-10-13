@@ -47,7 +47,7 @@ pub fn[C : @html.IsChildren] typography_h1(
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.h1(
@@ -72,7 +72,7 @@ pub fn[C : @html.IsChildren] typography_h2(
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.h2(
@@ -97,7 +97,7 @@ pub fn[C : @html.IsChildren] typography_h3(
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.h3(
@@ -122,7 +122,7 @@ pub fn[C : @html.IsChildren] typography_h4(
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.h4(
@@ -147,7 +147,7 @@ pub fn[C : @html.IsChildren] typography_p(
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.p(
@@ -172,7 +172,7 @@ pub fn[C : @html.IsChildren] typography_blockquote(
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.blockquote(
@@ -197,7 +197,7 @@ pub fn[C : @html.IsChildren] typography_list(
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.ul(
@@ -222,7 +222,7 @@ pub fn[C : @html.IsChildren] typography_inline_code(
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.code(
@@ -247,7 +247,7 @@ pub fn[C : @html.IsChildren] typography_lead(
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.p(
@@ -272,7 +272,7 @@ pub fn[C : @html.IsChildren] typography_large(
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -297,7 +297,7 @@ pub fn[C : @html.IsChildren] typography_small(
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.small(
@@ -322,7 +322,7 @@ pub fn[C : @html.IsChildren] typography_muted(
   title? : String,
   hidden? : Bool,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.p(

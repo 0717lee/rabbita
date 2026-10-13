@@ -11,7 +11,7 @@ const TooltipContentStyle : String = "position:fixed;inset:auto;left:var(--rui-f
 const TooltipArrowBaseStyle : String = "position:absolute;z-index:-1;top:var(--rui-tooltip-arrow-top,auto);right:var(--rui-tooltip-arrow-right,auto);bottom:var(--rui-tooltip-arrow-bottom,auto);left:var(--rui-tooltip-arrow-left,auto);width:0.625rem;height:0.625rem;margin-top:var(--rui-tooltip-arrow-margin-top,0);margin-left:var(--rui-tooltip-arrow-margin-left,0);border-radius:2px;background:var(--rui-foreground,oklch(0.145 0 0));transform:rotate(45deg)"
 
 ///|
-fn tooltip_delay(value : Int) -> Int {
+fn tooltip_delay(value : Int32) -> Int32 {
   if value < 0 {
     0
   } else {
@@ -41,14 +41,14 @@ fn tooltip_arrow_side_style(side : PopupSide) -> String {
 /// that period bypasses a non-zero opening delay. An individual `tooltip` can
 /// override the opening or closing delay.
 pub fn[C : @html.IsChildren] tooltip_provider(
-  delay? : Int = 0,
-  close_delay? : Int = 0,
-  timeout? : Int = 400,
+  delay~ : Int32 = 0,
+  close_delay~ : Int32 = 0,
+  timeout~ : Int32 = 400,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let actual_delay = tooltip_delay(delay)
@@ -72,16 +72,16 @@ pub fn[C : @html.IsChildren] tooltip_provider(
 ///|
 pub fn[C : @html.IsChildren] tooltip_trigger(
   content_id~ : String,
-  open? : Bool = false,
-  disabled? : Bool = false,
-  variant? : ButtonVariant = Ghost,
-  size? : ButtonSize = Default,
+  open~ : Bool = false,
+  disabled~ : Bool = false,
+  variant~ : ButtonVariant = Ghost,
+  size~ : ButtonSize = Default,
   on_click? : @cmd.Cmd,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let resolved_id = id.unwrap_or(content_id + "-trigger")
@@ -124,11 +124,11 @@ pub fn[C : @html.IsChildren] tooltip_trigger(
 
 ///|
 pub fn tooltip_arrow(
-  side? : PopupSide = Top,
+  side~ : PopupSide = Top,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   @html.span(
     style=ui_styles(
@@ -146,18 +146,18 @@ pub fn tooltip_arrow(
 pub fn[C : @html.IsChildren] tooltip_content(
   id~ : String,
   trigger_id~ : String,
-  open? : Bool = false,
-  side? : PopupSide = Top,
-  align? : PopupAlign = Center,
-  side_offset? : Int = 4,
-  align_offset? : Int = 0,
-  show_arrow? : Bool = true,
+  open~ : Bool = false,
+  side~ : PopupSide = Top,
+  align~ : PopupAlign = Center,
+  side_offset~ : Int32 = 4,
+  align_offset~ : Int32 = 0,
+  show_arrow~ : Bool = true,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
   arrow_attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  arrow_style? : Array[String] = [],
+  style~ : Array[String] = [],
+  arrow_style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = popup_state_attrs(attrs, "tooltip-content", open)
@@ -224,7 +224,7 @@ priv struct TooltipEventBinding {
   trigger : @dom.Element
   root : @dom.Element
   sidebar : @dom.Element?
-  dispatch : Ref[(Int, Int) -> Unit]
+  dispatch : Ref[(Int32, Int32) -> Unit]
   sidebar_observer : Ref[@dom.MutationObserver?]
 }
 
@@ -265,8 +265,8 @@ fn tooltip_binding_provider(binding : TooltipEventBinding) -> @dom.Element? {
 fn tooltip_number_config(
   binding : TooltipEventBinding,
   name : String,
-  fallback : Int,
-) -> Int {
+  fallback : Int32,
+) -> Int32 {
   let attribute = "data-" + name
   let value = if binding.root.has_attribute(attribute) {
     binding.root.get_attribute(attribute).unwrap_or("")
@@ -292,7 +292,7 @@ fn tooltip_content_is_open(element : @dom.Element) -> Bool {
 
 ///|
 #cfg(target="js")
-fn tooltip_open_delay(binding : TooltipEventBinding) -> Int {
+fn tooltip_open_delay(binding : TooltipEventBinding) -> Int32 {
   let configured = tooltip_number_config(binding, "delay", 0)
   guard tooltip_binding_provider(binding) is Some(provider) else {
     return configured
@@ -341,7 +341,11 @@ fn tooltip_can_open(binding : TooltipEventBinding) -> Bool {
 
 ///|
 #cfg(target="js")
-fn tooltip_send(binding : TooltipEventBinding, kind : Int, wait : Int) -> Unit {
+fn tooltip_send(
+  binding : TooltipEventBinding,
+  kind : Int32,
+  wait : Int32,
+) -> Unit {
   let opening = kind == 0 || kind == 2 || kind == 5
   if opening &&
     (!ui_element_is_enabled(binding.trigger) || !tooltip_can_open(binding)) {
@@ -398,7 +402,7 @@ fn bind_tooltip_events_for_trigger(
   id : String,
   trigger_id : String,
   root_id : String,
-  dispatch : (Int, Int) -> Unit,
+  dispatch : (Int32, Int32) -> Unit,
 ) -> Bool {
   guard ui_has_document() else { return false }
   guard ui_element_by_id(id) is Some(popup) else { return false }
@@ -496,7 +500,7 @@ fn bind_tooltip_events_for_trigger(
 
 ///|
 #cfg(target="js")
-fn bind_tooltip_events(id : String, dispatch : (Int, Int) -> Unit) -> Bool {
+fn bind_tooltip_events(id : String, dispatch : (Int32, Int32) -> Unit) -> Bool {
   bind_tooltip_events_for_trigger(id, id + "-trigger", id + "-root", dispatch)
 }
 
@@ -507,15 +511,15 @@ priv struct TooltipModel {
   trigger_hovered : Bool
   trigger_focused : Bool
   content_hovered : Bool
-  generation : Int
+  generation : Int32
 } derive(Eq)
 
 ///|
 #cfg(target="js")
 priv enum TooltipMsg {
-  TooltipDomEvent(Int, Int)
-  TooltipOpenAfter(Int)
-  TooltipCloseAfter(Int)
+  TooltipDomEvent(Int32, Int32)
+  TooltipOpenAfter(Int32)
+  TooltipCloseAfter(Int32)
   TooltipNativeChanged(Bool)
 }
 
@@ -752,14 +756,14 @@ fn[T : @html.IsChildren, C : @html.IsChildren] render_tooltip(
   id : String,
   open : Bool,
   disabled : Bool,
-  delay : Int?,
-  close_delay : Int?,
+  delay : Int32?,
+  close_delay : Int32?,
   close_on_click : Bool,
   hoverable : Bool,
   side : PopupSide,
   align : PopupAlign,
-  side_offset : Int,
-  align_offset : Int,
+  side_offset : Int32,
+  align_offset : Int32,
   show_arrow : Bool,
   trigger_variant : ButtonVariant,
   trigger_size : ButtonSize,
@@ -850,29 +854,29 @@ pub fn tooltip_toggle(id : String) -> @cmd.Cmd {
 #cfg(target="js")
 pub fn[T : @html.IsChildren, C : @html.IsChildren] tooltip(
   id~ : String,
-  default_open? : Bool = false,
-  disabled? : Bool = false,
-  delay? : Int,
-  close_delay? : Int,
-  close_on_click? : Bool = true,
-  hoverable? : Bool = true,
-  side? : PopupSide = Top,
-  align? : PopupAlign = Center,
-  side_offset? : Int = 4,
-  align_offset? : Int = 0,
-  show_arrow? : Bool = true,
-  trigger_variant? : ButtonVariant = Ghost,
-  trigger_size? : ButtonSize = Default,
+  default_open~ : Bool = false,
+  disabled~ : Bool = false,
+  delay? : Int32,
+  close_delay? : Int32,
+  close_on_click~ : Bool = true,
+  hoverable~ : Bool = true,
+  side~ : PopupSide = Top,
+  align~ : PopupAlign = Center,
+  side_offset~ : Int32 = 4,
+  align_offset~ : Int32 = 0,
+  show_arrow~ : Bool = true,
+  trigger_variant~ : ButtonVariant = Ghost,
+  trigger_size~ : ButtonSize = Default,
   on_open_change? : @cmd.Emit[Bool],
   on_trigger_click? : @cmd.Cmd,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   trigger_attrs? : @html.Attrs,
-  trigger_style? : Array[String] = [],
+  trigger_style~ : Array[String] = [],
   content_attrs? : @html.Attrs,
-  content_style? : Array[String] = [],
+  content_style~ : Array[String] = [],
   arrow_attrs? : @html.Attrs,
-  arrow_style? : Array[String] = [],
+  arrow_style~ : Array[String] = [],
   trigger : T,
   content : C,
 ) -> @rabbita.Val[@html.Html] {
@@ -941,29 +945,29 @@ pub fn[T : @html.IsChildren, C : @html.IsChildren] tooltip(
 #cfg(not(target="js"))
 pub fn[T : @html.IsChildren, C : @html.IsChildren] tooltip(
   id~ : String,
-  default_open? : Bool = false,
-  disabled? : Bool = false,
-  delay? : Int,
-  close_delay? : Int,
-  close_on_click? : Bool = true,
-  hoverable? : Bool = true,
-  side? : PopupSide = Top,
-  align? : PopupAlign = Center,
-  side_offset? : Int = 4,
-  align_offset? : Int = 0,
-  show_arrow? : Bool = true,
-  trigger_variant? : ButtonVariant = Ghost,
-  trigger_size? : ButtonSize = Default,
+  default_open~ : Bool = false,
+  disabled~ : Bool = false,
+  delay? : Int32,
+  close_delay? : Int32,
+  close_on_click~ : Bool = true,
+  hoverable~ : Bool = true,
+  side~ : PopupSide = Top,
+  align~ : PopupAlign = Center,
+  side_offset~ : Int32 = 4,
+  align_offset~ : Int32 = 0,
+  show_arrow~ : Bool = true,
+  trigger_variant~ : ButtonVariant = Ghost,
+  trigger_size~ : ButtonSize = Default,
   on_open_change? : @cmd.Emit[Bool],
   on_trigger_click? : @cmd.Cmd,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   trigger_attrs? : @html.Attrs,
-  trigger_style? : Array[String] = [],
+  trigger_style~ : Array[String] = [],
   content_attrs? : @html.Attrs,
-  content_style? : Array[String] = [],
+  content_style~ : Array[String] = [],
   arrow_attrs? : @html.Attrs,
-  arrow_style? : Array[String] = [],
+  arrow_style~ : Array[String] = [],
   trigger : T,
   content : C,
 ) -> @rabbita.Val[@html.Html] {

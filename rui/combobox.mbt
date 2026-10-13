@@ -9,7 +9,7 @@ struct ComboboxOption {
 pub fn combobox_option(
   value~ : String,
   label~ : String,
-  disabled? : Bool = false,
+  disabled~ : Bool = false,
 ) -> ComboboxOption {
   { value, label, disabled, }
 }
@@ -19,7 +19,7 @@ priv struct ComboboxModel {
   open : Bool
   query : String
   values : Array[String]
-  active : Int
+  active : Int32
 } derive(Eq)
 
 ///|
@@ -28,11 +28,11 @@ priv enum ComboboxMsg {
   ComboboxToggle
   ComboboxNativeChanged(Bool)
   ComboboxSetQuery(String)
-  ComboboxMove(Int)
+  ComboboxMove(Int32)
   ComboboxFirst
   ComboboxLast
-  ComboboxHighlight(Int)
-  ComboboxChoose(Int)
+  ComboboxHighlight(Int32)
+  ComboboxChoose(Int32)
   ComboboxRemove(String)
   ComboboxClear
   ComboboxClose
@@ -54,8 +54,8 @@ struct ComboboxScope {
   name : String?
   side : PopupSide
   align : PopupAlign
-  side_offset : Int
-  align_offset : Int
+  side_offset : Int32
+  align_offset : Int32
   emit : @cmd.Emit[ComboboxMsg]
   content_id : Ref[String]
   anchor_id : Ref[String]
@@ -118,7 +118,7 @@ fn combobox_contains(values : Array[String], value : String) -> Bool {
 fn combobox_option_index(
   options : Array[ComboboxOption],
   value : String,
-) -> Int {
+) -> Int32 {
   for index, option in options {
     if option.value == value {
       return index
@@ -186,7 +186,7 @@ fn combobox_first_match(
   options : Array[ComboboxOption],
   query : String,
   reverse : Bool,
-) -> Int {
+) -> Int32 {
   if reverse {
     let mut index = options.length() - 1
     while index >= 0 {
@@ -209,9 +209,9 @@ fn combobox_first_match(
 fn combobox_next_match(
   options : Array[ComboboxOption],
   query : String,
-  current : Int,
-  direction : Int,
-) -> Int {
+  current : Int32,
+  direction : Int32,
+) -> Int32 {
   let length = options.length()
   if length == 0 {
     return -1
@@ -289,7 +289,7 @@ fn combobox_toggle_value(
 }
 
 ///|
-fn combobox_item_id(scope : ComboboxScope, index : Int) -> String {
+fn combobox_item_id(scope : ComboboxScope, index : Int32) -> String {
   "\{scope.id}-item-\{index}"
 }
 
@@ -381,7 +381,7 @@ fn combobox_popup_cmd(
 
 ///|
 #cfg(target="js")
-fn bind_combobox_events(id : String, dispatch : (Int) -> Unit) -> Unit {
+fn bind_combobox_events(id : String, dispatch : (Int32) -> Unit) -> Unit {
   guard ui_element_by_id(id + "-root") is Some(root) else { return }
   root.add_event_listener("focusout", event => {
     guard event.to_focus_event() is Some(focus_event) else { return }
@@ -558,7 +558,7 @@ pub fn combobox_value(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   prefix? : @html.Html,
 ) -> @html.Html {
   let empty = scope.model.values.length() == 0
@@ -599,7 +599,7 @@ pub fn combobox_trigger(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   let resolved_id = id.unwrap_or("\{scope.id}-trigger")
   if !scope.has_input.val {
@@ -768,13 +768,13 @@ fn combobox_input_surface(
 ///|
 pub fn combobox_input(
   scope~ : ComboboxScope,
-  aria_label? : String = "Search options",
-  auto_complete? : @html.AutoComplete = Off,
+  aria_label~ : String = "Search options",
+  auto_complete~ : @html.AutoComplete = Off,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   combobox_input_surface(
     scope,
@@ -798,13 +798,13 @@ pub fn combobox_input(
 /// singular `combobox-chip-input` data slot.
 pub fn combobox_chips_input(
   scope~ : ComboboxScope,
-  aria_label? : String = "Search options",
-  auto_complete? : @html.AutoComplete = Off,
+  aria_label~ : String = "Search options",
+  auto_complete~ : @html.AutoComplete = Off,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   combobox_input_surface(
     scope,
@@ -823,12 +823,12 @@ pub fn combobox_chips_input(
 ///|
 pub fn combobox_clear(
   scope~ : ComboboxScope,
-  label? : String = "Clear selection",
+  label~ : String = "Clear selection",
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   let hidden = scope.model.values.length() == 0 && scope.model.query == ""
   let clear_attrs = ui_attrs(attrs)
@@ -910,7 +910,7 @@ pub fn[C : @html.IsChildren] combobox_list(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -932,7 +932,7 @@ pub fn[C : @html.IsChildren] combobox_item(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let index = combobox_option_index(scope.options, value)
@@ -1019,7 +1019,7 @@ pub fn[C : @html.IsChildren] combobox_group(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let group_attrs = ui_attrs(attrs)
@@ -1044,7 +1044,7 @@ pub fn[C : @html.IsChildren] combobox_label(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -1068,7 +1068,7 @@ pub fn[C : @html.IsChildren] combobox_collection(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -1083,12 +1083,12 @@ pub fn[C : @html.IsChildren] combobox_collection(
 
 ///|
 pub fn[C : @html.IsChildren] combobox_empty(
-  visible? : Bool = true,
+  visible~ : Bool = true,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -1113,7 +1113,7 @@ pub fn combobox_separator(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   @html.div(
     id?,
@@ -1138,7 +1138,7 @@ pub fn[C : @html.IsChildren] combobox_chips(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -1158,13 +1158,13 @@ pub fn[C : @html.IsChildren] combobox_chips(
 pub fn[C : @html.IsChildren] combobox_chip(
   scope~ : ComboboxScope,
   value~ : String,
-  removable? : Bool = true,
-  remove_label? : String = "Remove",
+  removable~ : Bool = true,
+  remove_label~ : String = "Remove",
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.span(
@@ -1224,7 +1224,7 @@ pub fn[C : @html.IsChildren] combobox_content(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let resolved_id = id.unwrap_or("\{scope.id}-content")
@@ -1422,19 +1422,19 @@ pub fn combobox(
   id~ : String,
   options~ : Array[ComboboxOption],
   default_value? : String,
-  default_values? : Array[String] = [],
-  multiple? : Bool = false,
-  default_open? : Bool = false,
-  placeholder? : String = "Select an option",
-  empty_text? : String = "No results found.",
-  disabled? : Bool = false,
-  invalid? : Bool = false,
-  required? : Bool = false,
+  default_values~ : Array[String] = [],
+  multiple~ : Bool = false,
+  default_open~ : Bool = false,
+  placeholder~ : String = "Select an option",
+  empty_text~ : String = "No results found.",
+  disabled~ : Bool = false,
+  invalid~ : Bool = false,
+  required~ : Bool = false,
   name? : String,
-  side? : PopupSide = Bottom,
-  align? : PopupAlign = Start,
-  side_offset? : Int = 4,
-  align_offset? : Int = 0,
+  side~ : PopupSide = Bottom,
+  align~ : PopupAlign = Start,
+  side_offset~ : Int32 = 4,
+  align_offset~ : Int32 = 0,
   on_value_change? : @cmd.Emit[String],
   on_values_change? : @cmd.Emit[Array[String]],
   on_query_change? : @cmd.Emit[String],
@@ -1442,7 +1442,7 @@ pub fn combobox(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   render? : (ComboboxScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   let requested = default_values.copy()
@@ -1771,19 +1771,19 @@ pub fn combobox(
   id~ : String,
   options~ : Array[ComboboxOption],
   default_value? : String,
-  default_values? : Array[String] = [],
-  multiple? : Bool = false,
-  default_open? : Bool = false,
-  placeholder? : String = "Select an option",
-  empty_text? : String = "No results found.",
-  disabled? : Bool = false,
-  invalid? : Bool = false,
-  required? : Bool = false,
+  default_values~ : Array[String] = [],
+  multiple~ : Bool = false,
+  default_open~ : Bool = false,
+  placeholder~ : String = "Select an option",
+  empty_text~ : String = "No results found.",
+  disabled~ : Bool = false,
+  invalid~ : Bool = false,
+  required~ : Bool = false,
   name? : String,
-  side? : PopupSide = Bottom,
-  align? : PopupAlign = Start,
-  side_offset? : Int = 4,
-  align_offset? : Int = 0,
+  side~ : PopupSide = Bottom,
+  align~ : PopupAlign = Start,
+  side_offset~ : Int32 = 4,
+  align_offset~ : Int32 = 0,
   on_value_change? : @cmd.Emit[String],
   on_values_change? : @cmd.Emit[Array[String]],
   on_query_change? : @cmd.Emit[String],
@@ -1791,7 +1791,7 @@ pub fn combobox(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   render? : (ComboboxScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   ignore((on_value_change, on_values_change, on_query_change, on_open_change))

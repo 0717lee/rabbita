@@ -104,19 +104,19 @@ fn toggle_invalid_style(invalid : Bool) -> String {
 ///
 /// User styles are appended last and therefore override the built-in recipe.
 fn[C : @html.IsChildren] render_toggle(
-  pressed? : Bool = false,
-  variant? : ToggleVariant = Default,
-  size? : ToggleSize = Default,
-  disabled? : Bool = false,
-  invalid? : Bool = false,
+  pressed~ : Bool = false,
+  variant~ : ToggleVariant = Default,
+  size~ : ToggleSize = Default,
+  disabled~ : Bool = false,
+  invalid~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   aria_label? : String,
   on_pressed_change? : @cmd.Emit[Bool],
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  slot? : String = "toggle",
+  style~ : Array[String] = [],
+  slot~ : String = "toggle",
   children : C,
 ) -> @html.Html {
   let control_attrs = ui_attrs(attrs)
@@ -171,19 +171,19 @@ fn[C : @html.IsChildren] render_toggle(
 /// Build a black-box toggle with component-local incremental state.
 #cfg(target="js")
 pub fn[C : @html.IsChildren] toggle(
-  default_pressed? : Bool = false,
-  variant? : ToggleVariant = Default,
-  size? : ToggleSize = Default,
-  disabled? : Bool = false,
-  invalid? : Bool = false,
+  default_pressed~ : Bool = false,
+  variant~ : ToggleVariant = Default,
+  size~ : ToggleSize = Default,
+  disabled~ : Bool = false,
+  invalid~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   aria_label? : String,
   on_pressed_change? : @cmd.Emit[Bool],
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  slot? : String = "toggle",
+  style~ : Array[String] = [],
+  slot~ : String = "toggle",
   children : C,
 ) -> @rabbita.Val[@html.Html] {
   let (pressed, set_pressed) = @rabbita.create_variable(default_pressed)
@@ -217,19 +217,19 @@ pub fn[C : @html.IsChildren] toggle(
 ///|
 #cfg(not(target="js"))
 pub fn[C : @html.IsChildren] toggle(
-  default_pressed? : Bool = false,
-  variant? : ToggleVariant = Default,
-  size? : ToggleSize = Default,
-  disabled? : Bool = false,
-  invalid? : Bool = false,
+  default_pressed~ : Bool = false,
+  variant~ : ToggleVariant = Default,
+  size~ : ToggleSize = Default,
+  disabled~ : Bool = false,
+  invalid~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   aria_label? : String,
   on_pressed_change? : @cmd.Emit[Bool],
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
-  slot? : String = "toggle",
+  style~ : Array[String] = [],
+  slot~ : String = "toggle",
   children : C,
 ) -> @rabbita.Val[@html.Html] {
   ignore(on_pressed_change)

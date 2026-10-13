@@ -69,7 +69,7 @@ pub fn[C : @html.IsChildren] bubble_group(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -90,13 +90,13 @@ pub fn[C : @html.IsChildren] bubble_group(
 
 ///|
 pub fn[C : @html.IsChildren] bubble(
-  variant? : BubbleVariant = BubbleDefault,
-  align? : ContentAlignment = AlignStart,
+  variant~ : BubbleVariant = BubbleDefault,
+  align~ : ContentAlignment = AlignStart,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let align_value = content_alignment_value(align)
@@ -136,7 +136,7 @@ pub fn[C : @html.IsChildren] bubble_content(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -172,18 +172,18 @@ fn bubble_bind_disabled_link(attrs : @html.Attrs, disabled : Bool) -> Unit {
 /// Render an interactive bubble-content anchor without a Slot/runtime wrapper.
 pub fn[C : @html.IsChildren] bubble_content_link(
   href~ : String,
-  disabled? : Bool = false,
+  disabled~ : Bool = false,
   aria_label? : String,
-  target? : @html.Target = Self,
+  target~ : @html.Target = Self,
   rel? : String,
   download? : String,
-  escape? : Bool = false,
+  escape~ : Bool = false,
   on_click? : @cmd.Cmd,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = ui_attrs(attrs).data_set("slot", "bubble-content")
@@ -225,15 +225,15 @@ pub fn[C : @html.IsChildren] bubble_content_link(
 ///|
 /// Render the button branch of Nova's interactive bubble-content recipe.
 pub fn[C : @html.IsChildren] bubble_content_button(
-  disabled? : Bool = false,
-  type_? : String = "button",
+  disabled~ : Bool = false,
+  type_~ : String = "button",
   aria_label? : String,
   on_click? : @cmd.Cmd,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = ui_attrs(attrs).data_set("slot", "bubble-content")
@@ -268,13 +268,13 @@ pub fn[C : @html.IsChildren] bubble_content_button(
 
 ///|
 pub fn[C : @html.IsChildren] bubble_reactions(
-  side? : BubbleReactionSide = ReactionBottom,
-  align? : ContentAlignment = AlignEnd,
+  side~ : BubbleReactionSide = ReactionBottom,
+  align~ : ContentAlignment = AlignEnd,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let side_value = if side is ReactionTop { "top" } else { "bottom" }

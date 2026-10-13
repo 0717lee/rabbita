@@ -136,18 +136,18 @@ fn switch_read_only_style(read_only : Bool) -> String {
 /// As a native button with `role="switch"`, mouse, Space, and Enter all request
 /// the next value. No hidden form input is created.
 fn render_switch(
-  checked? : Bool = false,
-  size? : SwitchSize = Default,
-  disabled? : Bool = false,
-  read_only? : Bool = false,
-  invalid? : Bool = false,
+  checked~ : Bool = false,
+  size~ : SwitchSize = Default,
+  disabled~ : Bool = false,
+  read_only~ : Bool = false,
+  invalid~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   aria_label? : String,
   on_checked_change? : @cmd.Emit[Bool],
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   let state = if checked { "checked" } else { "unchecked" }
   let control_attrs = ui_attrs(attrs)
@@ -224,18 +224,18 @@ fn render_switch(
 /// Build a black-box switch with component-local incremental state.
 #cfg(target="js")
 pub fn switch(
-  default_checked? : Bool = false,
-  size? : SwitchSize = Default,
-  disabled? : Bool = false,
-  read_only? : Bool = false,
-  invalid? : Bool = false,
+  default_checked~ : Bool = false,
+  size~ : SwitchSize = Default,
+  disabled~ : Bool = false,
+  read_only~ : Bool = false,
+  invalid~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   aria_label? : String,
   on_checked_change? : @cmd.Emit[Bool],
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @rabbita.Val[@html.Html] {
   let (checked, set_checked) = @rabbita.create_variable(default_checked)
   checked.view(checked => {
@@ -266,18 +266,18 @@ pub fn switch(
 ///|
 #cfg(not(target="js"))
 pub fn switch(
-  default_checked? : Bool = false,
-  size? : SwitchSize = Default,
-  disabled? : Bool = false,
-  read_only? : Bool = false,
-  invalid? : Bool = false,
+  default_checked~ : Bool = false,
+  size~ : SwitchSize = Default,
+  disabled~ : Bool = false,
+  read_only~ : Bool = false,
+  invalid~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   aria_label? : String,
   on_checked_change? : @cmd.Emit[Bool],
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @rabbita.Val[@html.Html] {
   ignore(on_checked_change)
   @rabbita.Val::constant(

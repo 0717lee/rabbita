@@ -1,8 +1,8 @@
 ///|
 struct NavigationMenuModel {
   value : String?
-  index : Int
-  focus_index : Int
+  index : Int32
+  focus_index : Int32
 } derive(Eq)
 
 ///|
@@ -12,21 +12,21 @@ pub extend NavigationMenuModel with Eq::{equal, not_equal}
 struct NavigationMenuScope {
   id : String
   model : NavigationMenuModel
-  counter : Ref[Int]
+  counter : Ref[Int32]
   focus_claimed : Ref[Bool]
   viewport : Bool
   contents : Ref[Array[NavigationMenuContentEntry]]
   viewport_rendered : Ref[Bool]
-  toggle : @cmd.Emit[(String, Int)]
+  toggle : @cmd.Emit[(String, Int32)]
 }
 
 ///|
 struct NavigationMenuItemScope {
   id : String
   value : String
-  index : Int
+  index : Int32
   open : Bool
-  focus_index : Int
+  focus_index : Int32
   focus_claimed : Ref[Bool]
   active_value_set : Bool
   viewport : Bool
@@ -43,11 +43,11 @@ priv struct NavigationMenuContentEntry {
 ///|
 #cfg(target="js")
 priv enum NavigationMenuMsg {
-  NavigationActivate(String, Int)
-  NavigationToggle(String, Int)
+  NavigationActivate(String, Int32)
+  NavigationToggle(String, Int32)
   NavigationClose
-  NavigationNative(String, Int, Bool)
-  NavigationSetFocus(Int)
+  NavigationNative(String, Int32, Bool)
+  NavigationSetFocus(Int32)
 }
 
 ///|
@@ -93,12 +93,12 @@ const NavigationMenuChevronBoxStyle : String = "display:inline-flex;width:1rem;h
 const NavigationMenuChevronStyle : String = "display:block;width:0.4375rem;height:0.4375rem;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-0.125rem) rotate(45deg)"
 
 ///|
-fn navigation_content_id(id : String, index : Int) -> String {
+fn navigation_content_id(id : String, index : Int32) -> String {
   id + "-content-\{index}"
 }
 
 ///|
-fn navigation_trigger_id(id : String, index : Int) -> String {
+fn navigation_trigger_id(id : String, index : Int32) -> String {
   id + "-trigger-\{index}"
 }
 
@@ -119,12 +119,12 @@ priv struct NavigationMenuBinding {
   id : String
   root : @dom.Element
   document : @dom.Document
-  activate : Ref[(String, Int) -> Unit]
-  native_change : Ref[(String, Int, Bool) -> Unit]
+  activate : Ref[(String, Int32) -> Unit]
+  native_change : Ref[(String, Int32, Bool) -> Unit]
   close : Ref[() -> Unit]
-  set_focus : Ref[(Int) -> Unit]
+  set_focus : Ref[(Int32) -> Unit]
   toggle_contents : Array[@dom.Element]
-  close_timer : Ref[Int]
+  close_timer : Ref[Int32]
   outside_press : Ref[@dom.Listener]
 }
 
@@ -198,7 +198,7 @@ fn navigation_menu_open_trigger(
 #cfg(target="js")
 fn navigation_menu_content_for_index(
   root : @dom.Element,
-  index : Int,
+  index : Int32,
 ) -> @dom.Element? {
   ui_find_node_list_element(
     root.query_selector_all("[data-slot=\"navigation-menu-content\"]"),
@@ -217,8 +217,8 @@ fn navigation_menu_content_for_index(
 #cfg(target="js")
 fn navigation_menu_focus_content(
   binding : NavigationMenuBinding,
-  index : Int,
-  attempt : Int,
+  index : Int32,
+  attempt : Int32,
 ) -> Unit {
   menu_request_frame(() => {
     guard ui_element_by_id(binding.id) is Some(root) && root.get_is_connected() else {
@@ -393,10 +393,10 @@ fn navigation_menu_handle_keydown(
 #cfg(target="js")
 fn bind_navigation_menu(
   id : String,
-  activate : (String, Int) -> Unit,
-  native_change : (String, Int, Bool) -> Unit,
+  activate : (String, Int32) -> Unit,
+  native_change : (String, Int32, Bool) -> Unit,
   close : () -> Unit,
-  set_focus : (Int) -> Unit,
+  set_focus : (Int32) -> Unit,
 ) -> Unit {
   guard ui_element_by_id(id) is Some(root) else { return }
   let document = @dom.document()
@@ -529,10 +529,10 @@ fn bind_navigation_menu(
 #cfg(target="js")
 fn navigation_bind_cmd(
   id : String,
-  activate : @cmd.Emit[(String, Int)],
-  native_change : @cmd.Emit[(String, Int, Bool)],
+  activate : @cmd.Emit[(String, Int32)],
+  native_change : @cmd.Emit[(String, Int32, Bool)],
   close_command : @cmd.Cmd,
-  set_focus : @cmd.Emit[Int],
+  set_focus : @cmd.Emit[Int32],
 ) -> @cmd.Cmd {
   @cmd.custom_cmd(kind=AfterRender, scheduler => {
     ui_after_mount(
@@ -558,7 +558,7 @@ fn navigation_change_cmd(
   id : String,
   current : NavigationMenuModel,
   value : String?,
-  index : Int,
+  index : Int32,
   viewport : Bool,
 ) -> @cmd.Cmd {
   @cmd.batch([
@@ -580,13 +580,13 @@ fn navigation_change_cmd(
 pub fn navigation_menu(
   id~ : String,
   default_value? : String,
-  viewport? : Bool = true,
+  viewport~ : Bool = true,
   on_value_change? : @cmd.Emit[String?],
-  aria_label? : String = "Main navigation",
+  aria_label~ : String = "Main navigation",
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (NavigationMenuScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   let initial : NavigationMenuModel = {
@@ -774,13 +774,13 @@ pub fn navigation_menu(
 pub fn navigation_menu(
   id~ : String,
   default_value? : String,
-  viewport? : Bool = true,
+  viewport~ : Bool = true,
   on_value_change? : @cmd.Emit[String?],
-  aria_label? : String = "Main navigation",
+  aria_label~ : String = "Main navigation",
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (NavigationMenuScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   ignore(on_value_change)
@@ -838,13 +838,13 @@ pub fn navigation_menu(
 pub fn navigation_menu_root(
   id~ : String,
   default_value? : String,
-  viewport? : Bool = true,
+  viewport~ : Bool = true,
   on_value_change? : @cmd.Emit[String?],
-  aria_label? : String = "Main navigation",
+  aria_label~ : String = "Main navigation",
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (NavigationMenuScope) -> @html.Html,
 ) -> @rabbita.Val[@html.Html] {
   navigation_menu(
@@ -867,7 +867,7 @@ pub fn[C : @html.IsChildren] navigation_menu_list(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   ignore(scope)
@@ -887,7 +887,7 @@ pub fn[C : @html.IsChildren] navigation_menu_item(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : (NavigationMenuItemScope) -> C,
 ) -> @html.Html {
   let index = scope.counter.val
@@ -919,13 +919,13 @@ pub fn[C : @html.IsChildren] navigation_menu_item(
 ///|
 pub fn[C : @html.IsChildren] navigation_menu_trigger(
   scope : NavigationMenuItemScope,
-  disabled? : Bool = false,
+  disabled~ : Bool = false,
   aria_label? : String,
   on_click? : @cmd.Cmd,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let preferred = if scope.active_value_set {
@@ -1018,13 +1018,13 @@ pub fn[C : @html.IsChildren] navigation_menu_trigger(
 ///|
 pub fn[C : @html.IsChildren] navigation_menu_content(
   scope : NavigationMenuItemScope,
-  side_offset? : Int = 8,
-  align_offset? : Int = 0,
+  side_offset~ : Int32 = 8,
+  align_offset~ : Int32 = 0,
   aria_label? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let trigger_id = navigation_trigger_id(scope.id, scope.index)
@@ -1148,7 +1148,7 @@ pub fn[C : @html.IsChildren] navigation_menu_viewport(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   scope.viewport_rendered.val = true
@@ -1165,16 +1165,16 @@ pub fn[C : @html.IsChildren] navigation_menu_viewport(
 ///|
 pub fn[C : @html.IsChildren] navigation_menu_link(
   href~ : String,
-  active? : Bool = false,
-  target? : @html.Target = Self,
+  active~ : Bool = false,
+  target~ : @html.Target = Self,
   rel? : String,
   download? : String,
-  escape? : Bool = false,
+  escape~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = ui_attrs(attrs)
@@ -1216,7 +1216,7 @@ pub fn navigation_menu_indicator(
   scope : NavigationMenuItemScope,
   class? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   @html.span(
     style=ui_styles(

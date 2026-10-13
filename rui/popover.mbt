@@ -111,7 +111,7 @@ fn popup_position_area(side : PopupSide, align : PopupAlign) -> String {
 }
 
 ///|
-fn popup_side_offset_style(side : PopupSide, offset : Int) -> String {
+fn popup_side_offset_style(side : PopupSide, offset : Int32) -> String {
   match side {
     Top => "margin-bottom:\{offset}px"
     Right => "margin-left:\{offset}px"
@@ -121,7 +121,7 @@ fn popup_side_offset_style(side : PopupSide, offset : Int) -> String {
 }
 
 ///|
-fn popup_align_offset_style(side : PopupSide, offset : Int) -> String {
+fn popup_align_offset_style(side : PopupSide, offset : Int32) -> String {
   match side {
     Top | Bottom => "translate:\{offset}px 0"
     Right | Left => "translate:0 \{offset}px"
@@ -152,8 +152,8 @@ fn popup_floating_anchor_style(
   trigger_id : String,
   side : PopupSide,
   align : PopupAlign,
-  side_offset : Int,
-  align_offset : Int,
+  side_offset : Int32,
+  align_offset : Int32,
 ) -> String {
   let fallbacks = match side {
     Top | Bottom => "flip-inline,flip-block,flip-inline flip-block"
@@ -1421,7 +1421,7 @@ pub fn[C : @html.IsChildren] popover_anchor(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.span(
@@ -1440,16 +1440,16 @@ pub fn[C : @html.IsChildren] popover_anchor(
 ///|
 pub fn[C : @html.IsChildren] popover_trigger(
   target_id~ : String,
-  open? : Bool = false,
-  disabled? : Bool = false,
-  variant? : ButtonVariant = Outline,
-  size? : ButtonSize = Default,
+  open~ : Bool = false,
+  disabled~ : Bool = false,
+  variant~ : ButtonVariant = Outline,
+  size~ : ButtonSize = Default,
   on_click? : @cmd.Cmd,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let resolved_id = id.unwrap_or(target_id + "-trigger")
@@ -1494,22 +1494,22 @@ pub fn[C : @html.IsChildren] popover_trigger(
 pub fn[C : @html.IsChildren] popover_content(
   id~ : String,
   trigger_id~ : String,
-  open? : Bool = false,
-  modal? : Bool = false,
-  initial_focus? : Bool = true,
+  open~ : Bool = false,
+  modal~ : Bool = false,
+  initial_focus~ : Bool = true,
   initial_focus_id? : String,
-  restore_focus? : Bool = true,
+  restore_focus~ : Bool = true,
   final_focus_id? : String,
-  side? : PopupSide = Bottom,
-  align? : PopupAlign = Center,
-  side_offset? : Int = 4,
-  align_offset? : Int = 0,
+  side~ : PopupSide = Bottom,
+  align~ : PopupAlign = Center,
+  side_offset~ : Int32 = 4,
+  align_offset~ : Int32 = 0,
   title_id? : String,
   description_id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = popup_state_attrs(attrs, "popover-content", open)
@@ -1588,7 +1588,7 @@ pub fn[C : @html.IsChildren] popover_header(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.div(
@@ -1607,7 +1607,7 @@ pub fn[C : @html.IsChildren] popover_title(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.h2(
@@ -1626,7 +1626,7 @@ pub fn[C : @html.IsChildren] popover_description(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.p(
@@ -1642,15 +1642,15 @@ pub fn[C : @html.IsChildren] popover_description(
 ///|
 pub fn[C : @html.IsChildren] popover_close_button(
   target_id~ : String,
-  disabled? : Bool = false,
-  variant? : ButtonVariant = Ghost,
-  size? : ButtonSize = Sm,
-  aria_label? : String = "Close",
+  disabled~ : Bool = false,
+  variant~ : ButtonVariant = Ghost,
+  size~ : ButtonSize = Sm,
+  aria_label~ : String = "Close",
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = ui_attrs(attrs)
@@ -1720,8 +1720,8 @@ fn[T : @html.IsChildren, C : @html.IsChildren] render_popover(
   final_focus_id : String?,
   side : PopupSide,
   align : PopupAlign,
-  side_offset : Int,
-  align_offset : Int,
+  side_offset : Int32,
+  align_offset : Int32,
   trigger_variant : ButtonVariant,
   trigger_size : ButtonSize,
   title_id : String?,
@@ -1791,28 +1791,28 @@ fn[T : @html.IsChildren, C : @html.IsChildren] render_popover(
 #cfg(target="js")
 pub fn[T : @html.IsChildren, C : @html.IsChildren] popover(
   id~ : String,
-  default_open? : Bool = false,
-  disabled? : Bool = false,
-  modal? : Bool = false,
-  initial_focus? : Bool = true,
+  default_open~ : Bool = false,
+  disabled~ : Bool = false,
+  modal~ : Bool = false,
+  initial_focus~ : Bool = true,
   initial_focus_id? : String,
-  restore_focus? : Bool = true,
+  restore_focus~ : Bool = true,
   final_focus_id? : String,
-  side? : PopupSide = Bottom,
-  align? : PopupAlign = Center,
-  side_offset? : Int = 4,
-  align_offset? : Int = 0,
-  trigger_variant? : ButtonVariant = Outline,
-  trigger_size? : ButtonSize = Default,
+  side~ : PopupSide = Bottom,
+  align~ : PopupAlign = Center,
+  side_offset~ : Int32 = 4,
+  align_offset~ : Int32 = 0,
+  trigger_variant~ : ButtonVariant = Outline,
+  trigger_size~ : ButtonSize = Default,
   title_id? : String,
   description_id? : String,
   on_open_change? : @cmd.Emit[Bool],
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   trigger_attrs? : @html.Attrs,
-  trigger_style? : Array[String] = [],
+  trigger_style~ : Array[String] = [],
   content_attrs? : @html.Attrs,
-  content_style? : Array[String] = [],
+  content_style~ : Array[String] = [],
   trigger : T,
   content : C,
 ) -> @rabbita.Val[@html.Html] {
@@ -1893,28 +1893,28 @@ pub fn[T : @html.IsChildren, C : @html.IsChildren] popover(
 #cfg(not(target="js"))
 pub fn[T : @html.IsChildren, C : @html.IsChildren] popover(
   id~ : String,
-  default_open? : Bool = false,
-  disabled? : Bool = false,
-  modal? : Bool = false,
-  initial_focus? : Bool = true,
+  default_open~ : Bool = false,
+  disabled~ : Bool = false,
+  modal~ : Bool = false,
+  initial_focus~ : Bool = true,
   initial_focus_id? : String,
-  restore_focus? : Bool = true,
+  restore_focus~ : Bool = true,
   final_focus_id? : String,
-  side? : PopupSide = Bottom,
-  align? : PopupAlign = Center,
-  side_offset? : Int = 4,
-  align_offset? : Int = 0,
-  trigger_variant? : ButtonVariant = Outline,
-  trigger_size? : ButtonSize = Default,
+  side~ : PopupSide = Bottom,
+  align~ : PopupAlign = Center,
+  side_offset~ : Int32 = 4,
+  align_offset~ : Int32 = 0,
+  trigger_variant~ : ButtonVariant = Outline,
+  trigger_size~ : ButtonSize = Default,
   title_id? : String,
   description_id? : String,
   on_open_change? : @cmd.Emit[Bool],
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   trigger_attrs? : @html.Attrs,
-  trigger_style? : Array[String] = [],
+  trigger_style~ : Array[String] = [],
   content_attrs? : @html.Attrs,
-  content_style? : Array[String] = [],
+  content_style~ : Array[String] = [],
   trigger : T,
   content : C,
 ) -> @rabbita.Val[@html.Html] {

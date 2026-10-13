@@ -13,18 +13,18 @@ priv enum CheckboxMsg {
 /// Build a black-box checkbox with component-local incremental state.
 #cfg(target="js")
 pub fn checkbox(
-  default_checked? : Bool = false,
-  default_indeterminate? : Bool = false,
-  disabled? : Bool = false,
-  read_only? : Bool = false,
-  invalid? : Bool = false,
+  default_checked~ : Bool = false,
+  default_indeterminate~ : Bool = false,
+  disabled~ : Bool = false,
+  read_only~ : Bool = false,
+  invalid~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   aria_label? : String,
   on_checked_change? : @cmd.Emit[Bool],
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @rabbita.Val[@html.Html] {
   let initial = {
     checked: default_checked,
@@ -64,18 +64,18 @@ pub fn checkbox(
 /// incremental value.
 #cfg(not(target="js"))
 pub fn checkbox(
-  default_checked? : Bool = false,
-  default_indeterminate? : Bool = false,
-  disabled? : Bool = false,
-  read_only? : Bool = false,
-  invalid? : Bool = false,
+  default_checked~ : Bool = false,
+  default_indeterminate~ : Bool = false,
+  disabled~ : Bool = false,
+  read_only~ : Bool = false,
+  invalid~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   aria_label? : String,
   on_checked_change? : @cmd.Emit[Bool],
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @rabbita.Val[@html.Html] {
   ignore(on_checked_change)
   @rabbita.Val::constant(

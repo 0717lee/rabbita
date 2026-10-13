@@ -9,7 +9,7 @@ pub fn skeleton(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   let element_attrs = ui_attrs(attrs).data_set("slot", "skeleton")
   @html.div(

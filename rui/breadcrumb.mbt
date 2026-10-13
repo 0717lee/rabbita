@@ -39,12 +39,12 @@ fn breadcrumb_part_attrs(attrs : @html.Attrs?, slot : String) -> @html.Attrs {
 ///|
 /// Render the semantic navigation root for a breadcrumb trail.
 pub fn[C : @html.IsChildren] breadcrumb(
-  aria_label? : String = "breadcrumb",
+  aria_label~ : String = "breadcrumb",
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = breadcrumb_part_attrs(attrs, "breadcrumb").aria_label(
@@ -70,7 +70,7 @@ pub fn[C : @html.IsChildren] breadcrumb_list(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.ol(
@@ -90,7 +90,7 @@ pub fn[C : @html.IsChildren] breadcrumb_item(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.li(
@@ -107,15 +107,15 @@ pub fn[C : @html.IsChildren] breadcrumb_item(
 /// Render a native anchor for a navigable breadcrumb item.
 pub fn[C : @html.IsChildren] breadcrumb_link(
   href~ : String,
-  target? : @html.Target = Self,
+  target~ : @html.Target = Self,
   rel? : String,
   download? : String,
-  escape? : Bool = false,
+  escape~ : Bool = false,
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   @html.a(
@@ -143,7 +143,7 @@ pub fn[C : @html.IsChildren] breadcrumb_page(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   children : C,
 ) -> @html.Html {
   let element_attrs = breadcrumb_part_attrs(attrs, "breadcrumb-page")
@@ -172,7 +172,7 @@ pub fn breadcrumb_separator(
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   let content = children.unwrap_or(
     @html.span(
@@ -197,12 +197,12 @@ pub fn breadcrumb_separator(
 ///|
 /// Render the collapsed-range marker used by long breadcrumb trails.
 pub fn breadcrumb_ellipsis(
-  label? : String = "More",
+  label~ : String = "More",
   id? : String,
   class? : String,
   title? : String,
   attrs? : @html.Attrs,
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
 ) -> @html.Html {
   let element_attrs = breadcrumb_part_attrs(attrs, "breadcrumb-ellipsis")
     .role("presentation")
