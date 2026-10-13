@@ -28,7 +28,7 @@ extern "js" fn checked_cast_string_ffi(value : Value) -> Nullable[String] =
 
 ///|
 #cfg(target="js")
-extern "js" fn checked_cast_int_ffi(value : Value) -> Nullable[Int] =
+extern "js" fn checked_cast_int_ffi(value : Value) -> Nullable[Int32] =
   #| (x) => typeof x === 'number' && Number.isInteger(x) ? x : null
 
 ///|
@@ -62,13 +62,13 @@ pub impl Cast for String with fn from(value) {
 
 ///|
 #cfg(target="js")
-pub impl Cast for Int with fn into(value) {
+pub impl Cast for Int32 with fn into(value) {
   checked_cast_int_ffi(value).to_option()
 }
 
 ///|
 #cfg(target="js")
-pub impl Cast for Int with fn from(value) {
+pub impl Cast for Int32 with fn from(value) {
   Value::cast_from(value)
 }
 

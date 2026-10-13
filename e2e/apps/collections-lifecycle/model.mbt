@@ -6,7 +6,7 @@ priv struct ListModel {
 
 ///|
 priv struct RowState {
-  clicks : Int
+  clicks : Int32
   draft : String
 } derive(Eq)
 
@@ -27,7 +27,7 @@ fn update_list(model : ListModel, message : ListMsg) -> ListModel {
 }
 
 ///|
-fn list_items(model : ListModel) -> @vector.Vector[(Int, String)] {
+fn list_items(model : ListModel) -> @vector.Vector[(Int32, String)] {
   match (model.has_first, model.reversed) {
     (true, false) => @vector.from_array([(1, "one"), (2, "two")])
     (true, true) => @vector.from_array([(2, "two"), (1, "one")])

@@ -185,14 +185,14 @@ fn push_reversed(value : Bool?, attrs : Attrs) -> Unit {
 }
 
 ///|
-fn push_start(value : Int?, attrs : Attrs) -> Unit {
+fn push_start(value : Int32?, attrs : Attrs) -> Unit {
   if value is Some(v) {
     ignore(attrs.attribute("start", v.to_string()))
   }
 }
 
 ///|
-fn push_value_attr_int(value : Int?, attrs : Attrs) -> Unit {
+fn push_value_attr_int(value : Int32?, attrs : Attrs) -> Unit {
   if value is Some(v) {
     ignore(attrs.attribute("value", v.to_string()))
   }
@@ -234,14 +234,14 @@ fn push_title(value : String?, attrs : Attrs) -> Unit {
 }
 
 ///|
-fn push_width(value : Int?, attrs : Attrs) -> Unit {
+fn push_width(value : Int32?, attrs : Attrs) -> Unit {
   if value is Some(v) {
     ignore(attrs.attribute("width", v.to_string()))
   }
 }
 
 ///|
-fn push_height(value : Int?, attrs : Attrs) -> Unit {
+fn push_height(value : Int32?, attrs : Attrs) -> Unit {
   if value is Some(v) {
     ignore(attrs.attribute("height", v.to_string()))
   }
@@ -290,14 +290,14 @@ fn push_label(value : String?, attrs : Attrs) -> Unit {
 }
 
 ///|
-fn push_rows(value : Int?, attrs : Attrs) -> Unit {
+fn push_rows(value : Int32?, attrs : Attrs) -> Unit {
   if value is Some(v) {
     ignore(attrs.attribute("rows", v.to_string()))
   }
 }
 
 ///|
-fn push_cols(value : Int?, attrs : Attrs) -> Unit {
+fn push_cols(value : Int32?, attrs : Attrs) -> Unit {
   if value is Some(v) {
     ignore(attrs.attribute("cols", v.to_string()))
   }
@@ -339,35 +339,35 @@ fn push_accept(value : String?, attrs : Attrs) -> Unit {
 }
 
 ///|
-fn push_max(value : Int?, attrs : Attrs) -> Unit {
+fn push_max(value : Int32?, attrs : Attrs) -> Unit {
   if value is Some(v) {
     ignore(attrs.attribute("max", v.to_string()))
   }
 }
 
 ///|
-fn push_min(value : Int?, attrs : Attrs) -> Unit {
+fn push_min(value : Int32?, attrs : Attrs) -> Unit {
   if value is Some(v) {
     ignore(attrs.attribute("min", v.to_string()))
   }
 }
 
 ///|
-fn push_step(value : Int?, attrs : Attrs) -> Unit {
+fn push_step(value : Int32?, attrs : Attrs) -> Unit {
   if value is Some(v) {
     ignore(attrs.attribute("step", v.to_string()))
   }
 }
 
 ///|
-fn push_maxlength(value : Int?, attrs : Attrs) -> Unit {
+fn push_maxlength(value : Int32?, attrs : Attrs) -> Unit {
   if value is Some(v) {
     ignore(attrs.attribute("maxlength", v.to_string()))
   }
 }
 
 ///|
-fn push_minlength(value : Int?, attrs : Attrs) -> Unit {
+fn push_minlength(value : Int32?, attrs : Attrs) -> Unit {
   if value is Some(v) {
     ignore(attrs.attribute("minlength", v.to_string()))
   }
@@ -381,7 +381,7 @@ fn push_pattern(value : String?, attrs : Attrs) -> Unit {
 }
 
 ///|
-fn push_size(value : Int?, attrs : Attrs) -> Unit {
+fn push_size(value : Int32?, attrs : Attrs) -> Unit {
   if value is Some(v) {
     ignore(attrs.attribute("size", v.to_string()))
   }
@@ -445,21 +445,21 @@ fn push_input(value : @cmd.Emit[String]?, attrs : Attrs) -> Unit {
 }
 
 ///|
-fn push_span(value : Int?, attrs : Attrs) -> Unit {
+fn push_span(value : Int32?, attrs : Attrs) -> Unit {
   if value is Some(v) {
     ignore(attrs.attribute("span", v.to_string()))
   }
 }
 
 ///|
-fn push_colspan(value : Int?, attrs : Attrs) -> Unit {
+fn push_colspan(value : Int32?, attrs : Attrs) -> Unit {
   if value is Some(v) {
     ignore(attrs.attribute("colspan", v.to_string()))
   }
 }
 
 ///|
-fn push_rowspan(value : Int?, attrs : Attrs) -> Unit {
+fn push_rowspan(value : Int32?, attrs : Attrs) -> Unit {
   if value is Some(v) {
     ignore(attrs.attribute("rowspan", v.to_string()))
   }
@@ -531,21 +531,21 @@ fn push_cancel(value : Cmd?, attrs : Attrs) -> Unit {
 }
 
 ///|
-fn push_low(value : Int?, attrs : Attrs) -> Unit {
+fn push_low(value : Int32?, attrs : Attrs) -> Unit {
   if value is Some(v) {
     ignore(attrs.attribute("low", v.to_string()))
   }
 }
 
 ///|
-fn push_high(value : Int?, attrs : Attrs) -> Unit {
+fn push_high(value : Int32?, attrs : Attrs) -> Unit {
   if value is Some(v) {
     ignore(attrs.attribute("high", v.to_string()))
   }
 }
 
 ///|
-fn push_optimum(value : Int?, attrs : Attrs) -> Unit {
+fn push_optimum(value : Int32?, attrs : Attrs) -> Unit {
   if value is Some(v) {
     ignore(attrs.attribute("optimum", v.to_string()))
   }

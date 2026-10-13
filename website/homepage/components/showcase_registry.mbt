@@ -74,7 +74,7 @@ let showcase_page_entries : Array[ShowcasePageEntry] = [
 ]
 
 ///|
-fn showcase_page_index_by_slug(slug : String) -> Int {
+fn showcase_page_index_by_slug(slug : String) -> Int32 {
   for index = 0; index < showcase_page_entries.length(); index = index + 1 {
     if showcase_page_entries[index].slug == slug {
       return index
@@ -84,7 +84,7 @@ fn showcase_page_index_by_slug(slug : String) -> Int {
 }
 
 ///|
-fn showcase_page_index_by_title(title : String) -> Int {
+fn showcase_page_index_by_title(title : String) -> Int32 {
   for index = 0; index < showcase_page_entries.length(); index = index + 1 {
     if showcase_page_entries[index].title == title {
       return index

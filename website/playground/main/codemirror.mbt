@@ -38,10 +38,10 @@ extern "js" fn focus_editor_range_js(
   value : String,
   lang : String,
   on_change : (String) -> Unit,
-  line : Int,
-  column : Int,
-  end_line : Int,
-  end_column : Int,
+  line : Int32,
+  column : Int32,
+  end_line : Int32,
+  end_column : Int32,
 ) -> Unit =
   #| (hostId, key, value, lang, onChange, line, column, endLine, endColumn) => {
   #|   import('./support/editor.js?v=cm-25')
@@ -62,10 +62,10 @@ pub fn focus_code_editor_range(
   value : String,
   lang : String,
   on_change : (String) -> @cmd.Cmd,
-  line : Int,
-  column : Int,
-  end_line : Int,
-  end_column : Int,
+  line : Int32,
+  column : Int32,
+  end_line : Int32,
+  end_column : Int32,
 ) -> @cmd.Cmd {
   @cmd.custom_cmd(kind=AfterRender, scheduler => {
     focus_editor_range_js(

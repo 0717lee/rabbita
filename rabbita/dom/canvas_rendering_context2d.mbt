@@ -228,7 +228,7 @@ pub extern "js" fn CanvasRenderingContext2D::begin_path(self : Self) = "(self) =
 #cfg(target="js")
 pub extern "js" fn CanvasRenderingContext2D::fill(
   self : Self,
-  fill_rule? : String = "nonzero",
+  fill_rule~ : String = "nonzero",
 ) = "(self, fillRule) => self.fill(fillRule)"
 
 ///|
@@ -236,7 +236,7 @@ pub extern "js" fn CanvasRenderingContext2D::fill(
 pub extern "js" fn CanvasRenderingContext2D::fill_path(
   self : Self,
   path : Path2D,
-  fill_rule? : String = "nonzero",
+  fill_rule~ : String = "nonzero",
 ) = "(self,path,fillRule) => self.stroke(path,fillRule)"
 
 ///|
@@ -254,7 +254,7 @@ pub extern "js" fn CanvasRenderingContext2D::stroke_with_path(
 #cfg(target="js")
 pub extern "js" fn CanvasRenderingContext2D::clip(
   self : Self,
-  fill_rule? : String = "nonzero",
+  fill_rule~ : String = "nonzero",
 ) = "(self, fillRule) => self.clip(fillRule)"
 
 ///|
@@ -262,7 +262,7 @@ pub extern "js" fn CanvasRenderingContext2D::clip(
 pub extern "js" fn CanvasRenderingContext2D::clip_with_path(
   self : Self,
   path : Path2D,
-  fill_rule? : String = "nonzero",
+  fill_rule~ : String = "nonzero",
 ) = "(self,path,fillRule) => self.clip(path,fillRule)"
 
 ///|
@@ -271,7 +271,7 @@ pub extern "js" fn CanvasRenderingContext2D::is_point_in_path(
   self : Self,
   x : Double,
   y : Double,
-  fill_rule? : String = "nonzero",
+  fill_rule~ : String = "nonzero",
 ) -> Bool = "(self,x,y,fillRule) => self.isPointInPath(x,y,fillRule)"
 
 ///|
@@ -281,7 +281,7 @@ pub extern "js" fn CanvasRenderingContext2D::is_point_in_path_with_path(
   path : Path2D,
   x : Double,
   y : Double,
-  fill_rule? : String = "nonzero",
+  fill_rule~ : String = "nonzero",
 ) -> Bool = "(self,path,x,y,fillRule) => self.isPointInPath(path,x,y,fillRule)"
 
 ///|
@@ -310,7 +310,7 @@ pub extern "js" fn CanvasRenderingContext2D::fill_text(
   text : String,
   x : Double,
   y : Double,
-  max_width? : @js.Optional[Double] = @js.Optional::undefined(),
+  max_width~ : @js.Optional[Double] = @js.Optional::undefined(),
 ) = "(self,text,x,y,maxWidth) => self.fillText(text,x,y,maxWidth)"
 
 ///|
@@ -320,7 +320,7 @@ pub extern "js" fn CanvasRenderingContext2D::stroke_text(
   text : String,
   x : Double,
   y : Double,
-  max_width? : @js.Optional[Double] = @js.Optional::undefined(),
+  max_width~ : @js.Optional[Double] = @js.Optional::undefined(),
 ) = "(self,text,x,y,maxWidth) => self.strokeText(text,x,y,maxWidth)"
 
 ///|
@@ -380,7 +380,7 @@ pub extern "js" fn CanvasRenderingContext2D::create_image_data(
   self : Self,
   sw : Double,
   sh : Double,
-  settings? : @js.Optional[ImageDataSettings] = @js.Optional::undefined(),
+  settings~ : @js.Optional[ImageDataSettings] = @js.Optional::undefined(),
 ) -> ImageData = "(self,sw,sh,settings) => self.createImageData(sw,sh,settings)"
 
 ///|
@@ -398,7 +398,7 @@ pub extern "js" fn CanvasRenderingContext2D::get_image_data(
   sy : Double,
   sw : Double,
   sh : Double,
-  settings? : @js.Optional[ImageDataSettings] = @js.Optional::undefined(),
+  settings~ : @js.Optional[ImageDataSettings] = @js.Optional::undefined(),
 ) -> ImageData = "(self,sx,sy,sw,sh) => self.getImageData(sx,sy,sw,sh)"
 
 ///|
@@ -406,8 +406,8 @@ pub extern "js" fn CanvasRenderingContext2D::get_image_data(
 pub extern "js" fn CanvasRenderingContext2D::put_image_data(
   self : Self,
   image_data : ImageData,
-  dx : Int,
-  dy : Int,
+  dx : Int32,
+  dy : Int32,
 ) = "(self,imageData,dx,dy) => self.putImageData(imageData,dx,dy)"
 
 ///|
@@ -415,12 +415,12 @@ pub extern "js" fn CanvasRenderingContext2D::put_image_data(
 pub extern "js" fn CanvasRenderingContext2D::put_image_data_with_dirty(
   self : Self,
   image_data : ImageData,
-  dx : Int,
-  dy : Int,
-  dirty_x : Int,
-  dirty_y : Int,
-  dirty_width : Int,
-  dirty_height : Int,
+  dx : Int32,
+  dy : Int32,
+  dirty_x : Int32,
+  dirty_y : Int32,
+  dirty_width : Int32,
+  dirty_height : Int32,
 ) =
   #| (self,imageData,dx,dy,dirtyX,dirtyY,dirtyWidth,dirtyHeight) => 
   #|    self.putImageData(imageData,dx,dy,dirtyX,dirtyY,dirtyWidth,dirtyHeight)
@@ -551,7 +551,7 @@ pub extern "js" fn CanvasRenderingContext2D::arc(
   radius : Double,
   start_angle : Double,
   end_angle : Double,
-  anticlockwise? : Bool = false,
+  anticlockwise~ : Bool = false,
 ) = "(self,x,y,radius,startAngle,endAngle,anticlockwise) => self.arc(x,y,radius,startAngle,endAngle,anticlockwise)"
 
 ///|
@@ -565,7 +565,7 @@ pub extern "js" fn CanvasRenderingContext2D::ellipse(
   rotation : Double,
   start_angle : Double,
   end_angle : Double,
-  anticlockwise? : Bool = false,
+  anticlockwise~ : Bool = false,
 ) = "(self,x,y,radiusX,radiusY,rotation,startAngle,endAngle,anticlockwise) => self.ellipse(x,y,radiusX,radiusY,rotation,startAngle,endAngle,anticlockwise)"
 
 ///|

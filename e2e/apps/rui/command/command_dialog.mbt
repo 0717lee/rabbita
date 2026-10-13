@@ -33,8 +33,8 @@ fn command_dialog_fixture() -> Val[Html] {
 fn command_dialog_options_fixture(
   id : String,
   name : String,
-  close_on_select? : Bool = true,
-  prevent_cancel? : Bool = false,
+  close_on_select~ : Bool = true,
+  prevent_cancel~ : Bool = false,
 ) -> Val[Html] {
   let (selection, set_selection) = @rabbita.create_variable("none")
   let on_cancel = if prevent_cancel { Some(@cmd.none) } else { None }

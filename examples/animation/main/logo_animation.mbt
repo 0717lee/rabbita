@@ -45,16 +45,20 @@ struct Pattern {
 }
 
 ///|
-let triangle_big : Array[(Int, Int)] = [(-280, -90), (0, 190), (280, -90)]
+let triangle_big : Array[(Int32, Int32)] = [(-280, -90), (0, 190), (280, -90)]
 
 ///|
-let triangle_medium : Array[(Int, Int)] = [(-198, -66), (0, 132), (198, -66)]
+let triangle_medium : Array[(Int32, Int32)] = [
+  (-198, -66),
+  (0, 132),
+  (198, -66),
+]
 
 ///|
-let triangle_small : Array[(Int, Int)] = [(-130, -44), (0, 86), (130, -44)]
+let triangle_small : Array[(Int32, Int32)] = [(-130, -44), (0, 86), (130, -44)]
 
 ///|
-let square_points : Array[(Int, Int)] = [
+let square_points : Array[(Int32, Int32)] = [
   (-130, 0),
   (0, -130),
   (130, 0),
@@ -62,7 +66,7 @@ let square_points : Array[(Int, Int)] = [
 ]
 
 ///|
-let parallelogram_points : Array[(Int, Int)] = [
+let parallelogram_points : Array[(Int32, Int32)] = [
   (-191, 61),
   (69, 61),
   (191, -61),
@@ -170,7 +174,7 @@ let astiffness = 200.0
 let adamping = 10.0
 
 ///|
-fn logo_pattern_name(index : Int) -> String {
+fn logo_pattern_name(index : Int32) -> String {
   match index {
     0 => "logo"
     1 => "heart"
@@ -184,7 +188,7 @@ fn logo_pattern_name(index : Int) -> String {
 }
 
 ///|
-fn logo_pattern_at(index : Int) -> Pattern {
+fn logo_pattern_at(index : Int32) -> Pattern {
   match index {
     0 => logo_pattern
     1 => heart_pattern
@@ -214,7 +218,7 @@ fn logo_start() -> LogoModel {
 fn logo_view_shape(
   color : String,
   shape : LogoShape,
-  coordinates : Array[(Int, Int)],
+  coordinates : Array[(Int32, Int32)],
 ) -> @svg.Svg {
   match shape {
     Static(x, y, a) => logo_view_shape_help(color, x, y, a, coordinates)
@@ -229,7 +233,7 @@ fn logo_view_shape_help(
   x : Double,
   y : Double,
   a : Double,
-  coordinates : Array[(Int, Int)],
+  coordinates : Array[(Int32, Int32)],
 ) -> @svg.Svg {
   @svg.polygon(
     fill=color,
@@ -277,12 +281,12 @@ fn logo_set_pattern(target : Pattern, model : LogoModel) -> LogoModel {
 }
 
 ///|
-fn logo_set_pattern_by_index(index : Int, model : LogoModel) -> LogoModel {
+fn logo_set_pattern_by_index(index : Int32, model : LogoModel) -> LogoModel {
   logo_set_pattern(logo_pattern_at(index), model)
 }
 
 ///|
-fn logo_static_pattern(index : Int) -> LogoModel {
+fn logo_static_pattern(index : Int32) -> LogoModel {
   let target = logo_pattern_at(index)
   {
     tb1: Static(

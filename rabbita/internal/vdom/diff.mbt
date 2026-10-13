@@ -25,7 +25,7 @@ priv enum INode {
   Elem(String, IProps, Children[INode], namespace_uri~ : String?, @dom.Element)
   Text(String, @dom.Element)
   Frag(Array[INode], @dom.Comment, @dom.Comment)
-  Thunk(Int, INode)
+  Thunk(Int32, INode)
 }
 
 ///|

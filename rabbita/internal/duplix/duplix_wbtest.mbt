@@ -8,7 +8,7 @@ fn has_dirty_parent(child : DirtyFlag, parent : DirtyFlag) -> Bool {
 }
 
 ///|
-fn dirty_parent_count(child : DirtyFlag, parent : DirtyFlag) -> Int {
+fn dirty_parent_count(child : DirtyFlag, parent : DirtyFlag) -> Int32 {
   let mut count = 0
   for candidate in child.parents {
     if candidate.id == parent.id {
@@ -19,7 +19,7 @@ fn dirty_parent_count(child : DirtyFlag, parent : DirtyFlag) -> Int {
 }
 
 ///|
-fn[A] child_count(parent : Node[A], child_id : Int) -> Int {
+fn[A] child_count(parent : Node[A], child_id : Int32) -> Int32 {
   let mut count = 0
   for child in parent.childs {
     if child.get_id() == child_id {

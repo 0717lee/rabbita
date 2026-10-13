@@ -683,8 +683,8 @@ test "enumerate cached inactive branch observes dependency changes consumed else
 ///|
 test "enumerate preserves state created inside cached page branches" {
   let (route, set_route) = @duplix.input(Home)
-  let mut home_state : ((Int) -> Unit)? = None
-  let mut detail_state : ((Int) -> Unit)? = None
+  let mut home_state : ((Int32) -> Unit)? = None
+  let mut detail_state : ((Int32) -> Unit)? = None
   let mut build_runs = 0
   let mut home_runs = 0
   let mut detail_runs = 0

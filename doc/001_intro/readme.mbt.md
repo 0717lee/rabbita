@@ -29,7 +29,7 @@ its `Model` and the `Msg` values that can update it:
 ```moonbit check
 ///|
 struct Model {
-  count : Int
+  count : Int32
 } derive(Eq)
 
 ///|

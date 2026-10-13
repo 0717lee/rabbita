@@ -5,7 +5,7 @@ using @debug {trait Debug, type Repr}
 /// Close event information surfaced by `@websocket.connect(...)`.
 #warnings("-struct_never_constructed")
 pub struct CloseInfo {
-  code : Int
+  code : Int32
   reason : String
   clean : Bool
 } derive(Debug)
@@ -105,7 +105,7 @@ pub struct Snapshot {
   id : String
   url : String
   protocol : String
-  buffered_amount : Int
+  buffered_amount : Int32
   ready_state : ReadyState
 } derive(Debug)
 

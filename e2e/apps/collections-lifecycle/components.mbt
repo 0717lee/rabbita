@@ -5,7 +5,7 @@ using @rabbita {type Html, type Val}
 using @html {button, div, h1, input, li, p, span, ul}
 
 ///|
-fn keyed_row(id : Int, name : Val[String]) -> Val[Html] {
+fn keyed_row(id : Int32, name : Val[String]) -> Val[Html] {
   let (state, set_state) = @rabbita.create_variable({ clicks: 0, draft: "", })
   let set_draft = set_state.map(value => state => { ..state, draft: value, })
   state.view2(name, (state, name) => {

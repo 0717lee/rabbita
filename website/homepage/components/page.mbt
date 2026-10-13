@@ -67,7 +67,7 @@ fn showcase_local_href(hash : String) -> String {
 fn rail_link(
   href : String,
   label : String,
-  style? : String = RailLinkStyle,
+  style~ : String = RailLinkStyle,
 ) -> @html.Html {
   @html.a(
     href=showcase_local_href(href),

@@ -7,7 +7,7 @@ pub enum VNode {
   Elem(String, Props, Children[VNode], namespace_uri~ : String?)
   Text(String)
   Frag(Array[VNode])
-  Thunk(Int, () -> VNode)
+  Thunk(Int32, () -> VNode)
 }
 
 ///|
@@ -64,7 +64,7 @@ fn is_html_void_element(tag : String) -> Bool {
 }
 
 ///|
-pub fn VNode::thunk(hash : Int, f : () -> VNode) -> VNode {
+pub fn VNode::thunk(hash : Int32, f : () -> VNode) -> VNode {
   VNode::Thunk(hash, f)
 }
 
@@ -87,7 +87,7 @@ pub fn VNode::text(s : String) -> VNode {
 pub fn VNode::link(
   props : Props,
   children : Children[VNode],
-  escape? : Bool = false,
+  escape~ : Bool = false,
 ) -> VNode {
   let tag = if escape { "a" } else { CAPTURED_LINK_TAG }
   VNode::elem(tag, props, children)

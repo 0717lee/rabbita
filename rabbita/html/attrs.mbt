@@ -214,7 +214,7 @@ pub fn Attrs::bgcolor(self : Attrs, value : String) -> Attrs {
 
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/border)
-pub fn Attrs::border(self : Attrs, value : Int) -> Attrs {
+pub fn Attrs::border(self : Attrs, value : Int32) -> Attrs {
   self.attribute("border", value.to_string())
 }
 
@@ -273,13 +273,13 @@ pub fn Attrs::colorspace(self : Attrs, value : String) -> Attrs {
 
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/cols)
-pub fn Attrs::cols(self : Attrs, value : Int) -> Attrs {
+pub fn Attrs::cols(self : Attrs, value : Int32) -> Attrs {
   self.attribute("cols", value.to_string())
 }
 
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/colspan)
-pub fn Attrs::colspan(self : Attrs, value : Int) -> Attrs {
+pub fn Attrs::colspan(self : Attrs, value : Int32) -> Attrs {
   self.attribute("colspan", value.to_string())
 }
 
@@ -464,7 +464,7 @@ pub fn Attrs::headers(self : Attrs, value : String) -> Attrs {
 
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/height)
-pub fn Attrs::height(self : Attrs, value : Int) -> Attrs {
+pub fn Attrs::height(self : Attrs, value : Int32) -> Attrs {
   self.attribute("height", value.to_string())
 }
 
@@ -476,7 +476,7 @@ pub fn Attrs::hidden(self : Attrs, value : Bool) -> Attrs {
 
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/high)
-pub fn Attrs::high(self : Attrs, value : Int) -> Attrs {
+pub fn Attrs::high(self : Attrs, value : Int32) -> Attrs {
   self.attribute("high", value.to_string())
 }
 
@@ -572,19 +572,19 @@ pub fn Attrs::loop_(self : Attrs, value : Bool) -> Attrs {
 
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/low)
-pub fn Attrs::low(self : Attrs, value : Int) -> Attrs {
+pub fn Attrs::low(self : Attrs, value : Int32) -> Attrs {
   self.attribute("low", value.to_string())
 }
 
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/max)
-pub fn Attrs::max(self : Attrs, value : Int) -> Attrs {
+pub fn Attrs::max(self : Attrs, value : Int32) -> Attrs {
   self.attribute("max", value.to_string())
 }
 
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/maxlength)
-pub fn Attrs::maxlength(self : Attrs, value : Int) -> Attrs {
+pub fn Attrs::maxlength(self : Attrs, value : Int32) -> Attrs {
   self.attribute("maxlength", value.to_string())
 }
 
@@ -602,13 +602,13 @@ pub fn Attrs::method_(self : Attrs, value : String) -> Attrs {
 
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/min)
-pub fn Attrs::min(self : Attrs, value : Int) -> Attrs {
+pub fn Attrs::min(self : Attrs, value : Int32) -> Attrs {
   self.attribute("min", value.to_string())
 }
 
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/minlength)
-pub fn Attrs::minlength(self : Attrs, value : Int) -> Attrs {
+pub fn Attrs::minlength(self : Attrs, value : Int32) -> Attrs {
   self.attribute("minlength", value.to_string())
 }
 
@@ -644,7 +644,7 @@ pub fn Attrs::open(self : Attrs, value : Bool) -> Attrs {
 
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/optimum)
-pub fn Attrs::optimum(self : Attrs, value : Int) -> Attrs {
+pub fn Attrs::optimum(self : Attrs, value : Int32) -> Attrs {
   self.attribute("optimum", value.to_string())
 }
 
@@ -722,13 +722,13 @@ pub fn Attrs::role(self : Attrs, value : String) -> Attrs {
 
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rows)
-pub fn Attrs::rows(self : Attrs, value : Int) -> Attrs {
+pub fn Attrs::rows(self : Attrs, value : Int32) -> Attrs {
   self.attribute("rows", value.to_string())
 }
 
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rowspan)
-pub fn Attrs::rowspan(self : Attrs, value : Int) -> Attrs {
+pub fn Attrs::rowspan(self : Attrs, value : Int32) -> Attrs {
   self.attribute("rowspan", value.to_string())
 }
 
@@ -764,7 +764,7 @@ pub fn Attrs::shape(self : Attrs, value : String) -> Attrs {
 
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/size)
-pub fn Attrs::size(self : Attrs, value : Int) -> Attrs {
+pub fn Attrs::size(self : Attrs, value : Int32) -> Attrs {
   self.attribute("size", value.to_string())
 }
 
@@ -782,7 +782,7 @@ pub fn Attrs::slot(self : Attrs, value : String) -> Attrs {
 
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/span)
-pub fn Attrs::span(self : Attrs, value : Int) -> Attrs {
+pub fn Attrs::span(self : Attrs, value : Int32) -> Attrs {
   self.attribute("span", value.to_string())
 }
 
@@ -818,13 +818,13 @@ pub fn Attrs::srcset(self : Attrs, value : String) -> Attrs {
 
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/start)
-pub fn Attrs::start(self : Attrs, value : Int) -> Attrs {
+pub fn Attrs::start(self : Attrs, value : Int32) -> Attrs {
   self.attribute("start", value.to_string())
 }
 
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/step)
-pub fn Attrs::step(self : Attrs, value : Int) -> Attrs {
+pub fn Attrs::step(self : Attrs, value : Int32) -> Attrs {
   self.attribute("step", value.to_string())
 }
 
@@ -842,7 +842,7 @@ pub fn Attrs::summary(self : Attrs, value : String) -> Attrs {
 
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/tabindex)
-pub fn Attrs::tabindex(self : Attrs, value : Int) -> Attrs {
+pub fn Attrs::tabindex(self : Attrs, value : Int32) -> Attrs {
   self.attribute("tabindex", value.to_string())
 }
 
@@ -884,7 +884,7 @@ pub fn Attrs::value(self : Attrs, value : String) -> Attrs {
 
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/width)
-pub fn Attrs::width(self : Attrs, value : Int) -> Attrs {
+pub fn Attrs::width(self : Attrs, value : Int32) -> Attrs {
   self.attribute("width", value.to_string())
 }
 
@@ -992,7 +992,7 @@ pub fn Attrs::allowfullscreen(self : Attrs, value : Bool) -> Attrs {
 
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/value)
-pub fn Attrs::value_int(self : Attrs, value : Int) -> Attrs {
+pub fn Attrs::value_int(self : Attrs, value : Int32) -> Attrs {
   self.attribute("value", value.to_string())
 }
 

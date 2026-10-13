@@ -1,8 +1,8 @@
 ///|
-let global_id_count : Ref[Int] = Ref(0)
+let global_id_count : Ref[Int32] = Ref(0)
 
 ///|
-struct Id(Int) derive(Eq, Hash, Compare)
+struct Id(Int32) derive(Eq, Hash, Compare)
 
 ///|
 pub extend Id with Eq::{equal, not_equal}
@@ -22,7 +22,7 @@ pub impl Show for Id with fn output(self, buf) {
 pub extend Id with Show::{output, to_string}
 
 ///|
-fn next_id() -> Int {
+fn next_id() -> Int32 {
   let id = global_id_count.val
   global_id_count.val += 1
   id
@@ -35,7 +35,7 @@ pub fn Id::new(_ : @key.Key) -> Id {
 }
 
 ///|
-struct InstId(Int) derive(Eq, Hash)
+struct InstId(Int32) derive(Eq, Hash)
 
 ///|
 pub extend InstId with Eq::{equal, not_equal}

@@ -11,11 +11,11 @@ struct Blob {
 
 ///|
 #cfg(target="js")
-pub extern "js" fn Blob::get_size(self : Self) -> Int = "(self) => self.size"
+pub extern "js" fn Blob::get_size(self : Self) -> Int32 = "(self) => self.size"
 
 ///|
 #cfg(not(target="js"))
-pub fn Blob::get_size(self : Self) -> Int {
+pub fn Blob::get_size(self : Self) -> Int32 {
   self.data.length()
 }
 
@@ -47,13 +47,17 @@ pub fn Blob::from_bytes(bytes : Bytes, content_type : String) -> Blob {
 #cfg(target="js")
 extern "js" fn Blob::slice_ffi(
   self : Self,
-  start : Int,
-  end_ : @js.Optional[Int],
+  start : Int32,
+  end_ : @js.Optional[Int32],
 ) -> Blob = "(self, start, end) => self.slice(start, end)"
 
 ///|
 #cfg(target="js")
-pub fn Blob::slice(self : Self, start : Int, end_? : @js.Optional[Int]) -> Blob {
+pub fn Blob::slice(
+  self : Self,
+  start : Int32,
+  end_? : @js.Optional[Int32],
+) -> Blob {
   let end_value = if end_ is Some(end_) {
     end_
   } else {

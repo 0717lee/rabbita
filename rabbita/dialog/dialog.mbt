@@ -2,7 +2,7 @@
 /// Create a command to show a dialog.
 /// 
 /// The `modal` argument determines whether the dialog is modal or not.
-pub fn show(id : String, modal? : Bool = true) -> Cmd {
+pub fn show(id : String, modal~ : Bool = true) -> Cmd {
   op.request(DialogShow(id, modal))
 }
 

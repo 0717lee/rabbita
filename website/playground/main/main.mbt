@@ -8,10 +8,10 @@ using @rabbita {type Cmd, type Emit, type Html, type Val}
 struct Diagnostic {
   level : String
   path : String
-  line : Int
-  column : Int
-  end_line : Int
-  end_column : Int
+  line : Int32
+  column : Int32
+  end_line : Int32
+  end_column : Int32
   message : String
 } derive(Eq)
 
@@ -24,7 +24,7 @@ enum Msg {
   TogglePackageMenu
   ClosePackageMenu
   ExampleChanged(String)
-  ExampleFileLoaded(Int, ExampleAsset, Result[String, Error])
+  ExampleFileLoaded(Int32, ExampleAsset, Result[String, Error])
   MbtChanged(String)
   HtmlChanged(String)
   CssChanged(String)
@@ -32,8 +32,8 @@ enum Msg {
   ShareRequested
   ShareReady(Result[@js.Value, Error])
   RunRequested
-  Run(Int)
-  CompileReady(Int, Result[@js.Value, Error])
+  Run(Int32)
+  CompileReady(Int32, Result[@js.Value, Error])
 }
 
 ///|
@@ -46,7 +46,7 @@ enum SourceTab {
 
 ///|
 enum ExampleAsset {
-  RepoSource(Int)
+  RepoSource(Int32)
   RepoCss
   RepoMoonPkg
 } derive(Eq)
@@ -69,7 +69,7 @@ struct Model {
   log : String
   diagnostics : Array[Diagnostic]
   compiling : Bool
-  run_id : Int
+  run_id : Int32
   example_id : String
   example_load : ExampleLoad?
 } derive(Eq)
@@ -98,7 +98,7 @@ struct LoadedExample {
 
 ///|
 struct ExampleLoad {
-  token : Int
+  token : Int32
   example_id : String
   sources : Array[String?]
   css : String?
@@ -248,7 +248,7 @@ fn join_blocks(items : Array[String]) -> String {
 }
 
 ///|
-fn new_example_load(token : Int, example : Example) -> ExampleLoad {
+fn new_example_load(token : Int32, example : Example) -> ExampleLoad {
   {
     token,
     example_id: example.id,
@@ -299,7 +299,7 @@ fn loaded_example_from_load(
 ///|
 fn compile_cmd(
   emit : Emit[Msg],
-  token : Int,
+  token : Int32,
   source : String,
   moon_pkg : String,
 ) -> Cmd {

@@ -65,9 +65,9 @@ pub fn batch(cmds : Array[Cmd]) -> Cmd {
 /// Example: 
 /// 
 /// ```moonbit nocheck
-/// extern "js" fn set_timeout(f : () -> Unit, ms : Int) = "(f,ms) => setTimeout(f, ms)"
+/// extern "js" fn set_timeout(f : () -> Unit, ms : Int32) = "(f,ms) => setTimeout(f, ms)"
 ///
-/// pub fn delay(cmd : Cmd, ms : Int) -> Cmd {
+/// pub fn delay(cmd : Cmd, ms : Int32) -> Cmd {
 ///   raw_effect(scheduler => set_timeout(() => scheduler.add(cmd), ms))
 /// }
 /// ```
@@ -75,7 +75,7 @@ pub fn batch(cmds : Array[Cmd]) -> Cmd {
 #alias(raw_effect, deprecated)
 pub fn custom_cmd(
   callback : (&Scheduler) -> Unit,
-  kind? : EffectKind = Immediately,
+  kind~ : EffectKind = Immediately,
 ) -> Cmd {
   op.request(LegacyEffect(kind, callback))
 }

@@ -75,7 +75,7 @@ fn ig_demo_card(
   variant_title : String,
   variant_description : String,
   code : String,
-  wide? : Bool = false,
+  wide~ : Bool = false,
 ) -> @html.Html {
   showcase_component_demos(title, description, [
     showcase_demo_section(

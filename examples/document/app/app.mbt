@@ -8,7 +8,7 @@ using @html {type Html, title, div, h2, button, p, ul, li, html, body, head}
 priv enum Msg {
   Inc
   Dec
-  Repeat(Int, Msg)
+  Repeat(Int32, Msg)
 }
 
 ///|

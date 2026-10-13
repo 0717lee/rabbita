@@ -63,7 +63,7 @@ pub extern "js" fn CSSStyleDeclaration::set_css_text(
 ///|
 /// The number of properties.
 #cfg(target="js")
-pub extern "js" fn CSSStyleDeclaration::get_length(self : Self) -> Int = "(self) => self.length"
+pub extern "js" fn CSSStyleDeclaration::get_length(self : Self) -> Int32 = "(self) => self.length"
 
 ///|
 /// The containing CSSRule.
@@ -106,7 +106,7 @@ pub extern "js" fn CSSStyleDeclaration::get_property_value(
 #cfg(target="js")
 pub extern "js" fn CSSStyleDeclaration::item(
   self : Self,
-  index : Int,
+  index : Int32,
 ) -> String = "(self, index) => self.item(index)"
 
 ///|

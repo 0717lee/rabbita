@@ -25,8 +25,8 @@ enum Tile {
 
 ///|
 struct Pos {
-  x : Int
-  y : Int
+  x : Int32
+  y : Int32
 } derive(Eq)
 
 ///|
@@ -71,7 +71,7 @@ fn tile_at(position : Pos) -> Tile {
 }
 
 ///|
-fn crate_index_at(crates : Vector[Pos], position : Pos) -> Int? {
+fn crate_index_at(crates : Vector[Pos], position : Pos) -> Int32? {
   for index in 0..<crates.length() {
     if crates[index] == position {
       break Some(index)
@@ -115,7 +115,7 @@ fn delta_from_key(event : Keyboard) -> Pos? {
 ///|
 struct Model {
   history : Vector[World]
-  cursor : Int
+  cursor : Int32
 } derive(Eq)
 
 ///|
@@ -139,8 +139,8 @@ fn update(msg : Msg, model : Model) -> Model {
 }
 
 ///|
-fn clamp(min : Int, max : Int, idx : Int) -> Int {
-  Int::min(Int::max(min, idx), max)
+fn clamp(min : Int32, max : Int32, idx : Int32) -> Int32 {
+  Int32::min(Int32::max(min, idx), max)
 }
 
 ///|
@@ -194,7 +194,7 @@ fn board_view(world : World) -> Html {
 ///|
 fn timeline_view(emit : Emit[Msg], model : Model) -> Html {
   let max_index = model.history.length() - 1
-  let steps = Int::max(1, max_index)
+  let steps = Int32::max(1, max_index)
   section(class="timeline") <| [
     div(class="timeline-head") <| [
       label(class="timeline-title", for_="history-range", "world history"),

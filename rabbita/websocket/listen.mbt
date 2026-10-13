@@ -99,7 +99,7 @@ fn websocket_sub_loader(
 #cfg(target="js")
 pub fn listen(
   url : String,
-  protocols? : FixedArray[String] = [],
+  protocols~ : FixedArray[String] = [],
   open? : Cmd,
   message? : @cmd.Emit[String],
   close? : @cmd.Emit[CloseInfo],

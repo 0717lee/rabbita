@@ -4,7 +4,7 @@
 /// components being demonstrated.
 fn showcase_stroke_icon(
   path : String,
-  box_size? : String = "1rem",
+  box_size~ : String = "1rem",
 ) -> @html.Html {
   let line_attrs = @svg.Attrs::build()
     .stroke_linecap("round")

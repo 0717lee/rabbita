@@ -12,7 +12,7 @@ pub extern "js" fn DOMRectList::get_length(self : Self) -> Double = "(self) => s
 ///|
 /// Returns the number of rectangles in this static collection.
 #cfg(target="js")
-pub fn DOMRectList::length(self : Self) -> Int {
+pub fn DOMRectList::length(self : Self) -> Int32 {
   self.get_length().to_int()
 }
 

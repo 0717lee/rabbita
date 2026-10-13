@@ -38,7 +38,7 @@ pub extend UrlRequest with Show::{output, to_string}
 pub(all) struct Url {
   protocol : Protocol
   host : String
-  port : Int?
+  port : Int32?
   path : String
   query : String?
   fragment : String?

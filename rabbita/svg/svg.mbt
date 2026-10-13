@@ -22,7 +22,7 @@ pub fn node(
   tag : String,
   attrs : Attrs,
   children : Array[Svg],
-  ns? : String = @dom.namespace_svg,
+  ns~ : String = @dom.namespace_svg,
 ) -> Svg {
   let vnode = @vdom.VNode::elem(
     tag,
@@ -54,8 +54,8 @@ pub fn svg(
   class? : String,
   style? : Array[String],
   // required
-  width? : Int,
-  height? : Int,
+  width? : Int32,
+  height? : Int32,
   // optional
   view_box? : String,
   xmlns? : String,
@@ -81,7 +81,7 @@ fn push_attr_string(name : String, value : String?, attrs : Attrs) -> Unit {
 }
 
 ///|
-fn push_attr_int(name : String, value : Int?, attrs : Attrs) -> Unit {
+fn push_attr_int(name : String, value : Int32?, attrs : Attrs) -> Unit {
   if value is Some(v) {
     ignore(attrs.attribute(name, v.to_string()))
   }
@@ -105,12 +105,12 @@ fn push_style(value : Array[String]?, attrs : Attrs) -> Unit {
 }
 
 ///|
-fn push_width(value : Int?, attrs : Attrs) -> Unit {
+fn push_width(value : Int32?, attrs : Attrs) -> Unit {
   push_attr_int("width", value, attrs)
 }
 
 ///|
-fn push_height(value : Int?, attrs : Attrs) -> Unit {
+fn push_height(value : Int32?, attrs : Attrs) -> Unit {
   push_attr_int("height", value, attrs)
 }
 
@@ -125,22 +125,22 @@ fn push_xmlns(value : String?, attrs : Attrs) -> Unit {
 }
 
 ///|
-fn push_x(value : Int?, attrs : Attrs) -> Unit {
+fn push_x(value : Int32?, attrs : Attrs) -> Unit {
   push_attr_int("x", value, attrs)
 }
 
 ///|
-fn push_y(value : Int?, attrs : Attrs) -> Unit {
+fn push_y(value : Int32?, attrs : Attrs) -> Unit {
   push_attr_int("y", value, attrs)
 }
 
 ///|
-fn push_rx(value : Int?, attrs : Attrs) -> Unit {
+fn push_rx(value : Int32?, attrs : Attrs) -> Unit {
   push_attr_int("rx", value, attrs)
 }
 
 ///|
-fn push_ry(value : Int?, attrs : Attrs) -> Unit {
+fn push_ry(value : Int32?, attrs : Attrs) -> Unit {
   push_attr_int("ry", value, attrs)
 }
 
@@ -155,32 +155,32 @@ fn push_stroke(value : String?, attrs : Attrs) -> Unit {
 }
 
 ///|
-fn push_stroke_width(value : Int?, attrs : Attrs) -> Unit {
+fn push_stroke_width(value : Int32?, attrs : Attrs) -> Unit {
   push_attr_int("stroke-width", value, attrs)
 }
 
 ///|
-fn push_cx(value : Int?, attrs : Attrs) -> Unit {
+fn push_cx(value : Int32?, attrs : Attrs) -> Unit {
   push_attr_int("cx", value, attrs)
 }
 
 ///|
-fn push_cy(value : Int?, attrs : Attrs) -> Unit {
+fn push_cy(value : Int32?, attrs : Attrs) -> Unit {
   push_attr_int("cy", value, attrs)
 }
 
 ///|
-fn push_r(value : Int?, attrs : Attrs) -> Unit {
+fn push_r(value : Int32?, attrs : Attrs) -> Unit {
   push_attr_int("r", value, attrs)
 }
 
 ///|
-fn push_dx(value : Int?, attrs : Attrs) -> Unit {
+fn push_dx(value : Int32?, attrs : Attrs) -> Unit {
   push_attr_int("dx", value, attrs)
 }
 
 ///|
-fn push_dy(value : Int?, attrs : Attrs) -> Unit {
+fn push_dy(value : Int32?, attrs : Attrs) -> Unit {
   push_attr_int("dy", value, attrs)
 }
 
@@ -195,7 +195,7 @@ fn push_length_adjust(value : String?, attrs : Attrs) -> Unit {
 }
 
 ///|
-fn push_text_length(value : Int?, attrs : Attrs) -> Unit {
+fn push_text_length(value : Int32?, attrs : Attrs) -> Unit {
   push_attr_int("textLength", value, attrs)
 }
 
@@ -210,7 +210,7 @@ fn push_href(value : String?, attrs : Attrs) -> Unit {
 }
 
 ///|
-fn push_fill_opacity(value : Int?, attrs : Attrs) -> Unit {
+fn push_fill_opacity(value : Int32?, attrs : Attrs) -> Unit {
   push_attr_int("fill-opacity", value, attrs)
 }
 
@@ -225,22 +225,22 @@ fn push_preserve_aspect_ratio(value : String?, attrs : Attrs) -> Unit {
 }
 
 ///|
-fn push_x1(value : Int?, attrs : Attrs) -> Unit {
+fn push_x1(value : Int32?, attrs : Attrs) -> Unit {
   push_attr_int("x1", value, attrs)
 }
 
 ///|
-fn push_y1(value : Int?, attrs : Attrs) -> Unit {
+fn push_y1(value : Int32?, attrs : Attrs) -> Unit {
   push_attr_int("y1", value, attrs)
 }
 
 ///|
-fn push_x2(value : Int?, attrs : Attrs) -> Unit {
+fn push_x2(value : Int32?, attrs : Attrs) -> Unit {
   push_attr_int("x2", value, attrs)
 }
 
 ///|
-fn push_y2(value : Int?, attrs : Attrs) -> Unit {
+fn push_y2(value : Int32?, attrs : Attrs) -> Unit {
   push_attr_int("y2", value, attrs)
 }
 
@@ -250,7 +250,7 @@ fn push_stroke_linecap(value : String?, attrs : Attrs) -> Unit {
 }
 
 ///|
-fn push_points(points : Array[(Int, Int)], attrs : Attrs) -> Unit {
+fn push_points(points : Array[(Int32, Int32)], attrs : Attrs) -> Unit {
   if points.length() > 0 {
     let points_str = points.map(pt => "\{pt.0},\{pt.1}").join(" ")
     ignore(attrs.attribute("points", points_str))
@@ -258,7 +258,7 @@ fn push_points(points : Array[(Int, Int)], attrs : Attrs) -> Unit {
 }
 
 ///|
-fn push_path_length(value : Int?, attrs : Attrs) -> Unit {
+fn push_path_length(value : Int32?, attrs : Attrs) -> Unit {
   push_attr_int("pathLength", value, attrs)
 }
 
@@ -285,16 +285,16 @@ pub fn rect(
   class? : String,
   style? : Array[String],
   // required
-  x~ : Int,
-  y~ : Int,
-  width~ : Int,
-  height~ : Int,
+  x~ : Int32,
+  y~ : Int32,
+  width~ : Int32,
+  height~ : Int32,
   // optional
-  rx? : Int,
-  ry? : Int,
+  rx? : Int32,
+  ry? : Int32,
   fill? : String,
   stroke? : String,
-  stroke_width? : Int,
+  stroke_width? : Int32,
   transform? : String,
   opacity? : String,
   attrs? : Attrs,
@@ -325,14 +325,14 @@ pub fn ellipse(
   class? : String,
   style? : Array[String],
   // required
-  cx~ : Int,
-  cy~ : Int,
-  rx~ : Int,
-  ry~ : Int,
+  cx~ : Int32,
+  cy~ : Int32,
+  rx~ : Int32,
+  ry~ : Int32,
   // optional
   fill? : String,
   stroke? : String,
-  stroke_width? : Int,
+  stroke_width? : Int32,
   transform? : String,
   opacity? : String,
   attrs? : Attrs,
@@ -361,18 +361,18 @@ pub fn svg_text(
   class? : String,
   style? : Array[String],
   // required
-  x~ : Int,
-  y~ : Int,
+  x~ : Int32,
+  y~ : Int32,
   text~ : String,
   // optional
-  dx? : Int,
-  dy? : Int,
+  dx? : Int32,
+  dy? : Int32,
   rotate? : String,
   length_adjust? : String,
-  text_length? : Int,
+  text_length? : Int32,
   fill? : String,
   stroke? : String,
-  stroke_width? : Int,
+  stroke_width? : Int32,
   transform? : String,
   opacity? : String,
   attrs? : Attrs,
@@ -409,7 +409,7 @@ pub fn path(
   // optional
   fill? : String,
   stroke? : String,
-  stroke_width? : Int,
+  stroke_width? : Int32,
   transform? : String,
   opacity? : String,
   attrs? : Attrs,
@@ -479,15 +479,15 @@ pub fn svg_use(
   style? : Array[String],
   // required
   href~ : String,
-  x~ : Int,
-  y~ : Int,
+  x~ : Int32,
+  y~ : Int32,
   // optional
-  width? : Int,
-  height? : Int,
+  width? : Int32,
+  height? : Int32,
   stroke? : String,
-  stroke_width? : Int,
+  stroke_width? : Int32,
   fill? : String,
-  fill_opacity? : Int,
+  fill_opacity? : Int32,
   transform? : String,
   opacity? : String,
   attrs? : Attrs,
@@ -542,11 +542,11 @@ pub fn image(
   style? : Array[String],
   // required
   href~ : String,
-  x~ : Int,
-  y~ : Int,
+  x~ : Int32,
+  y~ : Int32,
   // optional
-  width? : Int,
-  height? : Int,
+  width? : Int32,
+  height? : Int32,
   preserve_aspect_ratio? : String,
   transform? : String,
   opacity? : String,
@@ -575,14 +575,14 @@ pub fn circle(
   class? : String,
   style? : Array[String],
   // required
-  cx~ : Int,
-  cy~ : Int,
-  r~ : Int,
+  cx~ : Int32,
+  cy~ : Int32,
+  r~ : Int32,
   // optional
   fill? : String,
   stroke? : String,
-  stroke_width? : Int,
-  fill_opacity? : Int,
+  stroke_width? : Int32,
+  fill_opacity? : Int32,
   transform? : String,
   opacity? : String,
   attrs? : Attrs,
@@ -611,14 +611,14 @@ pub fn line(
   class? : String,
   style? : Array[String],
   // required
-  x1~ : Int,
-  y1~ : Int,
-  x2~ : Int,
-  y2~ : Int,
+  x1~ : Int32,
+  y1~ : Int32,
+  x2~ : Int32,
+  y2~ : Int32,
   // optional
   fill? : String,
   stroke? : String,
-  stroke_width? : Int,
+  stroke_width? : Int32,
   stroke_linecap? : String,
   transform? : String,
   opacity? : String,
@@ -649,12 +649,12 @@ pub fn polyline(
   class? : String,
   style? : Array[String],
   // required
-  points~ : Array[(Int, Int)],
+  points~ : Array[(Int32, Int32)],
   // optional
-  path_length? : Int,
+  path_length? : Int32,
   fill? : String,
   stroke? : String,
-  stroke_width? : Int,
+  stroke_width? : Int32,
   stroke_linecap? : String,
   transform? : String,
   opacity? : String,
@@ -683,11 +683,11 @@ pub fn polygon(
   class? : String,
   style? : Array[String],
   // required
-  points~ : Array[(Int, Int)],
+  points~ : Array[(Int32, Int32)],
   // optional
   fill? : String,
   stroke? : String,
-  stroke_width? : Int,
+  stroke_width? : Int32,
   stroke_linecap? : String,
   transform? : String,
   opacity? : String,

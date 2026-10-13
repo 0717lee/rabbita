@@ -12,9 +12,9 @@ priv enum Shape {
 ///|
 fn memo_shape(
   shape : Shape,
-  value : Int,
-  revision : Int,
-  select : Emit[Int],
+  value : Int32,
+  revision : Int32,
+  select : Emit[Int32],
   computes : RenderCounter,
   nested_computes : RenderCounter,
 ) -> Html {
@@ -61,9 +61,9 @@ fn memo_shape(
 
 ///|
 fn memo_lifecycle_component(
-  parent : Val[Int],
-  value : Val[Int],
-  select : Emit[Int],
+  parent : Val[Int32],
+  value : Val[Int32],
+  select : Emit[Int32],
 ) -> Val[Html] {
   let (shape, set_shape) = @rabbita.create_variable(MemoElement)
   let (shown, set_shown) = @rabbita.create_variable(true)

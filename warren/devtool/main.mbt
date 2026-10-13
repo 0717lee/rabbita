@@ -24,8 +24,8 @@ let mobile_breakpoint = 560
 
 ///|
 struct DragState {
-  start_x : Int
-  start_left : Int
+  start_x : Int32
+  start_left : Int32
   moved : Bool
 } derive(Eq)
 
@@ -41,9 +41,9 @@ enum DevStatus {
 struct Model {
   pinned : Bool
   hovered : Bool
-  tab_left : Int
-  viewport_width : Int
-  reload_nonce : Int
+  tab_left : Int32
+  viewport_width : Int32
+  reload_nonce : Int32
   drag : DragState?
   auto_open : Bool
   listening : Bool
@@ -70,7 +70,7 @@ enum Msg {
 }
 
 ///|
-fn tab_width(viewport_width : Int) -> Int {
+fn tab_width(viewport_width : Int32) -> Int32 {
   if viewport_width <= mobile_breakpoint {
     mobile_tab_width
   } else {
@@ -79,7 +79,7 @@ fn tab_width(viewport_width : Int) -> Int {
 }
 
 ///|
-fn clamp_tab_left(left : Int, viewport_width : Int) -> Int {
+fn clamp_tab_left(left : Int32, viewport_width : Int32) -> Int32 {
   let max_left = viewport_width - tab_width(viewport_width) - min_tab_left
   let max_left = if max_left < min_tab_left { min_tab_left } else { max_left }
   if left < min_tab_left {
@@ -125,7 +125,7 @@ fn panel_expanded(model : Model) -> Bool {
 }
 
 ///|
-fn mouse_client_x(mouse : Mouse) -> Int {
+fn mouse_client_x(mouse : Mouse) -> Int32 {
   mouse.client_pos().x.round().to_int()
 }
 

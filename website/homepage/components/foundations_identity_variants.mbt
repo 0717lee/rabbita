@@ -187,8 +187,8 @@ fn identity_component_demo(
   variant_description : String,
   body : @html.Html,
   code : String,
-  tall? : Bool = false,
-  stage_variant? : ShowcaseStageVariant = ShowcaseStageSurface,
+  tall~ : Bool = false,
+  stage_variant~ : ShowcaseStageVariant = ShowcaseStageSurface,
 ) -> @html.Html {
   showcase_component_demos(title, description, [
     showcase_demo_section(
@@ -205,8 +205,8 @@ fn identity_demo_section(
   description : String,
   body : @html.Html,
   code : String,
-  tall? : Bool = false,
-  stage_variant? : ShowcaseStageVariant = ShowcaseStageSurface,
+  tall~ : Bool = false,
+  stage_variant~ : ShowcaseStageVariant = ShowcaseStageSurface,
 ) -> ShowcaseDemoEntry {
   showcase_demo_section(
     title,

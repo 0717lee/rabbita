@@ -43,8 +43,8 @@ struct StoreTestHost {
   task_queue : Queue[(@cmd.Op, @cmd.Extension)]
   stores : @slotmap.SlotMap[Store]
   mut draining : Bool
-  mut async_tasks : Int
-  mut unhandled_tasks : Int
+  mut async_tasks : Int32
+  mut unhandled_tasks : Int32
 }
 
 ///|
@@ -167,7 +167,7 @@ test "state machine unloads subscriptions when its component scope is disposed" 
     let state = branch.switch(branch => {
       match branch {
         Active => {
-          let (model, _) : (@duplix.Node[Int], @cmd.Emit[Unit]) = create_state_machine(
+          let (model, _) : (@duplix.Node[Int32], @cmd.Emit[Unit]) = create_state_machine(
             _ => (0, @cmd.none),
             (model, _, _) => (model, @cmd.none),
             subscriptions=(_, _) => subscription,
@@ -197,7 +197,7 @@ test "state machine with input unloads subscriptions when disposed" {
     let state = branch.switch(branch => {
       match branch {
         Active => {
-          let (model, _) : (@duplix.Node[Int], @cmd.Emit[Unit]) = create_state_machine_with_input(
+          let (model, _) : (@duplix.Node[Int32], @cmd.Emit[Unit]) = create_state_machine_with_input(
             (_, _) => (0, @cmd.none),
             (model, _, _, _) => (model, @cmd.none),
             subscriptions=(_, _, _) => subscription,

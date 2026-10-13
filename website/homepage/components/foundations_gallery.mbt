@@ -691,7 +691,7 @@ fn foundations_centered_section(
   description : String,
   body : @html.Html,
   code : String,
-  surface? : Bool = true,
+  surface~ : Bool = true,
 ) -> ShowcaseDemoEntry {
   let variant = if surface { ShowcaseStageSurface } else { ShowcaseStagePlain }
   showcase_demo_section(

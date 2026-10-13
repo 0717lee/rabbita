@@ -549,7 +549,7 @@ let hero_tabs : Array[HeroTabEntry] = [{ label: "Counter", src: code_counter, }]
 
 ///|
 struct HeroViewModel {
-  hero_tab : Int
+  hero_tab : Int32
 } derive(Eq)
 
 ///|
@@ -696,13 +696,13 @@ fn cmp_card(js_src : String, mb_src : String) -> Val[Html] {
 
 ///|
 struct ComparisonViewModel {
-  cmp_idx : Int
+  cmp_idx : Int32
   cmp_anim : Bool
 } derive(Eq)
 
 ///|
 enum ComparisonMsg {
-  SelectComparison(Int)
+  SelectComparison(Int32)
   NextComparison
 }
 

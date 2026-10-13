@@ -152,7 +152,7 @@ fn request_target(url : String, base_uri : String) -> (String, String) raise {
 ///|
 fn content_type_headers(
   content_type : String,
-  headers? : @async_http.Headers = Map([]),
+  headers~ : @async_http.Headers = Map([]),
 ) -> @async_http.Headers {
   if !content_type.is_empty() {
     headers["Content-Type"] = content_type

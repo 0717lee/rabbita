@@ -3,14 +3,14 @@ priv struct Model {
   text : String
   changed : String
   choice : String
-  submits : Int
+  submits : Int32
   focused : Bool
-  keydowns : Int
+  keydowns : Int32
   decorated : Bool
   locked : Bool
   checked : Bool
-  handler_a : Int
-  handler_b : Int
+  handler_a : Int32
+  handler_b : Int32
 } derive(Eq)
 
 ///|

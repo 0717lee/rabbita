@@ -110,7 +110,7 @@ fn showcase_anchor(value : String) -> String {
   let mut separator = false
   for character in value {
     match character {
-      'A'..='Z' | 'a'..='z' | '0'..='9' => {
+      'A'..<='Z' | 'a'..<='z' | '0'..<='9' => {
         if separator && !builder.is_empty() {
           builder.write_char('-')
         }
@@ -144,7 +144,7 @@ fn showcase_component_anchor(title : String) -> String {
 }
 
 ///|
-fn showcase_code_line_count(code : String) -> Int {
+fn showcase_code_line_count(code : String) -> Int32 {
   let mut count = 1
   let mut ends_with_newline = false
   for character in code {
@@ -257,9 +257,9 @@ fn showcase_component_page_navigation(title : String) -> @html.Html {
 fn showcase_stage(
   body : @html.Html,
   code : String,
-  variant? : ShowcaseStageVariant = ShowcaseStagePlain,
-  tall? : Bool = false,
-  stage_style? : String = "",
+  variant~ : ShowcaseStageVariant = ShowcaseStagePlain,
+  tall~ : Bool = false,
+  stage_style~ : String = "",
 ) -> @html.Html {
   let highlighted_code = showcase_highlighted_code(code)
   let show_full_code = showcase_code_line_count(code) < 5
@@ -329,9 +329,9 @@ fn showcase_stage(
 fn showcase_demo_stage(
   body : @html.Html,
   code : String,
-  variant? : ShowcaseStageVariant = ShowcaseStageSurface,
-  tall? : Bool = false,
-  stage_style? : String = "",
+  variant~ : ShowcaseStageVariant = ShowcaseStageSurface,
+  tall~ : Bool = false,
+  stage_style~ : String = "",
 ) -> ShowcasePreparedStage {
   PreparedShowcaseStage(
     showcase_stage(body, code, variant~, tall~, stage_style~),

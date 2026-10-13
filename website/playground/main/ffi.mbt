@@ -59,18 +59,18 @@ extern "js" fn js_result_string(value : @js.Value, key : String) -> String =
   #| (value, key) => typeof value[key] === 'string' ? value[key] : ''
 
 ///|
-extern "js" fn js_result_int(value : @js.Value, key : String) -> Int =
+extern "js" fn js_result_int(value : @js.Value, key : String) -> Int32 =
   #| (value, key) => Number.isFinite(value[key]) ? value[key] | 0 : 0
 
 ///|
-extern "js" fn js_diagnostic_count(value : @js.Value, key : String) -> Int =
+extern "js" fn js_diagnostic_count(value : @js.Value, key : String) -> Int32 =
   #| (value, key) => Array.isArray(value[key]) ? value[key].length : 0
 
 ///|
 extern "js" fn js_diagnostic_string(
   value : @js.Value,
   key : String,
-  index : Int,
+  index : Int32,
   field : String,
 ) -> String =
   #| (value, key, index, field) => {
@@ -82,9 +82,9 @@ extern "js" fn js_diagnostic_string(
 extern "js" fn js_diagnostic_int(
   value : @js.Value,
   key : String,
-  index : Int,
+  index : Int32,
   field : String,
-) -> Int =
+) -> Int32 =
   #| (value, key, index, field) => {
   #|   const item = Array.isArray(value[key]) ? value[key][index] : undefined
   #|   return item && Number.isFinite(item[field]) ? item[field] | 0 : 0

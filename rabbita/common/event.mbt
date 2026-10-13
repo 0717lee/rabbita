@@ -55,7 +55,7 @@ struct Keyboard {
   meta_pressed : Bool
   composing : Bool
   repeated : Bool
-  location_value : Int
+  location_value : Int32
 } derive(Debug)
 
 ///|
@@ -71,7 +71,7 @@ pub fn Keyboard::new(
   meta_key~ : Bool,
   is_composing~ : Bool,
   repeat~ : Bool,
-  location~ : Int,
+  location~ : Int32,
 ) -> Self {
   {
     key_value: key,
@@ -127,7 +127,7 @@ pub fn Keyboard::repeat(self : Keyboard) -> Bool {
 }
 
 ///|
-pub fn Keyboard::location(self : Keyboard) -> Int {
+pub fn Keyboard::location(self : Keyboard) -> Int32 {
   self.location_value
 }
 

@@ -1,8 +1,8 @@
 ///|
 struct SlotMap[T] {
   slots : Array[T?]
-  gens : Array[UInt]
-  free : Array[Int]
+  gens : Array[UInt32]
+  free : Array[Int32]
 }
 
 ///|
@@ -34,8 +34,8 @@ pub fn[T] SlotMap::allocate_with(arena : Self[T], f : (Id) -> T) -> Id {
 
 ///|
 struct Id {
-  gen : UInt
-  idx : Int
+  gen : UInt32
+  idx : Int32
 } derive(Eq, Hash, Compare)
 
 ///|

@@ -45,23 +45,23 @@ struct Model {
   draft_input : String
   listening : Bool
   listen_status : String
-  listen_open_count : Int
-  listen_message_count : Int
-  listen_close_count : Int
-  listen_error_count : Int
+  listen_open_count : Int32
+  listen_message_count : Int32
+  listen_close_count : Int32
+  listen_error_count : Int32
   listen_last_message : String
   listen_last_close : String
   listen_log : Array[String]
   client_status : String
-  client_open_count : Int
-  client_message_count : Int
-  client_close_count : Int
-  client_error_count : Int
+  client_open_count : Int32
+  client_message_count : Int32
+  client_close_count : Int32
+  client_error_count : Int32
   client_last_error : String
   client_last_close : String
   client_ready_state : String
   client_protocol : String
-  client_buffered_amount : Int
+  client_buffered_amount : Int32
   client_socket_url : String
   client_state_note : String
   transcript : Array[ChatEntry]
@@ -141,7 +141,7 @@ fn close_summary(info : CloseInfo) -> String {
 fn capped_prepend(
   xs : Array[String],
   value : String,
-  limit : Int,
+  limit : Int32,
 ) -> Array[String] {
   let next = xs.copy()
   next.insert(0, value)
@@ -155,7 +155,7 @@ fn capped_prepend(
 fn capped_append(
   xs : Array[ChatEntry],
   value : ChatEntry,
-  limit : Int,
+  limit : Int32,
 ) -> Array[ChatEntry] {
   let next = xs.copy()
   next.push(value)
@@ -624,10 +624,10 @@ struct ListenPanelModel {
   url_input : String
   listening : Bool
   listen_status : String
-  listen_open_count : Int
-  listen_message_count : Int
-  listen_close_count : Int
-  listen_error_count : Int
+  listen_open_count : Int32
+  listen_message_count : Int32
+  listen_close_count : Int32
+  listen_error_count : Int32
   listen_last_message : String
   listen_last_close : String
   listen_log : Array[String]
@@ -639,15 +639,15 @@ struct ClientPanelModel {
   nickname_input : String
   draft_input : String
   client_status : String
-  client_open_count : Int
-  client_message_count : Int
-  client_close_count : Int
-  client_error_count : Int
+  client_open_count : Int32
+  client_message_count : Int32
+  client_close_count : Int32
+  client_error_count : Int32
   client_last_error : String
   client_last_close : String
   client_ready_state : String
   client_protocol : String
-  client_buffered_amount : Int
+  client_buffered_amount : Int32
   client_socket_url : String
   client_state_note : String
 } derive(Eq)

@@ -59,7 +59,7 @@ pub fn Window::scroll_to(
   self : Self,
   x : Double,
   y : Double,
-  behavior? : String = "auto",
+  behavior~ : String = "auto",
 ) -> Unit {
   ffi_window_scroll_to(self, x, y, behavior)
 }
@@ -70,14 +70,14 @@ pub fn Window::scroll_by(
   self : Self,
   x : Double,
   y : Double,
-  behavior? : String = "auto",
+  behavior~ : String = "auto",
 ) -> Unit {
   ffi_window_scroll_by(self, x, y, behavior)
 }
 
 ///|
 #cfg(target="js")
-pub fn Window::scroll_to_top(self : Self, behavior? : String = "auto") -> Unit {
+pub fn Window::scroll_to_top(self : Self, behavior~ : String = "auto") -> Unit {
   self.scroll_to(0, 0, behavior~)
 }
 
@@ -85,7 +85,7 @@ pub fn Window::scroll_to_top(self : Self, behavior? : String = "auto") -> Unit {
 #cfg(target="js")
 pub fn Window::scroll_to_bottom(
   self : Self,
-  behavior? : String = "auto",
+  behavior~ : String = "auto",
 ) -> Unit {
   ffi_window_scroll_to_bottom(self, behavior)
 }
@@ -184,13 +184,13 @@ pub extern "js" fn Window::scroll_y(self : Self) -> Double = "(self) => self.scr
 pub extern "js" fn Window::set_interval(
   self : Self,
   f : () -> Unit,
-  ms : Int,
-) -> Int = "(self,f,ms) => self.setInterval(f, ms)"
+  ms : Int32,
+) -> Int32 = "(self,f,ms) => self.setInterval(f, ms)"
 
 ///|
 /// https://developer.mozilla.org/en-US/docs/Web/API/Window/clearInterval
 #cfg(target="js")
-pub extern "js" fn Window::clear_interval(self : Self, interval_id : Int) = "(self,id) => self.clearInterval(id)"
+pub extern "js" fn Window::clear_interval(self : Self, interval_id : Int32) = "(self,id) => self.clearInterval(id)"
 
 ///|
 /// https://developer.mozilla.org/en-US/docs/Web/API/Window/setTimeout
@@ -198,13 +198,13 @@ pub extern "js" fn Window::clear_interval(self : Self, interval_id : Int) = "(se
 pub extern "js" fn Window::set_timeout(
   self : Self,
   f : () -> Unit,
-  ms : Int,
-) -> Int = "(self, f, ms) => self.setTimeout(f, ms)"
+  ms : Int32,
+) -> Int32 = "(self, f, ms) => self.setTimeout(f, ms)"
 
 ///|
 /// https://developer.mozilla.org/en-US/docs/Web/API/Window/clearTimeout
 #cfg(target="js")
-pub extern "js" fn Window::clear_timeout(self : Self, timeout_id : Int) = "(self, id) => self.clearTimeout(id)"
+pub extern "js" fn Window::clear_timeout(self : Self, timeout_id : Int32) = "(self, id) => self.clearTimeout(id)"
 
 ///|
 /// https://developer.mozilla.org/en-US/docs/Web/API/Window/queueMicrotask

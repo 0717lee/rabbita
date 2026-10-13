@@ -67,8 +67,8 @@ pub trait IsHtmlElement: IsElement {
   fn set_spellcheck(Self, Bool) -> Unit = _
   fn get_style(Self) -> CSSStyleDeclaration = _
   fn set_style_declaration(Self, CSSStyleDeclaration) -> Unit = _
-  fn get_tab_index(Self) -> Int = _
-  fn set_tab_index(Self, Int) -> Unit = _
+  fn get_tab_index(Self) -> Int32 = _
+  fn set_tab_index(Self, Int32) -> Unit = _
   fn get_title(Self) -> String = _
   fn set_title(Self, String) -> Unit = _
   fn get_translate(Self) -> Bool = _
@@ -967,13 +967,13 @@ extern "js" fn ffi_html_element_set_style_declaration(
 
 ///|
 #cfg(target="js")
-extern "js" fn ffi_html_element_get_tab_index(s : HTMLElement) -> Int = "(s) => s.tabIndex"
+extern "js" fn ffi_html_element_get_tab_index(s : HTMLElement) -> Int32 = "(s) => s.tabIndex"
 
 ///|
 #cfg(target="js")
 extern "js" fn ffi_html_element_set_tab_index(
   s : HTMLElement,
-  value : Int,
+  value : Int32,
 ) -> Unit = "(s, value) => s.tabIndex = value"
 
 ///|

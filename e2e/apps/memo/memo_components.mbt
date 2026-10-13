@@ -1,8 +1,8 @@
 ///|
 fn basic_memo_component(
-  parent : Val[Int],
-  value : Val[Int],
-  select : Emit[Int],
+  parent : Val[Int32],
+  value : Val[Int32],
+  select : Emit[Int32],
 ) -> Val[Html] {
   let (views, view_counter) = render_counter("basic_view")
   let (computes, compute_counter) = render_counter("basic")
@@ -38,15 +38,15 @@ fn basic_memo_component(
 ///|
 // This deliberately has no Hash implementation: memo_by accepts arbitrary input.
 priv struct CustomInput {
-  value : Int
-  _ignored : Int
+  value : Int32
+  _ignored : Int32
 }
 
 ///|
 fn custom_memo_component(
-  parent : Val[Int],
-  value : Val[Int],
-  select : Emit[Int],
+  parent : Val[Int32],
+  value : Val[Int32],
+  select : Emit[Int32],
 ) -> Val[Html] {
   let (ignored, set_ignored) = @rabbita.create_variable(0)
   let (views, view_counter) = render_counter("custom_view")

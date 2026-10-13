@@ -8,8 +8,8 @@ type MouseEvent
 pub trait IsMouseEvent: IsUIEvent {
   fn as_mouse_event(Self) -> MouseEvent = _
   fn get_alt_key(Self) -> Bool = _
-  fn get_button(Self) -> Int = _
-  fn get_buttons(Self) -> Int = _
+  fn get_button(Self) -> Int32 = _
+  fn get_buttons(Self) -> Int32 = _
   fn get_client_x(Self) -> Double = _
   fn get_client_y(Self) -> Double = _
   fn get_ctrl_key(Self) -> Bool = _
@@ -289,11 +289,11 @@ extern "js" fn ffi_mouse_event_meta_key(e : @js.Value) -> Bool = "(e) => e.metaK
 
 ///|
 #cfg(target="js")
-extern "js" fn ffi_mouse_event_button(e : @js.Value) -> Int = "(e) => e.button"
+extern "js" fn ffi_mouse_event_button(e : @js.Value) -> Int32 = "(e) => e.button"
 
 ///|
 #cfg(target="js")
-extern "js" fn ffi_mouse_event_buttons(e : @js.Value) -> Int = "(e) => e.buttons"
+extern "js" fn ffi_mouse_event_buttons(e : @js.Value) -> Int32 = "(e) => e.buttons"
 
 ///|
 #cfg(target="js")
