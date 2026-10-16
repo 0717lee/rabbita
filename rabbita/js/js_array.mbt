@@ -17,7 +17,7 @@ pub fn[T] JsArray::new() -> JsArray[T] {
 
 ///|
 #cfg(target="js")
-pub fn[T] JsArray::length(self : JsArray[T]) -> Int {
+pub fn[T] JsArray::length(self : JsArray[T]) -> Int32 {
   js_array_length(Value::cast_from(self))
 }
 
@@ -30,14 +30,14 @@ pub fn[T] JsArray::is_empty(self : JsArray[T]) -> Bool {
 ///|
 /// Returns `None` for an out-of-bounds index, a hole, or `undefined`.
 #cfg(target="js")
-pub fn[T] JsArray::get(self : JsArray[T], index : Int) -> T? {
+pub fn[T] JsArray::get(self : JsArray[T], index : Int32) -> T? {
   guard js_array_has_value(Value::cast_from(self), index) else { None }
   Some(Value::cast_from(js_array_get(Value::cast_from(self), index)).cast())
 }
 
 ///|
 #cfg(target="js")
-pub fn[T] JsArray::unsafe_get(self : JsArray[T], index : Int) -> T {
+pub fn[T] JsArray::unsafe_get(self : JsArray[T], index : Int32) -> T {
   Value::cast_from(js_array_get(Value::cast_from(self), index)).cast()
 }
 
@@ -45,7 +45,7 @@ pub fn[T] JsArray::unsafe_get(self : JsArray[T], index : Int) -> T {
 /// Sets an element in place, expanding the array with holes when needed.
 /// Aborts when `index` is negative.
 #cfg(target="js")
-pub fn[T] JsArray::set(self : JsArray[T], index : Int, value : T) -> Unit {
+pub fn[T] JsArray::set(self : JsArray[T], index : Int32, value : T) -> Unit {
   guard index >= 0 else { abort("JsArray::set: negative index") }
   js_array_set(Value::cast_from(self), index, Value::cast_from(value))
 }
@@ -84,22 +84,26 @@ extern "js" fn js_array_new() -> Value = "() => []"
 
 ///|
 #cfg(target="js")
-extern "js" fn js_array_length(array : Value) -> Int = "(array) => array.length"
+extern "js" fn js_array_length(array : Value) -> Int32 = "(array) => array.length"
 
 ///|
 #cfg(target="js")
-extern "js" fn js_array_has_value(array : Value, index : Int) -> Bool =
+extern "js" fn js_array_has_value(array : Value, index : Int32) -> Bool =
   #| (array, index) => index >= 0
   #|   && Object.hasOwn(array, index)
   #|   && array[index] !== undefined
 
 ///|
 #cfg(target="js")
-extern "js" fn js_array_get(array : Value, index : Int) -> Value = "(array, index) => array[index]"
+extern "js" fn js_array_get(array : Value, index : Int32) -> Value = "(array, index) => array[index]"
 
 ///|
 #cfg(target="js")
-extern "js" fn js_array_set(array : Value, index : Int, value : Value) -> Unit = "(array, index, value) => { array[index] = value }"
+extern "js" fn js_array_set(
+  array : Value,
+  index : Int32,
+  value : Value,
+) -> Unit = "(array, index, value) => { array[index] = value }"
 
 ///|
 #cfg(target="js")

@@ -12,7 +12,7 @@ extenum @cmd.Extension += {
     @cmd.Emit[String]?
   )
   WebSocketSend(String, Payload, @cmd.Emit[String]?)
-  WebSocketClose(String, Int?, String?, @cmd.Emit[String]?)
+  WebSocketClose(String, Int32?, String?, @cmd.Emit[String]?)
   WebSocketState(String, @cmd.Emit[Result[Snapshot, String]])
 }
 
@@ -57,7 +57,7 @@ fn op_invoke(
   extension : @cmd.Extension,
   _context : &@cmd.Context,
 ) -> @cmd.OpCont[Cmd] raise @cmd.Unhandled {
-  fn ready_state_from_dom(value : Int) -> ReadyState {
+  fn ready_state_from_dom(value : Int32) -> ReadyState {
     match value {
       0 => Connecting
       1 => Open

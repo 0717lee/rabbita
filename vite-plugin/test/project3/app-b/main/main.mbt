@@ -15,10 +15,9 @@ fn view(emit : @rabbita.Emit[Msg], _ : Unit) -> @rabbita.Html {
 ///|
 fn main {
   let app = @rabbita.new(() => {
-    let (model, emit) = @rabbita.create_pure_state(
-      (),
-      update=fn(_, _ : Msg) { () },
-    )
+    let (model, emit) = @rabbita.create_pure_state((), update=fn(_, _ : Msg) {
+      ()
+    })
     model.map(model => view(emit, model))
   })
   app.mount("app")

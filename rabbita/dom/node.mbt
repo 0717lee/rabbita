@@ -7,7 +7,7 @@ type Node
 #cfg(target="js")
 pub trait IsNode: IsEventTarget {
   fn as_node(Self) -> Node = _
-  fn get_node_type(Self) -> Int = _
+  fn get_node_type(Self) -> Int32 = _
   fn get_node_name(Self) -> String = _
   fn get_node_value(Self) -> String = _
   fn set_node_value(Self, @js.Nullable[String]) -> Unit = _
@@ -26,8 +26,8 @@ pub trait IsNode: IsEventTarget {
   fn remove_child(Self, Node) -> Unit = _
   fn replace_child(Self, Node, Node) -> Unit = _
   fn insert_before(Self, Node, @js.Nullable[Node]) -> Unit = _
-  fn get_child(Self, Int) -> Node = _
-  fn get_child_count(Self) -> Int = _
+  fn get_child(Self, Int32) -> Node = _
+  fn get_child_count(Self) -> Int32 = _
   fn is_same_node(Self, Node) -> Bool = _
 }
 
@@ -237,7 +237,7 @@ impl IsNode with fn is_same_node(s, other) {
 
 ///|
 #cfg(target="js")
-extern "js" fn ffi_node_type(x : @js.Value) -> Int = "(x) => x.nodeType"
+extern "js" fn ffi_node_type(x : @js.Value) -> Int32 = "(x) => x.nodeType"
 
 ///|
 #cfg(target="js")
@@ -306,7 +306,7 @@ extern "js" fn insert_before(
 
 ///|
 #cfg(target="js")
-extern "js" fn ffi_nth_child(x : @js.Value, index : Int) -> Node =
+extern "js" fn ffi_nth_child(x : @js.Value, index : Int32) -> Node =
   #| (x,i) => { 
   #|   const r = x.childNodes[i]; 
   #|   if (r === undefined) throw new Error(`nth_child: index ${i} out of bounds, length=${x.childNodes.length}`);
@@ -315,7 +315,7 @@ extern "js" fn ffi_nth_child(x : @js.Value, index : Int) -> Node =
 
 ///|
 #cfg(target="js")
-extern "js" fn ffi_count_child(x : @js.Value) -> Int = "(x) => x.childNodes.length"
+extern "js" fn ffi_count_child(x : @js.Value) -> Int32 = "(x) => x.childNodes.length"
 
 ///|
 #cfg(target="js")

@@ -6,16 +6,16 @@ using @rabbita {type Cmd, type Emit, type Html, type Val}
 
 ///|
 enum Msg {
-  SelectPattern(Int)
+  SelectPattern(Int32)
   AnimationFrameTick(Double)
 }
 
 ///|
 struct Model {
-  frame_count : Int
+  frame_count : Int32
   last_frame_ms : Double
   logo : LogoModel
-  logo_pattern_index : Int
+  logo_pattern_index : Int32
 } derive(Eq)
 
 ///|

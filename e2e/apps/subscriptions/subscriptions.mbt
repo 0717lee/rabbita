@@ -7,15 +7,15 @@ using @html {button, div, h1, p}
 ///|
 priv struct Model {
   active : Bool
-  resize_count : Int
+  resize_count : Int32
   width : Double
   height : Double
-  key_count : Int
+  key_count : Int32
   last_key : String
   use_new_tagger : Bool
-  old_tagger_count : Int
-  new_tagger_count : Int
-  barrier : Int
+  old_tagger_count : Int32
+  new_tagger_count : Int32
+  barrier : Int32
 } derive(Eq)
 
 ///|

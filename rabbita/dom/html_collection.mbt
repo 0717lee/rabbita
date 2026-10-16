@@ -12,7 +12,7 @@ pub extern "js" fn HTMLCollection::get_length(self : Self) -> Double = "(self) =
 ///|
 /// Returns the current number of elements in this live collection.
 #cfg(target="js")
-pub fn HTMLCollection::length(self : Self) -> Int {
+pub fn HTMLCollection::length(self : Self) -> Int32 {
   self.get_length().to_int()
 }
 

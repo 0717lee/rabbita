@@ -39,32 +39,32 @@ enum Msg {
 ///|
 struct Model {
   active_tab : Tab
-  tick_count : Int
+  tick_count : Int32
   ticking : Bool
-  resize_count : Int
+  resize_count : Int32
   viewport_width : Double
   viewport_height : Double
-  scroll_count : Int
+  scroll_count : Int32
   scroll_x : Double
   scroll_y : Double
   scroll_width : Double
   scroll_height : Double
-  keydown_count : Int
+  keydown_count : Int32
   last_key_down : String
   last_key_down_code : String
   last_key_down_repeat : Bool
-  keyup_count : Int
+  keyup_count : Int32
   last_key_up : String
   last_key_up_code : String
   visibility_hidden : Bool
-  visibility_count : Int
-  mouse_moves : Int
+  visibility_count : Int32
+  mouse_moves : Int32
   mouse_x : Double
   mouse_y : Double
 } derive(Eq)
 
 ///|
-fn tab_id(tab : Tab) -> Int {
+fn tab_id(tab : Tab) -> Int32 {
   match tab {
     Every => 0
     Resize => 1

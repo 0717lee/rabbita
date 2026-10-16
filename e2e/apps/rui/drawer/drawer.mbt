@@ -2,7 +2,7 @@
 fn drawer_example(
   direction : @rui.DrawerDirection,
   name : String,
-  swipe_area? : Int,
+  swipe_area? : Int32,
 ) -> Html {
   let id = "fixture-drawer-" + name
   fragment([

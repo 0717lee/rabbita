@@ -29,11 +29,11 @@ pub trait IsElement: IsNode {
   /// https://developer.mozilla.org/en-US/docs/Web/API/Element/getClientRects
   fn get_client_rects(Self) -> DOMRectList = _
   /// https://developer.mozilla.org/en-US/docs/Web/API/Element/setPointerCapture
-  fn set_pointer_capture(Self, Int) -> Unit = _
+  fn set_pointer_capture(Self, Int32) -> Unit = _
   /// https://developer.mozilla.org/en-US/docs/Web/API/Element/releasePointerCapture
-  fn release_pointer_capture(Self, Int) -> Unit = _
+  fn release_pointer_capture(Self, Int32) -> Unit = _
   /// https://developer.mozilla.org/en-US/docs/Web/API/Element/hasPointerCapture
-  fn has_pointer_capture(Self, Int) -> Bool = _
+  fn has_pointer_capture(Self, Int32) -> Bool = _
   fn set_attribute(Self, String, String) -> Unit = _
   /// https://developer.mozilla.org/en-US/docs/Web/API/Element/getAttribute
   fn get_attribute(Self, String) -> String? = _
@@ -464,21 +464,21 @@ extern "js" fn ffi_element_get_client_rects(x : @js.Value) -> DOMRectList = "(se
 #cfg(target="js")
 extern "js" fn ffi_element_set_pointer_capture(
   x : @js.Value,
-  pointer_id : Int,
+  pointer_id : Int32,
 ) -> Unit = "(self, pointerId) => self.setPointerCapture(pointerId)"
 
 ///|
 #cfg(target="js")
 extern "js" fn ffi_element_release_pointer_capture(
   x : @js.Value,
-  pointer_id : Int,
+  pointer_id : Int32,
 ) -> Unit = "(self, pointerId) => self.releasePointerCapture(pointerId)"
 
 ///|
 #cfg(target="js")
 extern "js" fn ffi_element_has_pointer_capture(
   x : @js.Value,
-  pointer_id : Int,
+  pointer_id : Int32,
 ) -> Bool = "(self, pointerId) => self.hasPointerCapture(pointerId)"
 
 // NOTE: The DOM tree also includes the TEXT_NODE, which is not an element.

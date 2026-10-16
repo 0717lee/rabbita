@@ -211,14 +211,14 @@ pub extern "js" fn HTMLDialogElement::return_value(self : Self) -> String = "(se
 #cfg(target="js")
 pub extern "js" fn HTMLDialogElement::close(
   self : Self,
-  return_value? : @js.Optional[String] = @js.Optional::undefined(),
+  return_value~ : @js.Optional[String] = @js.Optional::undefined(),
 ) = "(self,returnValue) => self.close(returnValue)"
 
 ///|
 #cfg(target="js")
 pub extern "js" fn HTMLDialogElement::request_close(
   self : Self,
-  return_value? : @js.Optional[String] = @js.Optional::undefined(),
+  return_value~ : @js.Optional[String] = @js.Optional::undefined(),
 ) = "(self, returnValue) => self.requestClose(returnValue)"
 
 ///|

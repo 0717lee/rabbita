@@ -6,8 +6,8 @@ type ImageData
 ///|
 #cfg(target="js")
 pub extern "js" fn ImageData::new(
-  sw : Int,
-  sh : Int,
+  sw : Int32,
+  sh : Int32,
   settings : @js.Optional[ImageDataSettings],
 ) -> ImageData = "(sw,sh,settings) => new ImageData(sw,sh,settings)"
 
@@ -15,18 +15,18 @@ pub extern "js" fn ImageData::new(
 #cfg(target="js")
 pub extern "js" fn ImageData::new_with_data(
   data : Uint8ClampedArray,
-  sw : Int,
-  sh : Int,
-  settings? : @js.Optional[ImageDataSettings] = @js.Optional::undefined(),
+  sw : Int32,
+  sh : Int32,
+  settings~ : @js.Optional[ImageDataSettings] = @js.Optional::undefined(),
 ) -> ImageData = "(data,sw,sh,settings) => new ImageData(data,sw,sh,settings)"
 
 ///|
 #cfg(target="js")
-pub extern "js" fn ImageData::get_width(self : Self) -> Int = "(self) => self.width"
+pub extern "js" fn ImageData::get_width(self : Self) -> Int32 = "(self) => self.width"
 
 ///|
 #cfg(target="js")
-pub extern "js" fn ImageData::get_height(self : Self) -> Int = "(self) => self.height"
+pub extern "js" fn ImageData::get_height(self : Self) -> Int32 = "(self) => self.height"
 
 ///|
 #cfg(target="js")

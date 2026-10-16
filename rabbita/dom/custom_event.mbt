@@ -57,7 +57,7 @@ pub impl @js.Cast for CustomEvent with fn from(value) {
 #cfg(target="js")
 pub extern "js" fn CustomEvent::new(
   type_ : String,
-  detail? : @js.Optional[@js.Value] = @js.Optional::undefined(),
+  detail~ : @js.Optional[@js.Value] = @js.Optional::undefined(),
 ) -> CustomEvent = "(type, detail) => new CustomEvent(type, { detail: detail })"
 
 ///|

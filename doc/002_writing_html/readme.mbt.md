@@ -23,7 +23,7 @@ enum Msg {
 
 ///|
 struct Model {
-  count : Int
+  count : Int32
 }
 
 ///|

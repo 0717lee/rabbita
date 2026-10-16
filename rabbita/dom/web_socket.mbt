@@ -70,7 +70,7 @@ pub fn WebSocket::new_with_protocols(
 #cfg(target="js")
 pub fn WebSocket::open(
   url : String,
-  protocols? : FixedArray[String] = [],
+  protocols~ : FixedArray[String] = [],
 ) -> Result[WebSocket, String] {
   let mut result : Result[WebSocket, String] = Err(
     "websocket creation failed without an error message",
@@ -93,7 +93,7 @@ pub extern "js" fn WebSocket::close(self : Self) = "(socket) => socket.close()"
 #cfg(target="js")
 pub extern "js" fn WebSocket::close_with_code_reason(
   self : Self,
-  code : Int,
+  code : Int32,
   reason : String,
 ) = "(socket, code, reason) => socket.close(code, reason)"
 
@@ -101,7 +101,7 @@ pub extern "js" fn WebSocket::close_with_code_reason(
 #cfg(target="js")
 pub fn WebSocket::close_safe(
   self : Self,
-  code? : Int,
+  code? : Int32,
   reason? : String,
 ) -> Result[Unit, String] {
   let mut result : Result[Unit, String] = Ok(())
@@ -144,11 +144,11 @@ pub extern "js" fn WebSocket::get_protocol(self : Self) -> String = "(socket) =>
 
 ///|
 #cfg(target="js")
-pub extern "js" fn WebSocket::get_buffered_amount(self : Self) -> Int = "(socket) => socket.bufferedAmount"
+pub extern "js" fn WebSocket::get_buffered_amount(self : Self) -> Int32 = "(socket) => socket.bufferedAmount"
 
 ///|
 #cfg(target="js")
-pub extern "js" fn WebSocket::get_ready_state(self : Self) -> Int = "(socket) => socket.readyState"
+pub extern "js" fn WebSocket::get_ready_state(self : Self) -> Int32 = "(socket) => socket.readyState"
 
 ///|
 #cfg(target="js")
@@ -198,7 +198,7 @@ extern "js" fn ffi_send_socket(
 #cfg(target="js")
 extern "js" fn ffi_close_socket(
   socket : WebSocket,
-  code : Int?,
+  code : Int32?,
   reason : String?,
   has_code~ : Bool,
   has_reason~ : Bool,

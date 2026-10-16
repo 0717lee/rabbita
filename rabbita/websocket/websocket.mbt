@@ -9,7 +9,7 @@ using @cmd {type Cmd}
 pub fn connect(
   id : String,
   url : String,
-  protocols? : FixedArray[String] = [],
+  protocols~ : FixedArray[String] = [],
   on_event~ : @cmd.Emit[Event],
   failed? : @cmd.Emit[String],
 ) -> Cmd {
@@ -28,7 +28,7 @@ pub fn send(id : String, payload : Payload, failed? : @cmd.Emit[String]) -> Cmd 
 /// The registry entry remains until the real browser `close` event arrives.
 pub fn close(
   id : String,
-  code? : Int,
+  code? : Int32,
   reason? : String,
   failed? : @cmd.Emit[String],
 ) -> Cmd {

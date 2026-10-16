@@ -3,14 +3,14 @@
 pub extenum Extension += {
   LegacyEffect(EffectKind, (&Scheduler) -> Unit)
   LegacyMessage(OnExecute)
-  Delay(Cmd, Int)
+  Delay(Cmd, Int32)
 }
 
 ///|
 let op : Op = Op()..on_invoke(on_invoke)
 
 ///|
-pub fn delay(cmd : Cmd, ms : Int) -> Cmd {
+pub fn delay(cmd : Cmd, ms : Int32) -> Cmd {
   op.request(Delay(cmd, ms))
 }
 
@@ -34,7 +34,7 @@ fn on_invoke(
 
 ///|
 #cfg(target="js")
-extern "js" fn set_timeout(ms : Int) -> @js.Promise[Int] =
+extern "js" fn set_timeout(ms : Int32) -> @js.Promise[Int32] =
   #| ms => new Promise(resolve => { setTimeout(() => resolve(0), ms) })
 
 ///|

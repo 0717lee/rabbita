@@ -47,7 +47,7 @@ pub extern "js" fn SVGTransformList::get_number_of_items(self : Self) -> Double 
 ///|
 /// Returns the current item count as an Int.
 #cfg(target="js")
-pub fn SVGTransformList::length(self : Self) -> Int {
+pub fn SVGTransformList::length(self : Self) -> Int32 {
   self.get_length().to_int()
 }
 

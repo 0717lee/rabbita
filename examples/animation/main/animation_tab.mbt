@@ -33,12 +33,12 @@ fn step_animation_frame(timestamp : Double, model : Model) -> Model {
 }
 
 ///|
-fn animation_pattern_indices() -> Array[Int] {
+fn animation_pattern_indices() -> Array[Int32] {
   [0, 1, 2, 3, 4, 5, 6, 7]
 }
 
 ///|
-fn set_animation_pattern(index : Int, model : Model) -> Model {
+fn set_animation_pattern(index : Int32, model : Model) -> Model {
   if index == model.logo_pattern_index {
     model
   } else {
@@ -53,8 +53,8 @@ fn set_animation_pattern(index : Int, model : Model) -> Model {
 ///|
 fn animation_pattern_button(
   emit : @rabbita.Emit[Msg],
-  active_index : Int,
-  index : Int,
+  active_index : Int32,
+  index : Int32,
 ) -> @rabbita.Html {
   let class = if active_index == index { "tab active" } else { "tab" }
   @html.button(
@@ -67,7 +67,7 @@ fn animation_pattern_button(
 ///|
 fn animation_actions(
   emit : @rabbita.Emit[Msg],
-  active_index : Int,
+  active_index : Int32,
 ) -> Array[@rabbita.Html] {
   animation_pattern_indices().map(index => {
     animation_pattern_button(emit, active_index, index)

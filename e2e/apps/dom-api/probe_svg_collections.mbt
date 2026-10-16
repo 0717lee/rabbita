@@ -141,7 +141,7 @@ fn probe_svg_collections() -> String {
 }
 
 ///|
-extern "js" fn transform_type(value : @dom.SVGTransform) -> Int = "value => value.type"
+extern "js" fn transform_type(value : @dom.SVGTransform) -> Int32 = "value => value.type"
 
 ///|
 extern "js" fn animated_clear_error(list : @dom.SVGTransformList) -> String =

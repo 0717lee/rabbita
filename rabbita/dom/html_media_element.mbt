@@ -314,7 +314,7 @@ pub trait IsHTMLMediaElement: IsHtmlElement {
   fn get_media_keys(Self) -> MediaKeys? = _
   fn get_muted(Self) -> Bool = _
   fn set_muted(Self, Bool) -> Unit = _
-  fn get_network_state(Self) -> Int = _
+  fn get_network_state(Self) -> Int32 = _
   fn get_paused(Self) -> Bool = _
   fn get_playback_rate(Self) -> Double = _
   fn set_playback_rate(Self, Double) -> Unit = _
@@ -323,7 +323,7 @@ pub trait IsHTMLMediaElement: IsHtmlElement {
   fn set_preload(Self, String) -> Unit = _
   fn get_preserves_pitch(Self) -> Bool = _
   fn set_preserves_pitch(Self, Bool) -> Unit = _
-  fn get_ready_state(Self) -> Int = _
+  fn get_ready_state(Self) -> Int32 = _
   fn get_remote(Self) -> RemotePlayback = _
   fn get_seekable(Self) -> TimeRanges = _
   fn get_seeking(Self) -> Bool = _
@@ -887,7 +887,7 @@ extern "js" fn ffi_html_media_element_set_muted(
 #cfg(target="js")
 extern "js" fn ffi_html_media_element_get_network_state(
   s : HTMLMediaElement,
-) -> Int = "(s) => s.networkState"
+) -> Int32 = "(s) => s.networkState"
 
 ///|
 #cfg(target="js")
@@ -942,7 +942,7 @@ extern "js" fn ffi_html_media_element_set_preserves_pitch(
 #cfg(target="js")
 extern "js" fn ffi_html_media_element_get_ready_state(
   s : HTMLMediaElement,
-) -> Int = "(s) => s.readyState"
+) -> Int32 = "(s) => s.readyState"
 
 ///|
 #cfg(target="js")

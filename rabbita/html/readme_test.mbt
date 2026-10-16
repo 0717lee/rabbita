@@ -7,7 +7,7 @@ using @html {type Html, type Mouse, div, h1, button, node}
 ///|
 #warnings("-struct_never_constructed-unused_field")
 struct Model {
-  count : Int
+  count : Int32
   records : Array[String]
 }
 

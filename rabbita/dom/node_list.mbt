@@ -14,7 +14,7 @@ pub fn[T] NodeList::get_length(self : NodeList[T]) -> Double {
 ///|
 /// Returns the number of nodes in this collection.
 #cfg(target="js")
-pub fn[T] NodeList::length(self : NodeList[T]) -> Int {
+pub fn[T] NodeList::length(self : NodeList[T]) -> Int32 {
   self.get_length().to_int()
 }
 

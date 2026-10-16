@@ -1,7 +1,7 @@
 ///|
 pub(all) enum Variant {
   Boolean(Bool)
-  Integer(Int)
+  Integer(Int32)
   Floating(Double)
   String(String)
 } derive(Debug, Eq, Compare, Hash)

@@ -152,8 +152,8 @@ pub trait IsSVGElement: IsElement {
   fn get_owner_svg_element(Self) -> SVGElement? = _
   fn get_style(Self) -> CSSStyleDeclaration = _
   fn set_style(Self, CSSStyleDeclaration) -> Unit = _
-  fn get_tab_index(Self) -> Int = _
-  fn set_tab_index(Self, Int) -> Unit = _
+  fn get_tab_index(Self) -> Int32 = _
+  fn set_tab_index(Self, Int32) -> Unit = _
   fn get_viewport_element(Self) -> SVGElement? = _
   fn blur(Self) -> Unit = _
   fn focus(Self) -> Unit = _
@@ -303,11 +303,11 @@ extern "js" fn set_style(x : @js.Value, style : CSSStyleDeclaration) = "(self, s
 
 ///|
 #cfg(target="js")
-extern "js" fn get_tab_index(x : @js.Value) -> Int = "(self) => self.tabIndex"
+extern "js" fn get_tab_index(x : @js.Value) -> Int32 = "(self) => self.tabIndex"
 
 ///|
 #cfg(target="js")
-extern "js" fn set_tab_index(x : @js.Value, value : Int) = "(self, value) => self.tabIndex = value"
+extern "js" fn set_tab_index(x : @js.Value, value : Int32) = "(self, value) => self.tabIndex = value"
 
 ///|
 #cfg(target="js")

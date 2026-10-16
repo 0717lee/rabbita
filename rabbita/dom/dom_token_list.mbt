@@ -10,19 +10,19 @@ type DOMTokenList
 ///|
 /// Number of tokens in this live list.
 #cfg(target="js")
-pub extern "js" fn DOMTokenList::length(self : Self) -> Int = "(self) => self.length"
+pub extern "js" fn DOMTokenList::length(self : Self) -> Int32 = "(self) => self.length"
 
 ///|
 #cfg(target="js")
 extern "js" fn DOMTokenList::item_ffi(
   self : Self,
-  index : Int,
+  index : Int32,
 ) -> @js.Nullable[String] = "(self, index) => self.item(index)"
 
 ///|
 /// Returns the token at `index`, or `None` when the index is out of range.
 #cfg(target="js")
-pub fn DOMTokenList::item(self : Self, index : Int) -> String? {
+pub fn DOMTokenList::item(self : Self, index : Int32) -> String? {
   self.item_ffi(index).to_option()
 }
 

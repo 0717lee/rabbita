@@ -7,7 +7,7 @@ using @html {button, div, h1, p}
 ///|
 priv struct Model {
   location : String
-  count : Int
+  count : Int32
 } derive(Eq)
 
 ///|

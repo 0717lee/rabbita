@@ -110,7 +110,7 @@ async fn TestScheduler::run(self : TestScheduler) -> Unit {
 async fn invoke_text_request(
   url : String,
   base_uri : String,
-  http_method? : String = "GET",
+  http_method~ : String = "GET",
 ) -> Result[String, Error] {
   let mut result : Result[String, Error]? = None
   let request = match http_method {

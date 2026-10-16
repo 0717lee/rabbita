@@ -41,7 +41,7 @@ pub fn custom_sub(
 
 ///|
 priv suberror BuiltinSub {
-  Every(Int, Cmd)
+  Every(Int32, Cmd)
   AnimationFrame(Emit[Double])
   Keydown(Emit[Keyboard])
   Keyup(Emit[Keyboard])
@@ -362,7 +362,7 @@ fn window_scroll() -> Scroll {
 
 ///|
 /// Repeatedly enqueue `cmd` every `ms` milliseconds.
-pub fn every(ms : Int, cmd : @cmd.Cmd) -> Sub {
+pub fn every(ms : Int32, cmd : @cmd.Cmd) -> Sub {
   custom_sub("every(\{ms})", Local, Every(ms, cmd), builtin_sub_loader)
 }
 

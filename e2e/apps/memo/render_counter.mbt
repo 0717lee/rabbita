@@ -1,12 +1,12 @@
 ///|
 priv struct RenderCounter {
-  mut value : Int
+  mut value : Int32
 }
 
 ///|
 priv struct CounterSnapshot {
-  reading : Int
-  value : Int
+  reading : Int32
+  value : Int32
 } derive(Eq)
 
 ///|

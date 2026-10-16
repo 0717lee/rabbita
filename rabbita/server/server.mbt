@@ -33,7 +33,7 @@ pub async fn Server::Server(
   dist? : @path.Path,
   assets? : Map[String, Bytes],
   component? : () -> Val[Html],
-  silent? : Bool = false,
+  silent~ : Bool = false,
 ) -> Self {
   // invariants
   // WARREN_MODE: set `DEV` when `warren dev` running

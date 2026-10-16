@@ -8,9 +8,9 @@ type Event
 #cfg(target="js")
 pub extern "js" fn Event::new(
   type_ : String,
-  bubbles? : Bool = false,
-  cancelable? : Bool = false,
-  composed? : Bool = false,
+  bubbles~ : Bool = false,
+  cancelable~ : Bool = false,
+  composed~ : Bool = false,
 ) -> Self =
   #| (type, bubbles, cancelable, composed) => new Event(type, {
   #|   bubbles,

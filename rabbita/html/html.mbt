@@ -64,7 +64,7 @@ pub fn fragment(children : Array[Html]) -> Html {
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button)
 pub fn[C : IsChildren] button(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -96,7 +96,7 @@ pub fn[C : IsChildren] button(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/h1)
 pub fn[C : IsChildren] h1(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -118,7 +118,7 @@ pub fn[C : IsChildren] h1(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/h2)
 pub fn[C : IsChildren] h2(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -138,7 +138,7 @@ pub fn[C : IsChildren] h2(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/h3)
 pub fn[C : IsChildren] h3(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -158,7 +158,7 @@ pub fn[C : IsChildren] h3(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/h4)
 pub fn[C : IsChildren] h4(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -178,7 +178,7 @@ pub fn[C : IsChildren] h4(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/h5)
 pub fn[C : IsChildren] h5(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -198,7 +198,7 @@ pub fn[C : IsChildren] h5(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/h6)
 pub fn[C : IsChildren] h6(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -220,7 +220,7 @@ pub fn[C : IsChildren] h6(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/div)
 pub fn[C : IsChildren] div(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -252,7 +252,7 @@ pub fn[C : IsChildren] div(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/p)
 pub fn[C : IsChildren] p(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -272,7 +272,7 @@ pub fn[C : IsChildren] p(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/hr)
 pub fn hr(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -291,7 +291,7 @@ pub fn hr(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/pre)
 pub fn[C : IsChildren] pre(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -311,7 +311,7 @@ pub fn[C : IsChildren] pre(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/blockquote)
 pub fn[C : IsChildren] blockquote(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -331,7 +331,7 @@ pub fn[C : IsChildren] blockquote(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/section)
 pub fn[C : IsChildren] section(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -351,7 +351,7 @@ pub fn[C : IsChildren] section(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/header)
 pub fn[C : IsChildren] header(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -371,7 +371,7 @@ pub fn[C : IsChildren] header(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/footer)
 pub fn[C : IsChildren] footer(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -391,7 +391,7 @@ pub fn[C : IsChildren] footer(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/nav)
 pub fn[C : IsChildren] nav(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -411,7 +411,7 @@ pub fn[C : IsChildren] nav(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/main)
 pub fn[C : IsChildren] main_(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -431,7 +431,7 @@ pub fn[C : IsChildren] main_(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/article)
 pub fn[C : IsChildren] article(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -451,7 +451,7 @@ pub fn[C : IsChildren] article(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/aside)
 pub fn[C : IsChildren] aside(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -471,7 +471,7 @@ pub fn[C : IsChildren] aside(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/figure)
 pub fn[C : IsChildren] figure(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -491,7 +491,7 @@ pub fn[C : IsChildren] figure(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/figcaption)
 pub fn[C : IsChildren] figcaption(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -511,7 +511,7 @@ pub fn[C : IsChildren] figcaption(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/details)
 pub fn[C : IsChildren] details(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -533,7 +533,7 @@ pub fn[C : IsChildren] details(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/summary)
 pub fn[C : IsChildren] summary(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -555,7 +555,7 @@ pub fn[C : IsChildren] summary(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/span)
 pub fn[C : IsChildren] span(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -575,7 +575,7 @@ pub fn[C : IsChildren] span(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/small)
 pub fn[C : IsChildren] small(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -595,7 +595,7 @@ pub fn[C : IsChildren] small(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/mark)
 pub fn[C : IsChildren] mark(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -615,7 +615,7 @@ pub fn[C : IsChildren] mark(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/del)
 pub fn[C : IsChildren] del(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -635,7 +635,7 @@ pub fn[C : IsChildren] del(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/ins)
 pub fn[C : IsChildren] ins(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -655,7 +655,7 @@ pub fn[C : IsChildren] ins(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/s)
 pub fn[C : IsChildren] s(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -675,7 +675,7 @@ pub fn[C : IsChildren] s(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/cite)
 pub fn[C : IsChildren] cite(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -695,7 +695,7 @@ pub fn[C : IsChildren] cite(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/q)
 pub fn[C : IsChildren] q(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -715,7 +715,7 @@ pub fn[C : IsChildren] q(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/abbr)
 pub fn[C : IsChildren] abbr(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -735,7 +735,7 @@ pub fn[C : IsChildren] abbr(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/kbd)
 pub fn[C : IsChildren] kbd(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -755,7 +755,7 @@ pub fn[C : IsChildren] kbd(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/samp)
 pub fn[C : IsChildren] samp(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -775,7 +775,7 @@ pub fn[C : IsChildren] samp(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/var)
 pub fn[C : IsChildren] var_(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -795,7 +795,7 @@ pub fn[C : IsChildren] var_(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/time)
 pub fn[C : IsChildren] time(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -817,7 +817,7 @@ pub fn[C : IsChildren] time(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/address)
 pub fn[C : IsChildren] address(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -855,18 +855,18 @@ pub fn[C : IsChildren] address(
 /// If `App::with_route(url_request=...)` is not configured, browser native navigation
 /// is used as well.
 pub fn[C : IsChildren] a(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   href~ : String,
-  target? : Target = Self,
+  target~ : Target = Self,
   rel? : String,
   download? : String,
   attrs? : Attrs,
   children : C,
-  escape? : Bool = false,
+  escape~ : Bool = false,
 ) -> Html {
   let (attrs, children) = resolve_attrs(attrs, children)
   push_title(title, attrs)
@@ -884,7 +884,7 @@ pub fn[C : IsChildren] a(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/code)
 pub fn[C : IsChildren] code(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -904,7 +904,7 @@ pub fn[C : IsChildren] code(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/em)
 pub fn[C : IsChildren] em(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -924,7 +924,7 @@ pub fn[C : IsChildren] em(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/strong)
 pub fn[C : IsChildren] strong(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -944,7 +944,7 @@ pub fn[C : IsChildren] strong(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/i)
 pub fn[C : IsChildren] i(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -964,7 +964,7 @@ pub fn[C : IsChildren] i(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/b)
 pub fn[C : IsChildren] b(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -984,7 +984,7 @@ pub fn[C : IsChildren] b(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/u)
 pub fn[C : IsChildren] u(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -1004,7 +1004,7 @@ pub fn[C : IsChildren] u(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/sub)
 pub fn[C : IsChildren] sub(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -1024,7 +1024,7 @@ pub fn[C : IsChildren] sub(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/sup)
 pub fn[C : IsChildren] sup(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -1051,7 +1051,7 @@ pub fn text(str : String) -> Html {
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/ul)
 pub fn[C : IsChildren] ul(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -1075,9 +1075,9 @@ pub fn[C : IsChildren] ul(
 /// Notice that the `type` attribute for `ol` is not important for the browser now.
 /// If you want to change the type of the list, you should use the `list-style-type` property in CSS.
 pub fn[C : IsChildren] ol(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   reversed? : Bool,
-  start? : Int,
+  start? : Int32,
   id? : String,
   class? : String,
   title? : String,
@@ -1099,8 +1099,8 @@ pub fn[C : IsChildren] ol(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/li)
 pub fn[C : IsChildren] li(
-  style? : Array[String] = [],
-  value? : Int,
+  style~ : Array[String] = [],
+  value? : Int32,
   id? : String,
   class? : String,
   title? : String,
@@ -1123,7 +1123,7 @@ pub fn[C : IsChildren] li(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dl)
 pub fn[C : IsChildren] dl(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -1143,7 +1143,7 @@ pub fn[C : IsChildren] dl(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dt)
 pub fn[C : IsChildren] dt(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -1163,7 +1163,7 @@ pub fn[C : IsChildren] dt(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dd)
 pub fn[C : IsChildren] dd(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -1185,15 +1185,15 @@ pub fn[C : IsChildren] dd(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img)
 pub fn img(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   hidden? : Bool,
   src? : String,
   alt? : String,
   title? : String,
-  width? : Int,
-  height? : Int,
+  width? : Int32,
+  height? : Int32,
   srcset? : String,
   sizes? : String,
   loading? : String,
@@ -1220,14 +1220,14 @@ pub fn img(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe)
 pub fn iframe(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   hidden? : Bool,
   src? : String,
   title? : String,
-  width? : Int,
-  height? : Int,
+  width? : Int32,
+  height? : Int32,
   loading? : String,
   allow? : String,
   sandbox? : String,
@@ -1253,14 +1253,14 @@ pub fn iframe(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/fencedframe)
 pub fn fencedframe(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   hidden? : Bool,
   src? : String,
   title? : String,
-  width? : Int,
-  height? : Int,
+  width? : Int32,
+  height? : Int32,
   loading? : String,
   allow? : String,
   sandbox? : String,
@@ -1288,7 +1288,7 @@ pub fn fencedframe(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/br)
 pub fn br(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -1337,7 +1337,7 @@ pub(all) enum InputType {
 /// If you need the browser default behavior, use `attrs` with `Attrs::on_submit`.
 /// Use `method_="dialog"` without `on_submit` to close the containing dialog.
 pub fn[C : IsChildren] form(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -1365,7 +1365,7 @@ pub fn[C : IsChildren] form(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/label)
 pub fn[C : IsChildren] label(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -1387,7 +1387,7 @@ pub fn[C : IsChildren] label(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/fieldset)
 pub fn[C : IsChildren] fieldset(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -1411,7 +1411,7 @@ pub fn[C : IsChildren] fieldset(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/legend)
 pub fn[C : IsChildren] legend(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -1431,7 +1431,7 @@ pub fn[C : IsChildren] legend(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input)
 pub fn input(
-  input_type? : InputType = Text,
+  input_type~ : InputType = Text,
   name? : String,
   value? : String,
   checked? : Bool,
@@ -1440,16 +1440,16 @@ pub fn input(
   accept? : String,
   placeholder? : String,
   auto_complete? : AutoComplete,
-  style? : Array[String] = [],
-  max? : Int,
-  min? : Int,
-  step? : Int,
-  maxlength? : Int,
-  minlength? : Int,
+  style~ : Array[String] = [],
+  max? : Int32,
+  min? : Int32,
+  step? : Int32,
+  maxlength? : Int32,
+  minlength? : Int32,
   pattern? : String,
-  size? : Int,
-  width? : Int,
-  height? : Int,
+  size? : Int32,
+  width? : Int32,
+  height? : Int32,
   id? : String,
   class? : String,
   title? : String,
@@ -1524,20 +1524,20 @@ pub fn input(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea)
 pub fn[C : IsChildren] textarea(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
   name? : String,
   value? : String,
-  rows? : Int,
-  cols? : Int,
+  rows? : Int32,
+  cols? : Int32,
   placeholder? : String,
   read_only? : Bool,
   disabled? : Bool,
-  maxlength? : Int,
-  minlength? : Int,
+  maxlength? : Int32,
+  minlength? : Int32,
   required? : Bool,
   autofocus? : Bool,
   wrap? : String,
@@ -1572,7 +1572,7 @@ pub fn[C : IsChildren] textarea(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/select)
 pub fn[C : IsChildren] select(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -1580,7 +1580,7 @@ pub fn[C : IsChildren] select(
   disabled? : Bool,
   name? : String,
   multiple? : Bool,
-  size? : Int,
+  size? : Int32,
   required? : Bool,
   autofocus? : Bool,
   on_change? : Emit[String],
@@ -1607,7 +1607,7 @@ pub fn[C : IsChildren] select(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/optgroup)
 pub fn[C : IsChildren] optgroup(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -1631,7 +1631,7 @@ pub fn[C : IsChildren] optgroup(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/option)
 pub fn[C : IsChildren] option(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -1639,7 +1639,7 @@ pub fn[C : IsChildren] option(
   label? : String,
   disabled? : Bool,
   value? : String,
-  selected? : Bool = false,
+  selected~ : Bool = false,
   attrs? : Attrs,
   children : C,
 ) -> Html {
@@ -1661,7 +1661,7 @@ pub fn[C : IsChildren] option(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/datalist)
 pub fn[C : IsChildren] datalist(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -1681,7 +1681,7 @@ pub fn[C : IsChildren] datalist(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/output)
 pub fn[C : IsChildren] output(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -1705,13 +1705,13 @@ pub fn[C : IsChildren] output(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/progress)
 pub fn[C : IsChildren] progress(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
-  value? : Int,
-  max? : Int,
+  value? : Int32,
+  max? : Int32,
   attrs? : Attrs,
   children : C,
 ) -> Html {
@@ -1729,17 +1729,17 @@ pub fn[C : IsChildren] progress(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meter)
 pub fn[C : IsChildren] meter(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
   hidden? : Bool,
-  value? : Int,
-  min? : Int,
-  max? : Int,
-  low? : Int,
-  high? : Int,
-  optimum? : Int,
+  value? : Int32,
+  min? : Int32,
+  max? : Int32,
+  low? : Int32,
+  high? : Int32,
+  optimum? : Int32,
   attrs? : Attrs,
   children : C,
 ) -> Html {
@@ -1774,7 +1774,7 @@ pub fn[C : IsChildren] meter(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/table)
 pub fn[C : IsChildren] table(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -1794,7 +1794,7 @@ pub fn[C : IsChildren] table(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/caption)
 pub fn[C : IsChildren] caption(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -1814,7 +1814,7 @@ pub fn[C : IsChildren] caption(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/thead)
 pub fn[C : IsChildren] thead(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -1834,7 +1834,7 @@ pub fn[C : IsChildren] thead(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/tbody)
 pub fn[C : IsChildren] tbody(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -1854,9 +1854,9 @@ pub fn[C : IsChildren] tbody(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/col)
 pub fn col(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
-  span? : Int,
+  span? : Int32,
   class? : String,
   title? : String,
   hidden? : Bool,
@@ -1875,9 +1875,9 @@ pub fn col(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/colgroup)
 pub fn[C : IsChildren] colgroup(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
-  span? : Int,
+  span? : Int32,
   class? : String,
   title? : String,
   hidden? : Bool,
@@ -1897,7 +1897,7 @@ pub fn[C : IsChildren] colgroup(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/tr)
 pub fn[C : IsChildren] tr(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -1917,10 +1917,10 @@ pub fn[C : IsChildren] tr(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/td)
 pub fn[C : IsChildren] td(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
-  colspan? : Int,
-  rowspan? : Int,
+  colspan? : Int32,
+  rowspan? : Int32,
   headers? : String,
   class? : String,
   title? : String,
@@ -1943,11 +1943,11 @@ pub fn[C : IsChildren] td(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/th)
 pub fn[C : IsChildren] th(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   abbr? : String,
-  colspan? : Int,
-  rowspan? : Int,
+  colspan? : Int32,
+  rowspan? : Int32,
   headers? : String,
   scope? : Scope,
   class? : String,
@@ -1973,7 +1973,7 @@ pub fn[C : IsChildren] th(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/tfoot)
 pub fn[C : IsChildren] tfoot(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2052,7 +2052,7 @@ pub fn[C : IsChildren] tfoot(
 /// ```
 /// 
 pub fn[C : IsChildren] dialog(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2100,7 +2100,7 @@ pub fn[C : IsChildren] dialog(
 /// For the Web behavior behind this restriction, see
 /// [MDN: `DOMParser.parseFromString()`](https://developer.mozilla.org/en-US/docs/Web/API/DOMParser/parseFromString#parsing_an_input_using_trusted_types).
 pub fn html(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2165,7 +2165,7 @@ pub fn html(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/head)
 pub fn[C : IsChildren] head(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2185,7 +2185,7 @@ pub fn[C : IsChildren] head(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/body)
 pub fn[C : IsChildren] body(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2215,7 +2215,7 @@ pub fn[C : IsChildren] body(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/title)
 pub fn[C : IsChildren] title(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2235,7 +2235,7 @@ pub fn[C : IsChildren] title(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/base)
 pub fn base(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2258,7 +2258,7 @@ pub fn base(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/meta)
 pub fn meta(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2285,7 +2285,7 @@ pub fn meta(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link)
 pub fn link(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2314,7 +2314,7 @@ pub fn link(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/style)
 pub fn[C : IsChildren] style_tag(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2334,7 +2334,7 @@ pub fn[C : IsChildren] style_tag(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script)
 pub fn[C : IsChildren] script(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2362,7 +2362,7 @@ pub fn[C : IsChildren] script(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/noscript)
 pub fn[C : IsChildren] noscript(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2382,7 +2382,7 @@ pub fn[C : IsChildren] noscript(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/template)
 pub fn[C : IsChildren] template(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2402,7 +2402,7 @@ pub fn[C : IsChildren] template(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/slot)
 pub fn[C : IsChildren] slot(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2424,7 +2424,7 @@ pub fn[C : IsChildren] slot(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/data)
 pub fn[C : IsChildren] data(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2444,7 +2444,7 @@ pub fn[C : IsChildren] data(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/dfn)
 pub fn[C : IsChildren] dfn(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2464,7 +2464,7 @@ pub fn[C : IsChildren] dfn(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/bdi)
 pub fn[C : IsChildren] bdi(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2484,7 +2484,7 @@ pub fn[C : IsChildren] bdi(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/bdo)
 pub fn[C : IsChildren] bdo(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2504,7 +2504,7 @@ pub fn[C : IsChildren] bdo(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/ruby)
 pub fn[C : IsChildren] ruby(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2524,7 +2524,7 @@ pub fn[C : IsChildren] ruby(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/rt)
 pub fn[C : IsChildren] rt(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2544,7 +2544,7 @@ pub fn[C : IsChildren] rt(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/rp)
 pub fn[C : IsChildren] rp(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2564,7 +2564,7 @@ pub fn[C : IsChildren] rp(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/wbr)
 pub fn wbr(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2585,7 +2585,7 @@ pub fn wbr(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/hgroup)
 pub fn[C : IsChildren] hgroup(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2605,7 +2605,7 @@ pub fn[C : IsChildren] hgroup(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/menu)
 pub fn[C : IsChildren] menu(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2627,7 +2627,7 @@ pub fn[C : IsChildren] menu(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/canvas)
 pub fn[C : IsChildren] canvas(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2657,7 +2657,7 @@ pub fn[C : IsChildren] canvas(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/svg)
 pub fn[C : IsChildren] svg(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2677,7 +2677,7 @@ pub fn[C : IsChildren] svg(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/MathML/Reference/Element/math)
 pub fn[C : IsChildren] math(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2697,7 +2697,7 @@ pub fn[C : IsChildren] math(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/picture)
 pub fn[C : IsChildren] picture(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2717,7 +2717,7 @@ pub fn[C : IsChildren] picture(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/audio)
 pub fn[C : IsChildren] audio(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2749,7 +2749,7 @@ pub fn[C : IsChildren] audio(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/video)
 pub fn[C : IsChildren] video(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2783,7 +2783,7 @@ pub fn[C : IsChildren] video(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/map)
 pub fn[C : IsChildren] map(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2805,7 +2805,7 @@ pub fn[C : IsChildren] map(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/area)
 pub fn area(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2834,7 +2834,7 @@ pub fn area(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/source)
 pub fn source(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2863,7 +2863,7 @@ pub fn source(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/track)
 pub fn track(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2892,7 +2892,7 @@ pub fn track(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/object)
 pub fn[C : IsChildren] object(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2912,7 +2912,7 @@ pub fn[C : IsChildren] object(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/embed)
 pub fn embed(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2933,7 +2933,7 @@ pub fn embed(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/search)
 pub fn[C : IsChildren] search(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2953,7 +2953,7 @@ pub fn[C : IsChildren] search(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/selectedcontent)
 pub fn[C : IsChildren] selectedcontent(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -2973,7 +2973,7 @@ pub fn[C : IsChildren] selectedcontent(
 ///|
 /// [MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/geolocation)
 pub fn[C : IsChildren] geolocation(
-  style? : Array[String] = [],
+  style~ : Array[String] = [],
   id? : String,
   class? : String,
   title? : String,
@@ -3013,6 +3013,6 @@ pub fn[T : Hash] memo(value : T, compute : (T) -> Html) -> Html {
 /// state captured by `compute`. Changing only `compute` does not invalidate the
 /// cache. The subtree is computed again after removal and remounting.
 /// As with `memo`, do not wrap the structural `html`, `head`, or `body` nodes.
-pub fn[T] memo_by(value : T, compute : (T) -> Html, by~ : (T) -> Int) -> Html {
+pub fn[T] memo_by(value : T, compute : (T) -> Html, by~ : (T) -> Int32) -> Html {
   VNode::thunk(by(value), () => compute(value).0)
 }

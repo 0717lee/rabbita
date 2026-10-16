@@ -95,20 +95,20 @@ pub extern "js" fn KeyboardEvent::repeat(self : Self) -> Bool = "(e) => e.repeat
 
 ///|
 #cfg(target="js")
-pub extern "js" fn KeyboardEvent::location(self : Self) -> Int = "(e) => e.location"
+pub extern "js" fn KeyboardEvent::location(self : Self) -> Int32 = "(e) => e.location"
 
 ///|
 #cfg(target="js")
-pub const DOM_KEY_LOCATION_STANDARD : Int = 0x00
+pub const DOM_KEY_LOCATION_STANDARD : Int32 = 0x00
 
 ///|
 #cfg(target="js")
-pub const DOM_KEY_LOCATION_LEFT : Int = 0x01
+pub const DOM_KEY_LOCATION_LEFT : Int32 = 0x01
 
 ///|
 #cfg(target="js")
-pub const DOM_KEY_LOCATION_RIGHT : Int = 0x02
+pub const DOM_KEY_LOCATION_RIGHT : Int32 = 0x02
 
 ///|
 #cfg(target="js")
-pub const DOM_KEY_LOCATION_NUMPAD : Int = 0x03
+pub const DOM_KEY_LOCATION_NUMPAD : Int32 = 0x03

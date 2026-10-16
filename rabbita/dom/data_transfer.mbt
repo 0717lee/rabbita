@@ -20,8 +20,8 @@ pub extern "js" fn DataTransfer::items(self : Self) -> DataTransferItemList = "(
 pub extern "js" fn DataTransfer::set_drog_image(
   self : Self,
   image : Element,
-  x : Int,
-  y : Int,
+  x : Int32,
+  y : Int32,
 ) = "(t, image, x, y) => t.setDragImage(image, x, y)"
 
 ///|
@@ -38,20 +38,23 @@ type DataTransferItem
 
 ///|
 #cfg(target="js")
-pub extern "js" fn DataTransferItemList::length(self : Self) -> Int = "(l) => l.length"
+pub extern "js" fn DataTransferItemList::length(self : Self) -> Int32 = "(l) => l.length"
 
 ///|
 #cfg(target="js")
 extern "js" fn DataTransferItemList::get_ffi(
   self : Self,
-  index : Int,
+  index : Int32,
 ) -> @js.Nullable[DataTransferItem] = "(l, i) => l[i] ?? null"
 
 ///|
 /// Returns the item at `index`, or `None` when the index is out of range.
 #cfg(target="js")
 #alias("_[_]")
-pub fn DataTransferItemList::get(self : Self, index : Int) -> DataTransferItem? {
+pub fn DataTransferItemList::get(
+  self : Self,
+  index : Int32,
+) -> DataTransferItem? {
   self.get_ffi(index).to_option()
 }
 
@@ -79,7 +82,7 @@ pub fn DataTransferItemList::add(
 /// Removes the item at `index`. Throws InvalidStateError when the list is not in
 /// write mode.
 #cfg(target="js")
-pub extern "js" fn DataTransferItemList::remove(self : Self, index : Int) = "(l, i) => l.remove(i)"
+pub extern "js" fn DataTransferItemList::remove(self : Self, index : Int32) = "(l, i) => l.remove(i)"
 
 ///|
 /// Removes every item. Does nothing when the list is not in write mode.

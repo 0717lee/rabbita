@@ -67,7 +67,7 @@ enum EventMsg {
 }
 
 ///|
-fn event_subscriptions(emit : Emit[EventMsg], _ : Int) -> @sub.Sub {
+fn event_subscriptions(emit : Emit[EventMsg], _ : Int32) -> @sub.Sub {
   @sub.batch([
     @sub.on_resize(v => emit(Resized(v))),
     @sub.on_visibility_change(h => emit(HiddenChanged(h))),

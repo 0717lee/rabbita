@@ -45,7 +45,7 @@ enum Msg {
 }
 
 ///|
-type Model = Int
+type Model = Int32
 
 ///|
 fn update(emit : Emit[Msg], msg : Msg, count : Model) -> (Cmd, Model) {
@@ -100,15 +100,15 @@ Use `batch` when one branch should trigger multiple commands together.
 ///|
 enum BatchMsg {
   RunBatch
-  Applied(Int)
+  Applied(Int32)
 }
 
 ///|
 fn batch_update(
   emit : Emit[BatchMsg],
   msg : BatchMsg,
-  model : Int,
-) -> (Cmd, Int) {
+  model : Int32,
+) -> (Cmd, Int32) {
   match msg {
     RunBatch => (batch([emit(Applied(1)), emit(Applied(2))]), model)
     Applied(value) => (none, model + value)
@@ -125,15 +125,15 @@ result back into a normal message.
 ///|
 enum PerformMsg {
   StartLoad
-  Loaded(Int)
+  Loaded(Int32)
 }
 
 ///|
 fn perform_update(
   emit : Emit[PerformMsg],
   msg : PerformMsg,
-  model : Int,
-) -> (Cmd, Int) {
+  model : Int32,
+) -> (Cmd, Int32) {
   match msg {
     StartLoad =>
       (@rabbita.perform(value => emit(Loaded(value)), () => 42), model)
@@ -151,15 +151,15 @@ the same `update` flow through `Result`.
 ///|
 enum AttemptMsg {
   StartTry
-  Tried(Result[Int, Error])
+  Tried(Result[Int32, Error])
 }
 
 ///|
 fn attempt_update(
   emit : Emit[AttemptMsg],
   msg : AttemptMsg,
-  model : Int,
-) -> (Cmd, Int) {
+  model : Int32,
+) -> (Cmd, Int32) {
   match msg {
     StartTry =>
       (

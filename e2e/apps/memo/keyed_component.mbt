@@ -12,14 +12,14 @@ priv struct KeyedState {
   shown : Bool
   trailing_marker : Bool
   shape : KeyedShape
-  value : Int
+  value : Int32
 } derive(Eq)
 
 ///|
 fn keyed_memo_row(
   key : String,
   shape : KeyedShape,
-  value : Int,
+  value : Int32,
   select : Emit[String],
   computes : RenderCounter,
 ) -> Html {

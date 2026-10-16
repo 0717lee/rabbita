@@ -2,7 +2,7 @@
 
 ///|
 pub(all) struct TourModel {
-  chapter_idx : Int
+  chapter_idx : Int32
 } derive(Eq)
 
 ///|
@@ -10,7 +10,7 @@ pub let init_tour : TourModel = { chapter_idx: 0, }
 
 ///|
 struct TocEntry {
-  level : Int
+  level : Int32
   text : String
   id : String
 }
@@ -179,7 +179,7 @@ fn component_slug_from_path(path : String) -> String {
 // Finds the chapter index matching a URL path; defaults to 0
 
 ///|
-fn chapter_idx_from_path(chapters : Array[TourChapter], path : String) -> Int {
+fn chapter_idx_from_path(chapters : Array[TourChapter], path : String) -> Int32 {
   let p = strip_base(path)
   for i = 0; i < chapters.length(); i = i + 1 {
     let cp = chapters[i].path
@@ -523,7 +523,7 @@ fn render_markdown(src : String, base_url : String) -> Val[Html] {
 
 ///|
 fn tour_sidebar(
-  on_select_chapter : (Int) -> Cmd,
+  on_select_chapter : (Int32) -> Cmd,
   tm : TourModel,
   chapters : Array[TourChapter],
 ) -> Html {

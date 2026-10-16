@@ -18,7 +18,7 @@ pub extern "js" fn SVGStringList::get_number_of_items(self : Self) -> Double = "
 ///|
 /// Returns the current item count as an Int.
 #cfg(target="js")
-pub fn SVGStringList::length(self : Self) -> Int {
+pub fn SVGStringList::length(self : Self) -> Int32 {
   self.get_length().to_int()
 }
 

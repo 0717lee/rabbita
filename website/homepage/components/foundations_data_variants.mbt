@@ -329,8 +329,8 @@ fn fdv_demo_section(
   description : String,
   body : @html.Html,
   code : String,
-  stage_variant? : ShowcaseStageVariant = ShowcaseStagePlain,
-  tall? : Bool = false,
+  stage_variant~ : ShowcaseStageVariant = ShowcaseStagePlain,
+  tall~ : Bool = false,
 ) -> ShowcaseDemoEntry {
   showcase_demo_section(
     title,

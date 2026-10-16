@@ -55,7 +55,7 @@ pub impl @js.Cast for CloseEvent with fn from(value) {
 
 ///|
 #cfg(target="js")
-pub extern "js" fn CloseEvent::get_code(self : Self) -> Int = "(e) => e.code"
+pub extern "js" fn CloseEvent::get_code(self : Self) -> Int32 = "(e) => e.code"
 
 ///|
 #cfg(target="js")

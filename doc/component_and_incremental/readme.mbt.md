@@ -95,7 +95,7 @@ Deriving smaller values lets equality stop work closer to the changed field:
 ```moonbit check
 ///|
 struct Dashboard {
-  count : Int
+  count : Int32
   status : String
 } derive(Eq)
 
@@ -214,13 +214,13 @@ The item's expansion flag is component-local state, so it uses `create_variable`
 ```moonbit check
 ///|
 struct Todo {
-  id : Int
+  id : Int32
   title : String
   details : String
 } derive(Eq)
 
 ///|
-fn todo_item(id : Int, todo : Val[Todo]) -> Val[Html] {
+fn todo_item(id : Int32, todo : Val[Todo]) -> Val[Html] {
   let (expanded, set_expanded) = @rabbita.create_variable(false)
   todo.view2(expanded, (todo, expanded) => {
     li([

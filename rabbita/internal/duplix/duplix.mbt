@@ -2,13 +2,13 @@
 using @vector {type Vector}
 
 ///|
-let uuid : Ref[Int] = Ref(0)
+let uuid : Ref[Int32] = Ref(0)
 
 ///|
 let clock : Ref[Double] = Ref(0)
 
 ///|
-fn get_uuid() -> Int {
+fn get_uuid() -> Int32 {
   uuid.val += 1
   uuid.val
 }
@@ -20,7 +20,7 @@ fn get_uuid() -> Int {
 ///
 /// parent_expr = child1_expr + child2_expr
 priv trait ErasedNode {
-  fn get_id(Self) -> Int
+  fn get_id(Self) -> Int32
   fn childs(Self) -> Array[&ErasedNode]
   fn changed_at(Self) -> Double
   fn dirty_flag(Self) -> DirtyFlag
@@ -37,7 +37,7 @@ priv trait ErasedNode {
 ///              v                        v
 ///     DirtyFlag(parent) <---ref--- DirtyFlag(child)
 struct Node[T] {
-  id : Int
+  id : Int32
   mut value : T?
   mut compute : () -> T
   // Logical clock stamps. Double can represent every integer up to 2^53 - 1
@@ -135,7 +135,7 @@ impl[T : Eq] ErasedNode for Node[T] with fn recompute(self) {
 ///|
 /// DirtyFlag(parent) <--ref--- DirtyFlag(child)
 struct DirtyFlag {
-  id : Int
+  id : Int32
   mut dirty : Bool
   parents : Array[DirtyFlag]
 }
@@ -317,7 +317,7 @@ priv struct AssocEntry[V, C] {
   set_value : (V) -> Unit
   result : Node[C]
   scope : ScopeId
-  mut epoch : Int
+  mut epoch : Int32
 }
 
 ///|

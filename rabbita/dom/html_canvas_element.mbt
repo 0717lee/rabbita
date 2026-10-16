@@ -201,11 +201,11 @@ pub extend HTMLCanvasElement with IsHtmlElement::{
 
 ///|
 #cfg(target="js")
-pub extern "js" fn HTMLCanvasElement::get_width(self : Self) -> Int = "(x) => x.width"
+pub extern "js" fn HTMLCanvasElement::get_width(self : Self) -> Int32 = "(x) => x.width"
 
 ///|
 #cfg(target="js")
-pub extern "js" fn HTMLCanvasElement::get_height(self : Self) -> Int = "(x) => x.height"
+pub extern "js" fn HTMLCanvasElement::get_height(self : Self) -> Int32 = "(x) => x.height"
 
 ///|
 #cfg(target="js")

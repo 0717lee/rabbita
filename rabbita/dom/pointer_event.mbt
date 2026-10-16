@@ -95,7 +95,7 @@ pub impl @js.Cast for PointerEvent with fn from(value) {
 ///|
 /// https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent/pointerId
 #cfg(target="js")
-pub extern "js" fn PointerEvent::get_pointer_id(self : Self) -> Int = "(event) => event.pointerId"
+pub extern "js" fn PointerEvent::get_pointer_id(self : Self) -> Int32 = "(event) => event.pointerId"
 
 ///|
 /// https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent/width
@@ -120,17 +120,17 @@ pub extern "js" fn PointerEvent::get_tangential_pressure(self : Self) -> Double 
 ///|
 /// https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent/tiltX
 #cfg(target="js")
-pub extern "js" fn PointerEvent::get_tilt_x(self : Self) -> Int = "(event) => event.tiltX"
+pub extern "js" fn PointerEvent::get_tilt_x(self : Self) -> Int32 = "(event) => event.tiltX"
 
 ///|
 /// https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent/tiltY
 #cfg(target="js")
-pub extern "js" fn PointerEvent::get_tilt_y(self : Self) -> Int = "(event) => event.tiltY"
+pub extern "js" fn PointerEvent::get_tilt_y(self : Self) -> Int32 = "(event) => event.tiltY"
 
 ///|
 /// https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent/twist
 #cfg(target="js")
-pub extern "js" fn PointerEvent::get_twist(self : Self) -> Int = "(event) => event.twist"
+pub extern "js" fn PointerEvent::get_twist(self : Self) -> Int32 = "(event) => event.twist"
 
 ///|
 /// https://developer.mozilla.org/en-US/docs/Web/API/PointerEvent/altitudeAngle
