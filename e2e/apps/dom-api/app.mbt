@@ -34,6 +34,7 @@ priv enum Msg {
   RunDomCollections
   InstallDragProbes
   RunSvgCollections
+  RunMediaCollections
   PushUrl
   ReplaceUrl
   HistoryBack
@@ -72,6 +73,10 @@ fn update(model : Model, message : Msg) -> Model {
       { ..model, drag_probes: "ready", }
     }
     RunSvgCollections => { ..model, svg_collections: probe_svg_collections(), }
+    RunMediaCollections => {
+      probe_media_collections()
+      model
+    }
     PushUrl => {
       @dom.window().push_url("/dom-api-pushed")
       model
@@ -155,6 +160,8 @@ fn app() -> Val[Html] {
       div(id="dnd-target", "Drop target"),
       button(on_click=emit(RunSvgCollections), "Run SVG collection APIs"),
       p(id="svg-collections-result", model.svg_collections),
+      button(on_click=emit(RunMediaCollections), "Run media collection APIs"),
+      p(id="media-collections-result", "pending"),
       button(on_click=emit(PushUrl), "Push URL"),
       button(on_click=emit(ReplaceUrl), "Replace URL"),
       button(on_click=emit(HistoryBack), "History back"),

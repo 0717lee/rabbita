@@ -182,6 +182,13 @@ test('drag data store items stay writable in dragstart and read-only in drop', a
   await expect(page.locator('#dnd-result')).toHaveText('passed');
 });
 
+test('media track lists stay live while time ranges are read-only snapshots', async ({ page }) => {
+  await page.goto('/');
+
+  await page.getByRole('button', { name: 'Run media collection APIs' }).click();
+  await expect(page.locator('#media-collections-result')).toHaveText('passed');
+});
+
 test('history and location APIs perform real same-origin navigations', async ({ page }) => {
   await page.goto('/');
 
