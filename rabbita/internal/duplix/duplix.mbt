@@ -215,15 +215,23 @@ pub fn[A : Eq, B] Node::map(a : Node[A], f : (A) -> B) -> Node[B] {
 ///         a -----+
 ///                |----> output
 ///   b1 or b2 ----+
+pub fn[A : Eq, B : Eq] Node::bind(a : Node[A], f : (A) -> Node[B]) -> Node[B] {
+  bind_deferred(a, f, false)
+}
+
+///|
+///             a -----+
+///                    |----> output
+///   b1 or b2 -------+
 ///
 /// With `defer_branch=true` the dynamic branch stays a value dependency but
 /// `pull_value` skips it; `compute` reads it on demand after `f` runs. `switch`
 /// uses this so the outgoing branch scope is disposed before its projections
 /// are evaluated.
-pub fn[A : Eq, B : Eq] Node::bind(
+fn[A : Eq, B : Eq] bind_deferred(
   a : Node[A],
   f : (A) -> Node[B],
-  defer_branch? : Bool = false,
+  defer_branch : Bool,
 ) -> Node[B] {
   let mut b1_dirty_sub : DirtyFlag? = None
   let output_childs : Array[&ErasedNode] = []
@@ -287,9 +295,9 @@ pub fn[E : Eq, A : Eq] Node::switch_by(
   by~ : (E) -> String,
 ) -> Node[A] {
   let mut active : (String, Node[A], ScopeId)? = None
-  // The switch branch is lazy so the bind recomputes (and disposes the
+  // The switch branch is deferred so the bind recomputes (and disposes the
   // outgoing branch) before any projection of that branch is evaluated.
-  a.bind(value => {
+  bind_deferred(a, value => {
     let tag = by(value)
     fn update_active(value) {
       with_scope(scope => {
@@ -310,7 +318,7 @@ pub fn[E : Eq, A : Eq] Node::switch_by(
           update_active(value)
         }
     }
-  }, defer_branch=true)
+  }, true)
 }
 
 ///|

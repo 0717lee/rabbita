@@ -215,6 +215,31 @@ test "switch branch keeps receiving internal updates" {
 }
 
 ///|
+test "switch ignores updates from a disposed branch" {
+  let (route, set_route) = input(WbHome)
+  let (home_input, set_home_input) = input(1)
+  let (detail_input, _) = input(10)
+  let mut build_runs = 0
+  let selected = route.switch(route => {
+    build_runs += 1
+    match route {
+      WbHome => home_input.map(v => v + 10)
+      WbDetail => detail_input.map(v => v + 20)
+    }
+  })
+
+  inspect(selected.read(), content="11")
+  set_route(WbDetail)
+  inspect(selected.read(), content="30")
+  inspect(build_runs, content="2")
+
+  set_home_input(2)
+  inspect(selected.read(), content="30")
+  inspect(selected.read(), content="30")
+  inspect(build_runs, content="2")
+}
+
+///|
 test "assoc removes disposed entry scopes from owner scope" {
   let mut dispose_runs = 0
   let (owner, values, set_source) = with_scope(owner => {

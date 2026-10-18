@@ -32,7 +32,7 @@ pub impl Eq for DirtyFlag
 type Node[T]
 pub fn[K : Hash + Eq, V : Eq, C : Eq] Node::assoc(Self[@vector.Vector[(K, V)]], (K, Self[V]) -> Self[C]) -> Self[@vector.Vector[C]]
 pub fn[K : Hash + Eq, V : Eq, C : Eq] Node::assoc_by(Self[@vector.Vector[V]], (K, Self[V]) -> Self[C], by~ : (V) -> K) -> Self[@vector.Vector[C]]
-pub fn[A : Eq, B : Eq] Node::bind(Self[A], (A) -> Self[B], defer_branch? : Bool) -> Self[B]
+pub fn[A : Eq, B : Eq] Node::bind(Self[A], (A) -> Self[B]) -> Self[B]
 pub fn[T] Node::compare(Self[T], Self[T]) -> Int
 pub fn[E : @common.Enumerate + Eq, A : Eq] Node::enumerate(Self[E], (E) -> Self[A]) -> Self[A]
 pub fn[E : Eq, A : Eq] Node::enumerate_by(Self[E], (E) -> Self[A], by~ : (E) -> String) -> Self[A]
