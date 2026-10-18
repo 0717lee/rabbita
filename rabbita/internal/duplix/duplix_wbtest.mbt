@@ -193,6 +193,28 @@ test "switch removes disposed branch scope from owner scope" {
 }
 
 ///|
+test "switch branch keeps receiving internal updates" {
+  let (route, set_route) = input(WbHome)
+  let (value, set_value) = input(1)
+  let selected = route.switch(route => {
+    match route {
+      WbHome => value.map(v => v + 10)
+      WbDetail => value.map(v => v + 20)
+    }
+  })
+
+  inspect(selected.read(), content="11")
+  set_value(2)
+  inspect(selected.read(), content="12")
+  set_route(WbDetail)
+  inspect(selected.read(), content="22")
+  set_value(3)
+  inspect(selected.read(), content="23")
+  set_route(WbHome)
+  inspect(selected.read(), content="13")
+}
+
+///|
 test "assoc removes disposed entry scopes from owner scope" {
   let mut dispose_runs = 0
   let (owner, values, set_source) = with_scope(owner => {

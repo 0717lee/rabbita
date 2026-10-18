@@ -10,6 +10,7 @@ fn[T] map_node(childs : Array[&ErasedNode], compute : () -> T) -> Node[T] {
     value: None,
     compute,
     childs,
+    lazy_branch: false,
     dirty_flag: dirty,
     changed_at: 0,
     recomputed_at: 0,

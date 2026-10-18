@@ -22,6 +22,7 @@ fn get_uuid() -> Int32 {
 priv trait ErasedNode {
   fn get_id(Self) -> Int32
   fn childs(Self) -> Array[&ErasedNode]
+  fn lazy_branch(Self) -> Bool
   fn changed_at(Self) -> Double
   fn dirty_flag(Self) -> DirtyFlag
   fn recompute(Self) -> Unit
@@ -47,6 +48,11 @@ struct Node[T] {
   mut recomputed_at : Double
   scope : ScopeId
   childs : Array[&ErasedNode]
+  // Nodes with a dynamic branch keep the first child as their static selector
+  // and the remaining children as the active branch. The branch is recomputed
+  // on demand by `compute` instead of being visited by `pull_value`, so a
+  // switch detaches the outgoing branch before its projections are evaluated.
+  lazy_branch : Bool
   dirty_flag : DirtyFlag
 }
 
@@ -61,6 +67,7 @@ pub fn[T] constant(x : T) -> Node[T] {
     changed_at: 0,
     recomputed_at: 0,
     childs: [],
+    lazy_branch: false,
     dirty_flag: dirty_b,
   }
 }
@@ -97,6 +104,11 @@ impl[T : Eq] ErasedNode for Node[T] with fn childs(self) {
 }
 
 ///|
+impl[T : Eq] ErasedNode for Node[T] with fn lazy_branch(self) {
+  self.lazy_branch
+}
+
+///|
 impl[T : Eq] ErasedNode for Node[T] with fn dirty_flag(self) {
   self.dirty_flag
 }
@@ -116,8 +128,11 @@ impl[T : Eq] ErasedNode for Node[T] with fn recompute(self) {
         self.dirty_flag().dirty = false
       }
       Some(old) if self.dirty_flag().dirty => {
+        // A lazy branch child is only recomputed on demand by `compute`, so it
+        // can still be dirty here; its value may change when it is read.
         if self.childs is [] ||
-          self.childs.any(x => x.changed_at() > self.recomputed_at) {
+          self.childs.any(x =>
+            x.dirty_flag().dirty || x.changed_at() > self.recomputed_at) {
           let new = (self.compute)()
           self.recomputed_at = clock.val
           if !Eq::equal(old, new) {
@@ -166,6 +181,7 @@ pub fn[T : Eq] input(x : T) -> (Node[T], (T) -> Unit) {
     changed_at: 0,
     recomputed_at: 0,
     childs: [],
+    lazy_branch: false,
     dirty_flag: { dirty: true, parents: [], id: get_uuid(), },
   }
 
@@ -190,6 +206,7 @@ pub fn[A : Eq, B] Node::map(a : Node[A], f : (A) -> B) -> Node[B] {
     changed_at: 0,
     recomputed_at: 0,
     childs: [a],
+    lazy_branch: false,
     dirty_flag: dirty_b,
   }
 }
@@ -198,7 +215,16 @@ pub fn[A : Eq, B] Node::map(a : Node[A], f : (A) -> B) -> Node[B] {
 ///         a -----+
 ///                |----> output
 ///   b1 or b2 ----+
-pub fn[A : Eq, B : Eq] Node::bind(a : Node[A], f : (A) -> Node[B]) -> Node[B] {
+///
+/// With `defer_branch=true` the dynamic branch stays a value dependency but
+/// `pull_value` skips it; `compute` reads it on demand after `f` runs. `switch`
+/// uses this so the outgoing branch scope is disposed before its projections
+/// are evaluated.
+pub fn[A : Eq, B : Eq] Node::bind(
+  a : Node[A],
+  f : (A) -> Node[B],
+  defer_branch? : Bool = false,
+) -> Node[B] {
   let mut b1_dirty_sub : DirtyFlag? = None
   let output_childs : Array[&ErasedNode] = []
   let output_dirty_flag = { dirty: true, parents: [], id: get_uuid(), }
@@ -241,6 +267,7 @@ pub fn[A : Eq, B : Eq] Node::bind(a : Node[A], f : (A) -> Node[B]) -> Node[B] {
     changed_at: 0,
     recomputed_at: 0,
     childs: output_childs,
+    lazy_branch: defer_branch,
     dirty_flag: output_dirty_flag,
   }
 }
@@ -260,6 +287,8 @@ pub fn[E : Eq, A : Eq] Node::switch_by(
   by~ : (E) -> String,
 ) -> Node[A] {
   let mut active : (String, Node[A], ScopeId)? = None
+  // The switch branch is lazy so the bind recomputes (and disposes the
+  // outgoing branch) before any projection of that branch is evaluated.
   a.bind(value => {
     let tag = by(value)
     fn update_active(value) {
@@ -281,7 +310,7 @@ pub fn[E : Eq, A : Eq] Node::switch_by(
           update_active(value)
         }
     }
-  })
+  }, defer_branch=true)
 }
 
 ///|
@@ -405,6 +434,7 @@ fn[K : Hash + Eq, I : Eq, V : Eq, C : Eq] Node::assoc_projected(
     recomputed_at: 0,
     changed_at: 0,
     childs: output_childs,
+    lazy_branch: false,
     dirty_flag: output_dirty_flag,
   }
 }
@@ -453,7 +483,12 @@ fn pull_value(node : &ErasedNode) -> Unit {
       seen.add(id)
       stack.push((x, true))
 
-      for child in x.childs() {
+      for index, child in x.childs() {
+        // Lazy branch children are recomputed by their owner instead, so the
+        // owner can detach the outgoing branch before evaluating the new one.
+        if x.lazy_branch() && index > 0 {
+          break
+        }
         if child.dirty_flag().dirty {
           stack.push((child, false))
         }
