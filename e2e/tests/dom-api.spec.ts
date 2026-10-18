@@ -219,9 +219,9 @@ test('html.svg and html.math create real namespaced elements with working styles
 
   expect(await svg.evaluate(element => element.namespaceURI)).toBe('http://www.w3.org/2000/svg');
   expect(await math.evaluate(element => element.namespaceURI)).toBe('http://www.w3.org/1998/Math/MathML');
-  expect(await svg.evaluate(element => getComputedStyle(element).color)).toBe('rgb(0, 255, 0)');
-  expect(await math.evaluate(element => getComputedStyle(element).color)).toBe('rgb(255, 0, 0)');
+  await expect(svg).toHaveCSS('color', 'rgb(0, 255, 0)');
+  await expect(math).toHaveCSS('color', 'rgb(255, 0, 0)');
 
   await page.getByRole('button', { name: 'Toggle MathML color' }).click();
-  expect(await math.evaluate(element => getComputedStyle(element).color)).toBe('rgb(0, 0, 255)');
+  await expect(math).toHaveCSS('color', 'rgb(0, 0, 255)');
 });
